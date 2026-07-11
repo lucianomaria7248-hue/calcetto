@@ -5,84 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FantaCalcetto Hub - App Ufficiale</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@400;500;600;700&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Poppins', sans-serif; background-color: #080b10; color: #e2e8f0; }
         .font-sport { font-family: 'Orbitron', sans-serif; }
+        .font-fc { font-family: 'Teko', sans-serif; }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade { animation: fadeIn 0.4s ease-out forwards; }
         .hover-scale { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .hover-scale:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4); }
+        .hover-scale:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.4); }
 
+        /* Stile Carte FC 26 */
         .fc-card {
-            background: linear-gradient(135deg, #eab308 0%, #a16207 50%, #422006 100%);
-            border: 2px solid #fef08a;
-            border-radius: 12px;
+            background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
+            border: 2px solid #d4af37;
+            border-radius: 8px 8px 30px 8px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.15), 0 8px 15px rgba(0, 0, 0, 0.8);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
         }
-        .fc-card:hover { transform: scale(1.05) rotate(1deg); border-color: #ffffff; }
-        .fc-card::after {
+        .fc-card:hover { transform: scale(1.05); border-color: #fce68f; box-shadow: inset 0 0 25px rgba(212, 175, 55, 0.3), 0 12px 25px rgba(0, 0, 0, 0.9); }
+        .fc-card::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
-            transform: skewX(-20deg); transition: 0.5s;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-25deg); transition: 0.5s; pointer-events: none; z-index: 30;
         }
-        .fc-card:hover::after { left: 150%; }
+        .fc-card:hover::before { left: 150%; }
+
+        .fc-card-top { position: relative; height: 140px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); overflow: hidden; }
+        .fc-bg-pattern { position: absolute; inset: 0; background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 10px 10px; opacity: 0.1; }
         
         .pitch-container { background-size: cover; background-position: center; border-radius: 16px; position: relative; }
         .pitch-overlay { background: linear-gradient(to bottom, rgba(16, 38, 16, 0.9), rgba(16, 38, 16, 0.7)); border: 2px solid rgba(255,255,255,0.2); }
         
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1f2937; }
-        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
     </style>
 </head>
 <body class="p-3 md:p-6 min-h-screen pb-24">
 
-    <!-- HEADER -->
     <header class="max-w-6xl mx-auto text-center my-6 animate-fade">
-        <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-blue-500 to-green-400 font-sport tracking-widest drop-shadow-lg">
+        <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-600 font-sport tracking-widest drop-shadow-lg">
             FANTACALCETTO HUB
         </h1>
         <p class="text-xs text-gray-400 mt-2 uppercase tracking-widest font-bold">Portale Ufficiale</p>
     </header>
 
-    <!-- NAVIGAZIONE -->
-    <nav class="max-w-6xl mx-auto mb-8 bg-gray-900/80 border border-gray-700/50 p-2 rounded-2xl flex justify-around sticky top-4 z-40 backdrop-blur-md shadow-xl animate-fade" style="animation-delay: 0.1s;">
-        <button onclick="switchTab('sondaggi')" id="btn-sondaggi" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-blue-400 bg-gray-800 transition">Sondaggi</button>
+    <nav class="max-w-6xl mx-auto mb-8 bg-gray-900/90 border border-yellow-700/50 p-2 rounded-2xl flex justify-around sticky top-4 z-40 backdrop-blur-md shadow-xl animate-fade" style="animation-delay: 0.1s;">
+        <button onclick="switchTab('sondaggi')" id="btn-sondaggi" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-yellow-400 bg-gray-800 transition">Sondaggi</button>
         <button onclick="switchTab('partite')" id="btn-partite" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-gray-400 hover:text-white transition">Partite</button>
         <button onclick="switchTab('giocatori')" id="btn-giocatori" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-gray-400 hover:text-white transition">Giocatori</button>
         <button onclick="switchTab('classifiche')" id="btn-classifiche" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-gray-400 hover:text-white transition">Classifiche</button>
         <button onclick="openAdmin()" class="px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-red-400 bg-red-950/30 hover:bg-red-900/50 border border-red-900/50 transition">Admin</button>
     </nav>
 
-    <!-- CONTENUTI -->
     <main class="max-w-6xl mx-auto">
         
-        <!-- SEZIONE 1: SONDAGGI -->
         <section id="tab-sondaggi" class="tab-content space-y-6">
             <h2 class="text-2xl font-bold text-white font-sport border-b border-gray-800 pb-2">🗳️ SONDAGGI LIVE</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="container-sondaggi">
-                <!-- Generato via JS -->
-            </div>
+                </div>
             
             <h2 class="text-2xl font-bold text-yellow-400 font-sport border-b border-gray-800 pb-2 mt-10">⭐ VOTA L'MVP</h2>
-            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl flex flex-col items-center">
-                <p class="text-gray-400 text-sm mb-4">Vota il migliore in campo (I voti sono pubblici e in tempo reale)</p>
+            <div class="bg-gray-900 border border-yellow-700/50 p-6 rounded-2xl shadow-xl flex flex-col items-center">
+                <p class="text-gray-400 text-sm mb-4">Vota il migliore in campo (Salvato localmente)</p>
                 <select id="voto-mvp-user" class="w-full max-w-md bg-gray-800 text-white p-3 rounded-xl border border-gray-700 font-bold mb-4"></select>
                 <button onclick="inviaVotoMVP()" class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold px-8 py-3 rounded-xl shadow-lg hover-scale">Registra Voto MVP</button>
                 <div id="risultati-mvp" class="w-full max-w-md mt-4 space-y-2 text-xs"></div>
             </div>
         </section>
 
-        <!-- SEZIONE 2: PARTITE -->
         <section id="tab-partite" class="tab-content hidden space-y-8">
             <div>
                 <h2 class="text-2xl font-bold text-green-400 font-sport border-b border-gray-800 pb-2 mb-4">🔜 PROSSIMA PARTITA</h2>
-                <div id="prossima-partita-box" class="bg-gray-900 border border-gray-700 p-1 rounded-2xl shadow-2xl relative overflow-hidden"></div>
+                <div id="prossima-partita-box" class="bg-gray-900 border border-gray-700 p-1 rounded-2xl shadow-2xl relative overflow-hidden mb-4"></div>
+                <div id="share-whatsapp-box" class="text-center hidden">
+                    <button onclick="condividiFormazioni()" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full shadow-lg transition flex items-center justify-center mx-auto gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        Copia per WhatsApp
+                    </button>
+                </div>
             </div>
             <div>
                 <h2 class="text-2xl font-bold text-gray-300 font-sport border-b border-gray-800 pb-2 mb-4">📚 ARCHIVIO RISULTATI</h2>
@@ -90,13 +97,11 @@
             </div>
         </section>
 
-        <!-- SEZIONE 3: GIOCATORI -->
         <section id="tab-giocatori" class="tab-content hidden">
             <h2 class="text-2xl font-bold text-white font-sport border-b border-gray-800 pb-2 mb-6">🎴 DATABASE GIOCATORI</h2>
             <div id="cards-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"></div>
         </section>
 
-        <!-- SEZIONE 4: CLASSIFICHE -->
         <section id="tab-classifiche" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="bg-gray-900 p-5 rounded-2xl border border-gray-800 hover-scale"><h3 class="text-lg font-bold text-yellow-400 font-sport mb-3">⚽ TOP MARCATORI</h3><div id="rank-gol" class="space-y-2"></div></div>
             <div class="bg-gray-900 p-5 rounded-2xl border border-gray-800 hover-scale"><h3 class="text-lg font-bold text-blue-400 font-sport mb-3">👟 TOP ASSIST</h3><div id="rank-assist" class="space-y-2"></div></div>
@@ -104,23 +109,19 @@
         </section>
     </main>
 
-    <!-- MODALE PANNELLO ADMIN -->
     <div id="admin-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center hidden p-2 md:p-4">
         <div class="bg-gray-900 border border-gray-700 rounded-2xl max-w-2xl w-full p-4 md:p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto">
             <button onclick="closeAdmin()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold z-50">✕</button>
             
-            <!-- Login -->
             <div id="admin-login" class="space-y-4 text-center mt-4">
                 <h3 class="text-2xl font-bold text-red-500 font-sport">ACCESSO ADMIN</h3>
                 <input type="password" id="admin-pass" placeholder="Password..." class="w-full max-w-sm bg-gray-800 text-white p-3 rounded-xl border border-gray-700 text-center text-lg focus:border-red-500 outline-none">
                 <button onclick="verificaAdmin()" class="block w-full max-w-sm mx-auto bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition">Sblocca</button>
             </div>
 
-            <!-- Dashboard Admin -->
             <div id="admin-dashboard" class="hidden space-y-6 mt-2">
                 <h3 class="text-2xl font-bold text-green-400 font-sport border-b border-gray-700 pb-2">⚙️ CENTRO DI COMANDO</h3>
                 
-                <!-- Sondaggi & Partita -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                         <h4 class="font-bold text-white mb-2 text-sm">1. CREA SONDAGGIO ORARI</h4>
@@ -135,22 +136,37 @@
                             <input type="text" id="admin-nome-a" placeholder="Sq. A" class="w-1/2 p-2 rounded border text-sm text-black" value="Squadra A">
                             <input type="text" id="admin-nome-b" placeholder="Sq. B" class="w-1/2 p-2 rounded border text-sm text-black" value="Squadra B">
                         </div>
+                        <p class="text-[10px] text-gray-400 mb-1">Seleziona i presenti (min. 8 giocatori):</p>
                         <div id="admin-check-giocatori" class="grid grid-cols-2 gap-1 mb-2 max-h-24 overflow-y-auto"></div>
-                        <button onclick="adminOrganizzaPartita()" class="w-full bg-green-600 text-white text-xs font-bold px-4 py-2 rounded">Genera Formazioni</button>
+                        <button onclick="adminOrganizzaPartita()" class="w-full bg-green-600 text-white text-xs font-bold px-4 py-2 rounded mb-2">Genera Formazioni</button>
+                        
+                        <div id="admin-swap-area" class="hidden border-t border-gray-600 pt-3 mt-3">
+                            <h5 class="text-[10px] font-bold text-yellow-400 mb-2 uppercase">Gestione Libera Formazioni</h5>
+                            <div class="flex gap-2 mb-2">
+                                <select id="swap-player-a" class="w-1/2 p-2 rounded text-[10px] text-black">
+                                    <option value="">-- Seleziona da Sq. A --</option>
+                                </select>
+                                <select id="swap-player-b" class="w-1/2 p-2 rounded text-[10px] text-black">
+                                    <option value="">-- Seleziona da Sq. B --</option>
+                                </select>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="adminAzioneGiocatori('scambia')" class="w-1/2 bg-yellow-600 hover:bg-yellow-500 text-black text-[10px] font-bold px-2 py-2 rounded shadow">🔄 SCAMBIA</button>
+                                <button onclick="adminAzioneGiocatori('spostaA')" class="w-1/4 bg-blue-600 hover:bg-blue-500 text-white text-[10px] font-bold px-2 py-2 rounded shadow">⬅️ IN A</button>
+                                <button onclick="adminAzioneGiocatori('spostaB')" class="w-1/4 bg-red-600 hover:bg-red-500 text-white text-[10px] font-bold px-2 py-2 rounded shadow">IN B ➡️</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Tabellino -->
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                     <h4 class="font-bold text-yellow-400 mb-2">3. TABELLINO FINE PARTITA</h4>
                     <div id="admin-tabellino-container"></div>
                 </div>
                 
-                <!-- Modifica Database -->
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                     <h4 class="font-bold text-purple-400 mb-4 border-b border-gray-700 pb-2">4. GESTIONE DATABASE (GIOCATORI E CAMPI)</h4>
                     
-                    <!-- Aggiungi/Modifica Giocatori -->
                     <div class="mb-6">
                         <h5 class="text-sm font-bold text-white mb-2">Aggiungi Nuovo Giocatore</h5>
                         <div class="grid grid-cols-2 gap-2 mb-2">
@@ -160,7 +176,7 @@
                                 <option value="DIF">Difensore</option><option value="POR">Portiere</option>
                             </select>
                         </div>
-                        <input type="text" id="add-gioc-foto" placeholder="URL Immagine (es. https://...)" class="w-full p-2 rounded text-sm text-black border mb-2">
+                        <input type="text" id="add-gioc-foto" placeholder="Nome file o URL (es. foto.jpg)" class="w-full p-2 rounded text-sm text-black border mb-2">
                         <label class="flex items-center text-sm text-white mb-2 gap-2"><input type="checkbox" id="add-gioc-por"> È un portiere principale?</label>
                         <button onclick="adminAggiungiGiocatore()" class="w-full bg-purple-600 text-white text-xs font-bold py-2 rounded">Crea Giocatore</button>
                     </div>
@@ -168,28 +184,26 @@
                     <div class="mb-6">
                         <h5 class="text-sm font-bold text-white mb-2">Cambia Foto Giocatore Esistente</h5>
                         <select id="edit-foto-id" class="w-full p-2 rounded text-sm text-black mb-2"></select>
-                        <input type="text" id="edit-foto-url" placeholder="Nuovo URL Immagine" class="w-full p-2 rounded text-sm text-black border mb-2">
+                        <input type="text" id="edit-foto-url" placeholder="Nuovo nome file o URL" class="w-full p-2 rounded text-sm text-black border mb-2">
                         <button onclick="adminModificaFotoGiocatore()" class="w-full bg-blue-600 text-white text-xs font-bold py-2 rounded">Aggiorna Foto</button>
                     </div>
 
-                    <!-- Aggiungi/Modifica Campi -->
                     <hr class="border-gray-700 my-4">
                     <div class="mb-6">
                         <h5 class="text-sm font-bold text-white mb-2">Aggiungi Nuovo Campo</h5>
                         <input type="text" id="add-campo-nome" placeholder="Nome Campo" class="w-full p-2 rounded text-sm text-black border mb-2">
-                        <input type="text" id="add-campo-foto" placeholder="URL Immagine" class="w-full p-2 rounded text-sm text-black border mb-2">
+                        <input type="text" id="add-campo-foto" placeholder="Nome file (es. campo.jpg)" class="w-full p-2 rounded text-sm text-black border mb-2">
                         <button onclick="adminAggiungiCampo()" class="w-full bg-green-700 text-white text-xs font-bold py-2 rounded">Aggiungi Campo</button>
                     </div>
 
                     <div>
                         <h5 class="text-sm font-bold text-white mb-2">Cambia Foto Campo Esistente</h5>
                         <select id="edit-campo-id" class="w-full p-2 rounded text-sm text-black mb-2"></select>
-                        <input type="text" id="edit-campo-url" placeholder="Nuovo URL Immagine" class="w-full p-2 rounded text-sm text-black border mb-2">
+                        <input type="text" id="edit-campo-url" placeholder="Nuovo nome file (es. ponterumito.jpg)" class="w-full p-2 rounded text-sm text-black border mb-2">
                         <button onclick="adminModificaFotoCampo()" class="w-full bg-blue-600 text-white text-xs font-bold py-2 rounded">Aggiorna Foto Campo</button>
                     </div>
                 </div>
 
-                <!-- Correzione Statistiche & Storico -->
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                     <h4 class="font-bold text-pink-400 mb-2">5. CORREZIONE STATISTICHE / STORICO</h4>
                     <select id="admin-edit-player" onchange="caricaStatisticheGiocatore()" class="w-full p-2 rounded text-sm text-black mb-2">
@@ -209,7 +223,7 @@
                     <div id="admin-lista-storico" class="space-y-2 max-h-32 overflow-y-auto"></div>
                 </div>
 
-                <button onclick="cancellaDati()" class="w-full bg-red-900/50 border border-red-900 text-red-400 text-xs py-2 rounded mt-4">RESET COMPLETO APP E DATI (Irreversibile)</button>
+                <button onclick="cancellaDati()" class="w-full bg-red-900/50 border border-red-900 text-red-400 text-xs py-2 rounded mt-4 font-bold">RESET COMPLETO APP E DATI (Irreversibile)</button>
             </div>
         </div>
     </div>
@@ -217,12 +231,12 @@
     <script>
         const fallbackImg = "https://placehold.co/200x200/1e293b/ffffff?text=FOTO";
 
-        // Struttura Dati Iniziale (Tutte le stat a 0)
+        // Struttura Dati Iniziale
         const initData = {
             giocatori: [
                 { id: 1, nome: "Bonetti", ruolo: "DIF", gol: 0, assist: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5129.jpg", por: false },
                 { id: 2, nome: "Franco", ruolo: "ATT", gol: 0, assist: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5128.jpg", por: false },
-                { id: 3, nome: "Jack Sbarrow", ruolo: "ATT", gol: 0, assist: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5127.jpg", por: false },
+                { id: 3, nome: "Jack", ruolo: "ATT", gol: 0, assist: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5127.jpg", por: false },
                 { id: 4, nome: "Davidone", ruolo: "DIF", gol: 0, assist: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5125.jpg", por: false },
                 { id: 5, nome: "Cristofer", ruolo: "CEN", gol: 0, assist: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5124.jpg", por: false },
                 { id: 6, nome: "Schivonsky", ruolo: "POR", gol: 0, assist: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5126.jpg", por: true },
@@ -234,8 +248,8 @@
                 { id: 12, nome: "Peppo", ruolo: "CEN", gol: 0, assist: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "peppo.jpg", por: false }
             ],
             campi: [
-                { nome: "Ponte Rumito", img: "https://images.unsplash.com/photo-1518063319789-7217e6706b04?q=80&w=800" },
-                { nome: "Castelfranci", img: "https://images.unsplash.com/photo-1575361204480-aadea2d10739?q=80&w=800" }
+                { nome: "Ponte Rumito", img: "ponte-rumito.jpg" },
+                { nome: "Castelfranci", img: "castelfranci.jpg" }
             ],
             sondaggioOrari: ["Lunedì 20:30", "Giovedì 21:00"],
             votiCampo: { "Ponte Rumito": 0, "Castelfranci": 0 },
@@ -245,27 +259,21 @@
             storico: []
         };
 
-        let DB = JSON.parse(localStorage.getItem('fantaHubV3')) || initData;
-        
-        // Verifica campi mancanti post-aggiornamento
-        if(!DB.campi) {
-            alert("Rilevato vecchio database! È consigliato fare il Reset Completo dall'Admin per caricare i nuovi campetti e l'overall da 65.");
-            DB.campi = initData.campi;
-        }
+        let DB = JSON.parse(localStorage.getItem('fantaHubV5')) || initData;
 
-        function salvaDB() { localStorage.setItem('fantaHubV3', JSON.stringify(DB)); }
-        function cancellaDati() { localStorage.removeItem('fantaHubV3'); location.reload(); }
+        function salvaDB() { localStorage.setItem('fantaHubV5', JSON.stringify(DB)); }
+        function cancellaDati() { localStorage.removeItem('fantaHubV5'); location.reload(); }
 
         function getImgCampo(nome) {
             const c = DB.campi.find(x => x.nome === nome);
             return c ? c.img : fallbackImg;
         }
 
-        // Calcolo Overall - Base 65
+        // Calcolo Overall
         function getOverall(g) {
             let base = 65 + (g.vinte * 1.5) + (g.mvp * 2) - (g.perse * 0.5);
             if (g.por) {
-                base += (g.assist * 2) + (g.gol * 3); // Portieri premiano molto gol/assist
+                base += (g.assist * 2) + (g.gol * 3);
             } else {
                 base += (g.gol * 0.8) + (g.assist * 0.6);
             }
@@ -277,9 +285,9 @@
             const active = document.getElementById(`tab-${id}`);
             active.classList.remove('hidden'); setTimeout(() => active.classList.add('animate-fade'), 10);
             
-            document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('bg-gray-800', 'text-blue-400'); b.classList.add('text-gray-400'); });
+            document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('bg-gray-800', 'text-yellow-400'); b.classList.add('text-gray-400'); });
             const btn = document.getElementById(`btn-${id}`);
-            btn.classList.remove('text-gray-400'); btn.classList.add('bg-gray-800', 'text-blue-400');
+            btn.classList.remove('text-gray-400'); btn.classList.add('bg-gray-800', 'text-yellow-400');
         }
 
         function aggiornaUI() {
@@ -288,7 +296,7 @@
 
         // --- SISTEMA SONDAGGI ---
         window.votaCampo = function(campo) {
-            if(localStorage.getItem('voto_campo_fatto')) return alert('Hai già votato il campo!');
+            if(localStorage.getItem('voto_campo_fatto')) return alert('Hai già votato il campo sul tuo dispositivo!');
             DB.votiCampo[campo] = (DB.votiCampo[campo] || 0) + 1;
             localStorage.setItem('voto_campo_fatto', 'si');
             salvaDB(); aggiornaUI();
@@ -302,22 +310,22 @@
         }
 
         window.inviaVotoMVP = function() {
-            if(localStorage.getItem('voto_mvp_fatto')) return alert('Hai già votato l\'MVP!');
+            if(localStorage.getItem('voto_mvp_fatto')) return alert('Hai già votato l\'MVP su questo dispositivo!');
             const id = document.getElementById('voto-mvp-user').value;
             if(!id) return alert('Seleziona un giocatore!');
             DB.votiMVP[id] = (DB.votiMVP[id] || 0) + 1;
             localStorage.setItem('voto_mvp_fatto', 'si');
-            salvaDB(); aggiornaUI(); alert('Voto registrato!');
+            salvaDB(); aggiornaUI(); alert('Voto registrato in locale!');
         }
 
         function renderSondaggi() {
             const container = document.getElementById('container-sondaggi');
             const campiHtml = DB.campi.map(c => `
-                <div class="flex-1 min-w-[120px] rounded-xl overflow-hidden cursor-pointer hover:border-blue-400 border-2 border-transparent relative hover-scale" onclick="votaCampo('${c.nome}')">
-                    <img src="${c.img}" class="h-24 w-full object-cover opacity-70">
+                <div class="flex-1 min-w-[120px] rounded-xl overflow-hidden cursor-pointer hover:border-yellow-400 border-2 border-transparent relative hover-scale" onclick="votaCampo('${c.nome}')">
+                    <img src="${c.img}" onerror="this.src='${fallbackImg}'" class="h-24 w-full object-cover opacity-70">
                     <div class="absolute inset-0 flex flex-col justify-center items-center p-1">
                         <span class="bg-black/80 text-white text-[10px] px-2 py-1 font-bold rounded mb-1 text-center leading-tight">${c.nome}</span>
-                        <span class="bg-blue-600 text-white font-bold text-xs px-2 py-1 rounded-full shadow">${DB.votiCampo[c.nome] || 0} Voti</span>
+                        <span class="bg-yellow-600 text-black font-bold text-xs px-2 py-1 rounded-full shadow">${DB.votiCampo[c.nome] || 0} Voti</span>
                     </div>
                 </div>
             `).join('');
@@ -333,7 +341,7 @@
                         ${DB.sondaggioOrari.map(o => `
                             <div class="flex justify-between items-center bg-gray-900 p-3 rounded-lg border border-gray-600">
                                 <span class="font-bold text-sm text-gray-300">${o}</span>
-                                <button onclick="votaOrario('${o}')" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-1.5 rounded transition">
+                                <button onclick="votaOrario('${o}')" class="bg-yellow-600 hover:bg-yellow-500 text-black text-xs font-bold px-3 py-1.5 rounded transition">
                                     Vota (${DB.votiOrari[o] || 0})
                                 </button>
                             </div>
@@ -351,38 +359,42 @@
             document.getElementById('risultati-mvp').innerHTML = risultatiMVP || '<div class="text-center text-gray-500">Nessun voto registrato.</div>';
         }
 
-        // --- PARTITE ---
+        // --- PARTITE E CONDIVISIONE ---
         function renderPartite() {
             const box = document.getElementById('prossima-partita-box');
+            const shareBox = document.getElementById('share-whatsapp-box');
+            
             if (!DB.matchAttivo) {
                 box.innerHTML = `<div class="p-8 text-center text-gray-400 bg-gray-800 rounded-xl font-bold">Nessun match programmato.</div>`;
+                shareBox.classList.add('hidden');
             } else {
                 const m = DB.matchAttivo;
                 box.innerHTML = `
                     <div class="pitch-container h-[550px]" style="background-image: url('${getImgCampo(m.campo)}')">
                         <div class="w-full h-full pitch-overlay flex flex-col p-2 relative">
-                            <div class="bg-black/90 p-3 rounded-lg border border-gray-700 text-center mb-2 flex justify-between items-center px-4 md:px-6">
+                            <div class="bg-black/90 p-3 rounded-lg border border-yellow-700/50 text-center mb-2 flex justify-between items-center px-4 md:px-6 shadow-lg">
                                 <div class="text-blue-400 font-bold font-sport text-sm md:text-lg w-1/3 text-left truncate">${m.nomeA}</div>
                                 <div class="text-white text-[10px] md:text-xs font-bold uppercase flex flex-col w-1/3">
-                                    <span class="text-green-400">${m.data}</span> <span>@ ${m.campo}</span>
+                                    <span class="text-yellow-400">${m.data}</span> <span>@ ${m.campo}</span>
                                 </div>
                                 <div class="text-red-400 font-bold font-sport text-sm md:text-lg w-1/3 text-right truncate">${m.nomeB}</div>
                             </div>
                             <div class="flex-1 relative border border-white/20 rounded">
                                 <div class="absolute top-1/2 left-0 right-0 h-px bg-white/30"></div>
                                 <div class="absolute top-1/2 left-1/2 w-16 h-16 border border-white/30 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-                                <div class="absolute top-0 w-full h-1/2 flex flex-col justify-around py-4">
+                                <div class="absolute top-0 w-full h-1/2 flex flex-col justify-around py-2 md:py-4">
                                     <div class="flex justify-center gap-12">${m.sqA.slice(0,2).map(g=>renderMini(g,'border-blue-500')).join('')}</div>
-                                    <div class="flex justify-center gap-8">${m.sqA.slice(2,5).map(g=>renderMini(g,'border-blue-500')).join('')}</div>
+                                    <div class="flex justify-center gap-4 md:gap-8 flex-wrap px-2">${m.sqA.slice(2).map(g=>renderMini(g,'border-blue-500')).join('')}</div>
                                 </div>
-                                <div class="absolute bottom-0 w-full h-1/2 flex flex-col-reverse justify-around py-4">
+                                <div class="absolute bottom-0 w-full h-1/2 flex flex-col-reverse justify-around py-2 md:py-4">
                                     <div class="flex justify-center gap-12">${m.sqB.slice(0,2).map(g=>renderMini(g,'border-red-500')).join('')}</div>
-                                    <div class="flex justify-center gap-8">${m.sqB.slice(2,5).map(g=>renderMini(g,'border-red-500')).join('')}</div>
+                                    <div class="flex justify-center gap-4 md:gap-8 flex-wrap px-2">${m.sqB.slice(2).map(g=>renderMini(g,'border-red-500')).join('')}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 `;
+                shareBox.classList.remove('hidden');
             }
 
             document.getElementById('storico-partite').innerHTML = DB.storico.map(s => `
@@ -405,26 +417,41 @@
             `;
         }
 
-        // --- GIOCATORI E CLASSIFICHE ---
+        window.condividiFormazioni = function() {
+            if(!DB.matchAttivo) return;
+            const m = DB.matchAttivo;
+            let text = `⚽ *PARTITA FANTACALCETTO* ⚽\n📅 ${m.data}\n📍 ${m.campo}\n\n`;
+            text += `🔵 *${m.nomeA}*\n` + m.sqA.map(g => `- ${g.nome}`).join('\n') + `\n\n`;
+            text += `🔴 *${m.nomeB}*\n` + m.sqB.map(g => `- ${g.nome}`).join('\n');
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Formazioni copiate! Ora puoi incollarle su WhatsApp.");
+            }).catch(err => {
+                alert("Errore nella copia: " + err);
+            });
+        }
+
+        // --- GIOCATORI: STILE FC ---
         function renderCarteFC() {
             document.getElementById('cards-grid').innerHTML = DB.giocatori.sort((a,b)=>getOverall(b)-getOverall(a)).map(g => `
                 <div class="fc-card hover-scale">
-                    <div class="h-32 w-full bg-black/40 relative flex justify-center items-end pt-2 border-b-2 border-yellow-500/30">
-                        <div class="absolute top-2 left-2 text-center z-20">
-                            <span class="text-2xl font-bold font-sport text-white drop-shadow-md leading-none">${getOverall(g)}</span><br>
-                            <span class="text-[10px] font-bold text-yellow-400 uppercase tracking-widest drop-shadow">${g.ruolo}</span>
+                    <div class="fc-card-top flex justify-center items-end pt-3">
+                        <div class="fc-bg-pattern"></div>
+                        <div class="absolute top-3 left-3 text-center z-20 flex flex-col items-center">
+                            <span class="text-3xl md:text-4xl font-bold font-fc text-yellow-500 drop-shadow-md leading-none">${getOverall(g)}</span>
+                            <span class="text-[10px] md:text-xs font-bold text-gray-300 uppercase tracking-widest drop-shadow">${g.ruolo}</span>
                         </div>
-                        <img src="${g.foto}" onerror="this.onerror=null; this.src='${fallbackImg}';" class="h-full w-auto object-cover drop-shadow-2xl z-10">
+                        <img src="${g.foto}" onerror="this.onerror=null; this.src='${fallbackImg}';" class="h-[90%] w-auto object-cover drop-shadow-2xl z-10 filter contrast-125">
                     </div>
-                    <div class="p-2 bg-gradient-to-b from-transparent to-black/90 h-full">
-                        <h4 class="text-center font-bold text-xs text-yellow-100 uppercase tracking-wider mb-2 font-sport border-b border-yellow-500/30 pb-1 truncate">${g.nome}</h4>
-                        <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[10px] font-bold text-gray-300">
-                            <div class="flex justify-between"><span>GOL</span><span class="text-yellow-400">${g.gol}</span></div>
-                            <div class="flex justify-between"><span>VIN</span><span class="text-green-400">${g.vinte}</span></div>
-                            <div class="flex justify-between"><span>ASS</span><span class="text-yellow-400">${g.assist}</span></div>
-                            <div class="flex justify-between"><span>PAR</span><span class="text-gray-400">${g.pareggiate}</span></div>
-                            <div class="flex justify-between"><span>MVP</span><span class="text-purple-400">${g.mvp}</span></div>
-                            <div class="flex justify-between"><span>PER</span><span class="text-red-400">${g.perse}</span></div>
+                    <div class="px-2 pb-3 bg-gradient-to-b from-[#1a1a1a] to-black z-20 flex-1 flex flex-col justify-end">
+                        <h4 class="text-center font-bold text-sm md:text-base text-yellow-500 uppercase tracking-widest mb-1 mt-1 font-fc border-b border-yellow-700/50 pb-1 truncate drop-shadow-sm">${g.nome}</h4>
+                        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] md:text-xs font-fc text-gray-300 px-1">
+                            <div class="flex justify-between items-center"><span class="text-gray-500">GOL</span><span class="text-white font-bold text-sm">${g.gol}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">VIN</span><span class="text-white font-bold text-sm">${g.vinte}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">ASS</span><span class="text-white font-bold text-sm">${g.assist}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">PAR</span><span class="text-white font-bold text-sm">${g.pareggiate}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">MVP</span><span class="text-white font-bold text-sm">${g.mvp}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">PER</span><span class="text-white font-bold text-sm">${g.perse}</span></div>
                         </div>
                     </div>
                 </div>
@@ -481,6 +508,16 @@
                 </div>
             `).join('') || '<span class="text-xs text-gray-500">Nessuna partita passata.</span>';
 
+            // Area Scambio/Spostamento Giocatori
+            const swapArea = document.getElementById('admin-swap-area');
+            if(DB.matchAttivo) {
+                swapArea.classList.remove('hidden');
+                document.getElementById('swap-player-a').innerHTML = '<option value="">-- Seleziona da Sq. A --</option>' + DB.matchAttivo.sqA.map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
+                document.getElementById('swap-player-b').innerHTML = '<option value="">-- Seleziona da Sq. B --</option>' + DB.matchAttivo.sqB.map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
+            } else {
+                swapArea.classList.add('hidden');
+            }
+
             // Tabellino
             const tabellinoBox = document.getElementById('admin-tabellino-container');
             if(!DB.matchAttivo) {
@@ -517,13 +554,13 @@
                             <option value="">-- Seleziona MVP --</option>
                             ${[...m.sqA, ...m.sqB].map(g => `<option value="${g.id}">${g.nome}</option>`).join('')}
                         </select>
-                        <button onclick="adminSalvaTabellino()" class="w-full bg-yellow-600 text-white font-bold py-2 rounded">ARCHIVIA RISULTATO</button>
+                        <button onclick="adminSalvaTabellino()" class="w-full bg-yellow-600 text-black font-bold py-2 rounded">ARCHIVIA RISULTATO</button>
                     </div>
                 `;
             }
         }
 
-        // --- FUNZIONI AGGIUNTA E MODIFICA (NUOVE) ---
+        // --- FUNZIONI AGGIUNTA E MODIFICA ---
         function adminAggiungiGiocatore() {
             const nome = document.getElementById('add-gioc-nome').value;
             const ruolo = document.getElementById('add-gioc-ruolo').value;
@@ -542,7 +579,7 @@
         function adminModificaFotoGiocatore() {
             const id = document.getElementById('edit-foto-id').value;
             const url = document.getElementById('edit-foto-url').value;
-            if(!id || !url) return alert("Seleziona un giocatore e inserisci l'URL!");
+            if(!id || !url) return alert("Seleziona un giocatore e inserisci l'URL o nome file!");
             
             const g = DB.giocatori.find(x => x.id == id);
             if(g) { g.foto = url; salvaDB(); aggiornaUI(); alert("Foto giocatore aggiornata!"); }
@@ -551,12 +588,12 @@
         function adminAggiungiCampo() {
             const nome = document.getElementById('add-campo-nome').value;
             const img = document.getElementById('add-campo-foto').value;
-            if(!nome || !img) return alert("Inserisci nome e URL immagine del campo!");
+            if(!nome || !img) return alert("Inserisci nome e file immagine del campo!");
             
             if(DB.campi.find(c => c.nome.toLowerCase() === nome.toLowerCase())) return alert("Campo già esistente!");
             
             DB.campi.push({ nome, img });
-            DB.votiCampo[nome] = 0; // Inizializza contatore
+            DB.votiCampo[nome] = 0;
             salvaDB(); aggiornaUI(); alert(`Campo ${nome} aggiunto!`);
             document.getElementById('add-campo-nome').value = '';
             document.getElementById('add-campo-foto').value = '';
@@ -565,29 +602,32 @@
         function adminModificaFotoCampo() {
             const nome = document.getElementById('edit-campo-id').value;
             const img = document.getElementById('edit-campo-url').value;
-            if(!nome || !img) return alert("Seleziona un campo e inserisci il nuovo URL!");
+            if(!nome || !img) return alert("Seleziona un campo e inserisci il nuovo nome file!");
             
             const c = DB.campi.find(x => x.nome === nome);
             if(c) { c.img = img; salvaDB(); aggiornaUI(); alert("Foto campo aggiornata!"); }
         }
 
-        // --- ALTRE FUNZIONI ADMIN (Sondaggi, Partita, ecc.) ---
+        // --- LOGICA PARTITA E SONDAGGI ---
         function adminCreaSondaggio() {
             const orari = document.getElementById('admin-sond-orari').value.split(',').map(s=>s.trim()).filter(s=>s);
             if(orari.length) DB.sondaggioOrari = orari;
             DB.campi.forEach(c => DB.votiCampo[c.nome] = 0);
             DB.votiOrari = {}; DB.votiMVP = {};
             Object.keys(localStorage).forEach(k => { if(k.startsWith('voto_')) localStorage.removeItem(k); });
-            salvaDB(); aggiornaUI(); alert('Nuovo Sondaggio Pubblicato! Voti azzerati.');
+            salvaDB(); aggiornaUI(); alert('Nuovo Sondaggio Pubblicato! Voti locali azzerati.');
         }
 
         function adminOrganizzaPartita() {
             const checks = document.querySelectorAll('.admin-gioc-chk:checked');
-            if(checks.length !== 10) return alert('Devi selezionare ESATTAMENTE 10 giocatori!');
+            // MODIFICA: Ora accetta almeno 8 giocatori per consentire squadre dispari o più piccole (es. 4v4, 5v4)
+            if(checks.length < 8) return alert('Devi selezionare ALMENO 8 giocatori per giocare (minimo 4 per squadra)!');
+            
             const ids = Array.from(checks).map(c => parseInt(c.value));
             let presenti = DB.giocatori.filter(g => ids.includes(g.id)).sort((a,b)=>getOverall(b)-getOverall(a));
             let sqA = [], sqB = [];
             presenti.forEach((g, i) => i % 2 === 0 ? sqA.push(g) : sqB.push(g)); 
+            
             DB.matchAttivo = {
                 data: document.getElementById('admin-org-ora').value || 'Data da definire',
                 campo: document.getElementById('admin-org-campo').value,
@@ -595,8 +635,44 @@
                 nomeB: document.getElementById('admin-nome-b').value || 'Squadra B',
                 sqA, sqB
             };
-            salvaDB(); aggiornaUI(); alert('Formazioni Generate!');
+            salvaDB(); aggiornaUI(); alert('Formazioni Generate! Ora puoi spostare o scambiare liberamente i giocatori nel riquadro sottostante.');
         }
+
+        // NUOVA LOGICA: Sposta o Scambia i giocatori dinamicamente
+        window.adminAzioneGiocatori = function(azione) {
+            if(!DB.matchAttivo) return;
+            
+            const selA = document.getElementById('swap-player-a').value;
+            const selB = document.getElementById('swap-player-b').value;
+            const idA = selA ? parseInt(selA) : null;
+            const idB = selB ? parseInt(selB) : null;
+
+            const idxA = idA ? DB.matchAttivo.sqA.findIndex(g => g.id === idA) : -1;
+            const idxB = idB ? DB.matchAttivo.sqB.findIndex(g => g.id === idB) : -1;
+
+            if (azione === 'scambia') {
+                if(idxA === -1 || idxB === -1) return alert("Per scambiare devi selezionare un giocatore da ENTRAMBE le squadre!");
+                const temp = DB.matchAttivo.sqA[idxA];
+                DB.matchAttivo.sqA[idxA] = DB.matchAttivo.sqB[idxB];
+                DB.matchAttivo.sqB[idxB] = temp;
+                alert("Scambio effettuato!");
+            } else if (azione === 'spostaB') {
+                if(idxA === -1) return alert("Seleziona un giocatore della Squadra A da spostare in B!");
+                if(DB.matchAttivo.sqA.length <= 4) return alert("La Squadra A non può avere meno di 4 giocatori!");
+                const g = DB.matchAttivo.sqA.splice(idxA, 1)[0];
+                DB.matchAttivo.sqB.push(g);
+                alert(`${g.nome} spostato in Squadra B!`);
+            } else if (azione === 'spostaA') {
+                if(idxB === -1) return alert("Seleziona un giocatore della Squadra B da spostare in A!");
+                if(DB.matchAttivo.sqB.length <= 4) return alert("La Squadra B non può avere meno di 4 giocatori!");
+                const g = DB.matchAttivo.sqB.splice(idxB, 1)[0];
+                DB.matchAttivo.sqA.push(g);
+                alert(`${g.nome} spostato in Squadra A!`);
+            }
+
+            salvaDB(); 
+            aggiornaUI(); 
+        };
 
         function adminSalvaTabellino() {
             if(!DB.matchAttivo) return;
