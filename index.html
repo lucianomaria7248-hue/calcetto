@@ -269,11 +269,52 @@
             storico: []
         };
 
-        let DB = JSON.parse(localStorage.getItem('fantaHubV6')) || initData;
+        // Inserisci qui l'URL della tua Web App di Google Apps Script
+        const API_URL = "https://script.google.com/macros/s/AKfycbxRx9e6YyT8Sp0OQ3-49Jg1z6FTi4gFbGILOweC1s1jkpQsknqBsq1MLYiXgVsGz70ubw/exec";
 
-        function salvaDB() { localStorage.setItem('fantaHubV6', JSON.stringify(DB)); }
-        function cancellaDati() { localStorage.removeItem('fantaHubV6'); location.reload(); }
+        // Inizializza il DB con i dati di base prima che arrivino quelli dal web
+        let DB = initData; 
 
+        // Nuova funzione per SCARICARE i dati da Google Sheets
+        async function caricaDatiDalCloud() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error("Errore di rete");
+                const cloudData = await response.json();
+                
+                // Unisce i dati scaricati, mantenendo i fallback di sicurezza
+                DB = cloudData;
+                if (!DB.giocatori) DB.giocatori = initData.giocatori;
+                if (!DB.campi) DB.campi = initData.campi;
+                if (!DB.storico) DB.storico = initData.storico;
+                
+                aggiornaUI(); // Disegna l'interfaccia con i dati veri
+                showToast("Dati sincronizzati dal Cloud!");
+            } catch (error) {
+                console.error("Errore:", error);
+                showToast("Offline: Uso i dati locali.", "error");
+                DB = JSON.parse(localStorage.getItem('fantaHubV6')) || initData;
+                aggiornaUI();
+            }
+        }
+
+        // Nuova funzione per SALVARE i dati su Google Sheets
+        async function salvaDB() {
+            aggiornaUI(); // Aggiorna subito lo schermo per renderlo scattante
+            localStorage.setItem('fantaHubV6', JSON.stringify(DB)); // Backup locale
+
+            try {
+                // Invia l'oggetto DB intero a Google Apps Script
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Evita il blocco di sicurezza di GitHub/Google
+                    body: JSON.stringify(DB)
+                });
+            } catch (err) {
+                console.error("Errore salvataggio:", err);
+                showToast("Errore di salvataggio online!", "error");
+            }
+        }
         function getImgCampo(nome) {
             const c = DB.campi.find(x => x.nome === nome);
             return c ? c.img : fallbackImg;
@@ -758,7 +799,7 @@
             }
         }
 
-        window.onload = aggiornaUI;
+        window.onload = caricaDatiDalCloud;
     </script>
 </body>
 </html>
