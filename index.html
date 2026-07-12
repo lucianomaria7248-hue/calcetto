@@ -45,6 +45,14 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1f2937; }
         ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
+
+        /* Sistema Toast */
+        #toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+        .toast { padding: 12px 20px; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards; box-shadow: 0 4px 12px rgba(0,0,0,0.5); display: flex; items-center; gap: 8px; pointer-events: auto; }
+        .toast-success { background: #16a34a; border-left: 4px solid #bbf7d0; }
+        .toast-error { background: #dc2626; border-left: 4px solid #fecaca; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
     </style>
 </head>
 <body class="p-3 md:p-6 min-h-screen pb-24">
@@ -56,26 +64,25 @@
         <p class="text-xs text-gray-400 mt-2 uppercase tracking-widest font-bold">Portale Ufficiale</p>
     </header>
 
-    <nav class="max-w-6xl mx-auto mb-8 bg-gray-900/90 border border-yellow-700/50 p-2 rounded-2xl flex justify-around sticky top-4 z-40 backdrop-blur-md shadow-xl animate-fade" style="animation-delay: 0.1s;">
-        <button onclick="switchTab('sondaggi')" id="btn-sondaggi" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-yellow-400 bg-gray-800 transition">Sondaggi</button>
-        <button onclick="switchTab('partite')" id="btn-partite" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-gray-400 hover:text-white transition">Partite</button>
-        <button onclick="switchTab('giocatori')" id="btn-giocatori" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-gray-400 hover:text-white transition">Giocatori</button>
-        <button onclick="switchTab('classifiche')" id="btn-classifiche" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-gray-400 hover:text-white transition">Classifiche</button>
-        <button onclick="openAdmin()" class="px-4 py-2.5 rounded-xl font-bold text-xs md:text-sm text-red-400 bg-red-950/30 hover:bg-red-900/50 border border-red-900/50 transition">Admin</button>
+    <nav class="max-w-6xl mx-auto mb-8 bg-gray-900/90 border border-yellow-700/50 p-2 rounded-2xl flex justify-around sticky top-4 z-40 backdrop-blur-md shadow-xl animate-fade overflow-x-auto" style="animation-delay: 0.1s;">
+        <button onclick="switchTab('sondaggi')" id="btn-sondaggi" class="tab-btn px-3 md:px-4 py-2.5 rounded-xl font-bold text-[10px] md:text-sm text-yellow-400 bg-gray-800 transition whitespace-nowrap">Sondaggi</button>
+        <button onclick="switchTab('partite')" id="btn-partite" class="tab-btn px-3 md:px-4 py-2.5 rounded-xl font-bold text-[10px] md:text-sm text-gray-400 hover:text-white transition whitespace-nowrap">Partite</button>
+        <button onclick="switchTab('giocatori')" id="btn-giocatori" class="tab-btn px-3 md:px-4 py-2.5 rounded-xl font-bold text-[10px] md:text-sm text-gray-400 hover:text-white transition whitespace-nowrap">Giocatori</button>
+        <button onclick="switchTab('classifiche')" id="btn-classifiche" class="tab-btn px-3 md:px-4 py-2.5 rounded-xl font-bold text-[10px] md:text-sm text-gray-400 hover:text-white transition whitespace-nowrap">Classifiche</button>
+        <button onclick="openAdmin()" class="px-3 md:px-4 py-2.5 rounded-xl font-bold text-[10px] md:text-sm text-red-400 bg-red-950/30 hover:bg-red-900/50 border border-red-900/50 transition whitespace-nowrap">Admin</button>
     </nav>
 
     <main class="max-w-6xl mx-auto">
         
         <section id="tab-sondaggi" class="tab-content space-y-6">
             <h2 class="text-2xl font-bold text-white font-sport border-b border-gray-800 pb-2">🗳️ SONDAGGI LIVE</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="container-sondaggi">
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="container-sondaggi"></div>
             
             <h2 class="text-2xl font-bold text-yellow-400 font-sport border-b border-gray-800 pb-2 mt-10">⭐ VOTA L'MVP</h2>
             <div class="bg-gray-900 border border-yellow-700/50 p-6 rounded-2xl shadow-xl flex flex-col items-center">
                 <p class="text-gray-400 text-sm mb-4">Vota il migliore in campo (Salvato localmente)</p>
-                <select id="voto-mvp-user" class="w-full max-w-md bg-gray-800 text-white p-3 rounded-xl border border-gray-700 font-bold mb-4"></select>
-                <button onclick="inviaVotoMVP()" class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold px-8 py-3 rounded-xl shadow-lg hover-scale">Registra Voto MVP</button>
+                <select id="voto-mvp-user" class="w-full max-w-md bg-gray-800 text-white p-3 rounded-xl border border-gray-700 font-bold mb-4 focus:outline-none focus:border-yellow-500"></select>
+                <button onclick="inviaVotoMVP()" class="w-full max-w-md bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold px-8 py-3 rounded-xl shadow-lg hover-scale">Registra Voto MVP</button>
                 <div id="risultati-mvp" class="w-full max-w-md mt-4 space-y-2 text-xs"></div>
             </div>
         </section>
@@ -85,9 +92,9 @@
                 <h2 class="text-2xl font-bold text-green-400 font-sport border-b border-gray-800 pb-2 mb-4">🔜 PROSSIMA PARTITA</h2>
                 <div id="prossima-partita-box" class="bg-gray-900 border border-gray-700 p-1 rounded-2xl shadow-2xl relative overflow-hidden mb-4"></div>
                 <div id="share-whatsapp-box" class="text-center hidden">
-                    <button onclick="condividiFormazioni()" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-6 rounded-full shadow-lg transition flex items-center justify-center mx-auto gap-2">
+                    <button onclick="condividiFormazioni()" class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition flex items-center justify-center mx-auto gap-2 text-sm">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                        Copia per WhatsApp
+                        Invia Convocazione su WhatsApp
                     </button>
                 </div>
             </div>
@@ -111,7 +118,7 @@
 
     <div id="admin-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center hidden p-2 md:p-4">
         <div class="bg-gray-900 border border-gray-700 rounded-2xl max-w-2xl w-full p-4 md:p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto">
-            <button onclick="closeAdmin()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold z-50">✕</button>
+            <button onclick="closeAdmin()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold z-50">&times;</button>
             
             <div id="admin-login" class="space-y-4 text-center mt-4">
                 <h3 class="text-2xl font-bold text-red-500 font-sport">ACCESSO ADMIN</h3>
@@ -125,8 +132,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                         <h4 class="font-bold text-white mb-2 text-sm">1. CREA SONDAGGIO ORARI</h4>
-                        <input type="text" id="admin-sond-orari" placeholder="Es: Lunedì 20:00, Giovedì 21:00" class="w-full bg-gray-900 p-2 text-sm rounded border border-gray-600 mb-2 text-white">
-                        <button onclick="adminCreaSondaggio()" class="w-full bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded">Pubblica Sondaggio</button>
+                        <input type="text" id="admin-sond-orari" placeholder="Es: Lunedì 20:00, Giovedì 21:00" class="w-full bg-gray-900 p-3 text-sm rounded-lg border border-gray-600 mb-2 text-white focus:border-blue-500 outline-none">
+                        <button onclick="adminCreaSondaggio()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-3 rounded-lg transition">Pubblica Sondaggio</button>
                     </div>
                     <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                         <h4 class="font-bold text-white mb-2 text-sm">2. ORGANIZZA PARTITA</h4>
@@ -136,19 +143,15 @@
                             <input type="text" id="admin-nome-a" placeholder="Sq. A" class="w-1/2 p-2 rounded border text-sm text-black" value="Squadra A">
                             <input type="text" id="admin-nome-b" placeholder="Sq. B" class="w-1/2 p-2 rounded border text-sm text-black" value="Squadra B">
                         </div>
-                        <p class="text-[10px] text-gray-400 mb-1">Seleziona i presenti (min. 8 giocatori):</p>
-                        <div id="admin-check-giocatori" class="grid grid-cols-2 gap-1 mb-2 max-h-24 overflow-y-auto"></div>
-                        <button onclick="adminOrganizzaPartita()" class="w-full bg-green-600 text-white text-xs font-bold px-4 py-2 rounded mb-2">Genera Formazioni</button>
+                        <p class="text-[10px] text-gray-400 mb-1">Seleziona i presenti:</p>
+                        <div id="admin-check-giocatori" class="grid grid-cols-2 gap-1 mb-2 max-h-24 overflow-y-auto pr-1"></div>
+                        <button onclick="adminOrganizzaPartita()" class="w-full bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-4 py-3 rounded-lg mb-2 transition">Genera Formazioni</button>
                         
                         <div id="admin-swap-area" class="hidden border-t border-gray-600 pt-3 mt-3">
                             <h5 class="text-[10px] font-bold text-yellow-400 mb-2 uppercase">Gestione Libera Formazioni</h5>
                             <div class="flex gap-2 mb-2">
-                                <select id="swap-player-a" class="w-1/2 p-2 rounded text-[10px] text-black">
-                                    <option value="">-- Seleziona da Sq. A --</option>
-                                </select>
-                                <select id="swap-player-b" class="w-1/2 p-2 rounded text-[10px] text-black">
-                                    <option value="">-- Seleziona da Sq. B --</option>
-                                </select>
+                                <select id="swap-player-a" class="w-1/2 p-2 rounded text-[10px] text-black"><option value="">-- Da Sq. A --</option></select>
+                                <select id="swap-player-b" class="w-1/2 p-2 rounded text-[10px] text-black"><option value="">-- Da Sq. B --</option></select>
                             </div>
                             <div class="flex gap-2">
                                 <button onclick="adminAzioneGiocatori('scambia')" class="w-1/2 bg-yellow-600 hover:bg-yellow-500 text-black text-[10px] font-bold px-2 py-2 rounded shadow">🔄 SCAMBIA</button>
@@ -165,73 +168,80 @@
                 </div>
                 
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <h4 class="font-bold text-purple-400 mb-4 border-b border-gray-700 pb-2">4. GESTIONE DATABASE (GIOCATORI E CAMPI)</h4>
+                    <h4 class="font-bold text-pink-400 mb-4 border-b border-gray-700 pb-2">4. MODIFICA RAPIDA STATISTICHE</h4>
+                    <select id="admin-edit-player" onchange="caricaStatisticheGiocatore()" class="w-full p-3 rounded-lg text-sm text-black mb-4 focus:outline-none focus:border-pink-500">
+                        <option value="">-- Seleziona Giocatore da Modificare --</option>
+                    </select>
                     
-                    <div class="mb-6">
-                        <h5 class="text-sm font-bold text-white mb-2">Aggiungi Nuovo Giocatore</h5>
+                    <div id="edit-player-stats" class="hidden grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+                        </div>
+                    <p class="text-[10px] text-gray-400 mt-2 italic hidden" id="edit-player-hint">Le modifiche vengono salvate automaticamente in tempo reale.</p>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
+                    <h4 class="font-bold text-purple-400 mb-4 border-b border-gray-700 pb-2">5. GESTIONE DATABASE (AGGIUNGI ED ELIMINA)</h4>
+                    
+                    <div class="mb-6 border border-gray-600 p-3 rounded-lg bg-gray-900/50">
+                        <h5 class="text-sm font-bold text-white mb-3">Aggiungi Nuovo Giocatore</h5>
                         <div class="grid grid-cols-2 gap-2 mb-2">
-                            <input type="text" id="add-gioc-nome" placeholder="Nome" class="p-2 rounded text-sm text-black border">
-                            <select id="add-gioc-ruolo" class="p-2 rounded text-sm text-black border">
+                            <input type="text" id="add-gioc-nome" placeholder="Nome" class="p-2 rounded text-sm text-black border focus:outline-none">
+                            <select id="add-gioc-ruolo" class="p-2 rounded text-sm text-black border focus:outline-none">
                                 <option value="ATT">Attaccante</option><option value="CEN">Centrocampista</option>
                                 <option value="DIF">Difensore</option><option value="POR">Portiere</option>
                             </select>
                         </div>
-                        <input type="text" id="add-gioc-foto" placeholder="Nome file o URL (es. foto.jpg)" class="w-full p-2 rounded text-sm text-black border mb-2">
-                        <label class="flex items-center text-sm text-white mb-2 gap-2"><input type="checkbox" id="add-gioc-por"> È un portiere principale?</label>
-                        <button onclick="adminAggiungiGiocatore()" class="w-full bg-purple-600 text-white text-xs font-bold py-2 rounded">Crea Giocatore</button>
+                        <input type="text" id="add-gioc-foto" placeholder="Nome file o URL (es. foto.jpg)" class="w-full p-2 rounded text-sm text-black border mb-2 focus:outline-none">
+                        <label class="flex items-center text-sm text-white mb-3 gap-2"><input type="checkbox" id="add-gioc-por" class="w-4 h-4"> È un portiere principale?</label>
+                        <button onclick="adminAggiungiGiocatore()" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-3 rounded-lg transition">Crea Giocatore</button>
                     </div>
 
                     <div class="mb-6">
-                        <h5 class="text-sm font-bold text-white mb-2">Cambia Foto Giocatore Esistente</h5>
-                        <select id="edit-foto-id" class="w-full p-2 rounded text-sm text-black mb-2"></select>
-                        <input type="text" id="edit-foto-url" placeholder="Nuovo nome file o URL" class="w-full p-2 rounded text-sm text-black border mb-2">
-                        <button onclick="adminModificaFotoGiocatore()" class="w-full bg-blue-600 text-white text-xs font-bold py-2 rounded">Aggiorna Foto</button>
+                        <h5 class="text-sm font-bold text-red-400 mb-2">Elenco Giocatori (Cestino)</h5>
+                        <div id="admin-lista-del-giocatori" class="space-y-1 max-h-32 overflow-y-auto pr-2"></div>
                     </div>
 
                     <hr class="border-gray-700 my-4">
-                    <div class="mb-6">
+
+                    <div class="mb-6 border border-gray-600 p-3 rounded-lg bg-gray-900/50">
                         <h5 class="text-sm font-bold text-white mb-2">Aggiungi Nuovo Campo</h5>
-                        <input type="text" id="add-campo-nome" placeholder="Nome Campo" class="w-full p-2 rounded text-sm text-black border mb-2">
-                        <input type="text" id="add-campo-foto" placeholder="Nome file (es. campo.jpg)" class="w-full p-2 rounded text-sm text-black border mb-2">
-                        <button onclick="adminAggiungiCampo()" class="w-full bg-green-700 text-white text-xs font-bold py-2 rounded">Aggiungi Campo</button>
+                        <input type="text" id="add-campo-nome" placeholder="Nome Campo" class="w-full p-2 rounded text-sm text-black border mb-2 focus:outline-none">
+                        <input type="text" id="add-campo-foto" placeholder="Nome file (es. campo.jpg)" class="w-full p-2 rounded text-sm text-black border mb-2 focus:outline-none">
+                        <button onclick="adminAggiungiCampo()" class="w-full bg-green-700 hover:bg-green-600 text-white text-xs font-bold py-3 rounded-lg transition">Aggiungi Campo</button>
                     </div>
 
                     <div>
-                        <h5 class="text-sm font-bold text-white mb-2">Cambia Foto Campo Esistente</h5>
-                        <select id="edit-campo-id" class="w-full p-2 rounded text-sm text-black mb-2"></select>
-                        <input type="text" id="edit-campo-url" placeholder="Nuovo nome file (es. ponterumito.jpg)" class="w-full p-2 rounded text-sm text-black border mb-2">
-                        <button onclick="adminModificaFotoCampo()" class="w-full bg-blue-600 text-white text-xs font-bold py-2 rounded">Aggiorna Foto Campo</button>
+                        <h5 class="text-sm font-bold text-red-400 mb-2">Elenco Campi (Cestino)</h5>
+                        <div id="admin-lista-del-campi" class="space-y-1 max-h-24 overflow-y-auto pr-2"></div>
                     </div>
                 </div>
 
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <h4 class="font-bold text-pink-400 mb-2">5. CORREZIONE STATISTICHE / STORICO</h4>
-                    <select id="admin-edit-player" onchange="caricaStatisticheGiocatore()" class="w-full p-2 rounded text-sm text-black mb-2">
-                        <option value="">-- Seleziona Giocatore --</option>
-                    </select>
-                    <div id="edit-player-stats" class="hidden grid grid-cols-3 gap-2 text-black text-sm mb-4">
-                        <input type="number" id="edit-gol" placeholder="Gol" title="Gol" class="p-2 rounded border">
-                        <input type="number" id="edit-assist" placeholder="Assist" title="Assist" class="p-2 rounded border">
-                        <input type="number" id="edit-mvp" placeholder="MVP" title="MVP" class="p-2 rounded border">
-                        <input type="number" id="edit-vinte" placeholder="Vinte" title="Vinte" class="p-2 rounded border">
-                        <input type="number" id="edit-pari" placeholder="Pari" title="Pari" class="p-2 rounded border">
-                        <input type="number" id="edit-perse" placeholder="Perse" title="Perse" class="p-2 rounded border">
-                        <button onclick="salvaStatisticheGiocatore()" class="col-span-3 bg-pink-600 text-white font-bold py-2 rounded">Salva Modifiche Statistiche</button>
-                    </div>
-
-                    <p class="text-xs text-red-400 mt-4 mb-2 font-bold">Storico Partite (Elimina):</p>
-                    <div id="admin-lista-storico" class="space-y-2 max-h-32 overflow-y-auto"></div>
+                    <p class="text-sm text-red-400 mb-2 font-bold border-b border-gray-700 pb-2">6. STORICO PARTITE</p>
+                    <div id="admin-lista-storico" class="space-y-2 max-h-40 overflow-y-auto pr-2 mt-3"></div>
                 </div>
 
-                <button onclick="cancellaDati()" class="w-full bg-red-900/50 border border-red-900 text-red-400 text-xs py-2 rounded mt-4 font-bold">RESET COMPLETO APP E DATI (Irreversibile)</button>
+                <button onclick="cancellaDati()" class="w-full bg-red-950/80 hover:bg-red-900 border border-red-900 text-red-400 hover:text-white transition text-xs py-4 rounded-lg mt-4 font-bold shadow-lg">RESET COMPLETO APP E DATI (Irreversibile)</button>
             </div>
         </div>
     </div>
 
+    <div id="toast-container"></div>
+
     <script>
         const fallbackImg = "https://placehold.co/200x200/1e293b/ffffff?text=FOTO";
 
-        // Struttura Dati Iniziale
+        // Sistema Toast
+        window.showToast = function(msg, type='success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            const icon = type === 'success' ? '✅' : '❌';
+            toast.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Struttura Dati
         const initData = {
             giocatori: [
                 { id: 1, nome: "Bonetti", ruolo: "DIF", gol: 0, assist: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5129.jpg", por: false },
@@ -259,24 +269,20 @@
             storico: []
         };
 
-        let DB = JSON.parse(localStorage.getItem('fantaHubV5')) || initData;
+        let DB = JSON.parse(localStorage.getItem('fantaHubV6')) || initData;
 
-        function salvaDB() { localStorage.setItem('fantaHubV5', JSON.stringify(DB)); }
-        function cancellaDati() { localStorage.removeItem('fantaHubV5'); location.reload(); }
+        function salvaDB() { localStorage.setItem('fantaHubV6', JSON.stringify(DB)); }
+        function cancellaDati() { localStorage.removeItem('fantaHubV6'); location.reload(); }
 
         function getImgCampo(nome) {
             const c = DB.campi.find(x => x.nome === nome);
             return c ? c.img : fallbackImg;
         }
 
-        // Calcolo Overall
         function getOverall(g) {
             let base = 65 + (g.vinte * 1.5) + (g.mvp * 2) - (g.perse * 0.5);
-            if (g.por) {
-                base += (g.assist * 2) + (g.gol * 3);
-            } else {
-                base += (g.gol * 0.8) + (g.assist * 0.6);
-            }
+            if (g.por) { base += (g.assist * 2) + (g.gol * 3); } 
+            else { base += (g.gol * 0.8) + (g.assist * 0.6); }
             return Math.min(Math.max(Math.round(base), 65), 99);
         }
 
@@ -296,52 +302,52 @@
 
         // --- SISTEMA SONDAGGI ---
         window.votaCampo = function(campo) {
-            if(localStorage.getItem('voto_campo_fatto')) return alert('Hai già votato il campo sul tuo dispositivo!');
+            if(localStorage.getItem('voto_campo_fatto')) return showToast('Hai già votato il campo!', 'error');
             DB.votiCampo[campo] = (DB.votiCampo[campo] || 0) + 1;
             localStorage.setItem('voto_campo_fatto', 'si');
-            salvaDB(); aggiornaUI();
+            salvaDB(); aggiornaUI(); showToast('Voto campo registrato!');
         }
 
         window.votaOrario = function(ora) {
-            if(localStorage.getItem('voto_ora_'+ora)) return; 
+            if(localStorage.getItem('voto_ora_'+ora)) return showToast('Hai già votato questo orario!', 'error'); 
             DB.votiOrari[ora] = (DB.votiOrari[ora] || 0) + 1;
             localStorage.setItem('voto_ora_'+ora, 'si');
-            salvaDB(); aggiornaUI();
+            salvaDB(); aggiornaUI(); showToast('Voto orario registrato!');
         }
 
         window.inviaVotoMVP = function() {
-            if(localStorage.getItem('voto_mvp_fatto')) return alert('Hai già votato l\'MVP su questo dispositivo!');
+            if(localStorage.getItem('voto_mvp_fatto')) return showToast('Hai già votato l\'MVP!', 'error');
             const id = document.getElementById('voto-mvp-user').value;
-            if(!id) return alert('Seleziona un giocatore!');
+            if(!id) return showToast('Seleziona un giocatore!', 'error');
             DB.votiMVP[id] = (DB.votiMVP[id] || 0) + 1;
             localStorage.setItem('voto_mvp_fatto', 'si');
-            salvaDB(); aggiornaUI(); alert('Voto registrato in locale!');
+            salvaDB(); aggiornaUI(); showToast('Voto MVP registrato!');
         }
 
         function renderSondaggi() {
             const container = document.getElementById('container-sondaggi');
             const campiHtml = DB.campi.map(c => `
                 <div class="flex-1 min-w-[120px] rounded-xl overflow-hidden cursor-pointer hover:border-yellow-400 border-2 border-transparent relative hover-scale" onclick="votaCampo('${c.nome}')">
-                    <img src="${c.img}" onerror="this.src='${fallbackImg}'" class="h-24 w-full object-cover opacity-70">
+                    <img src="${c.img}" onerror="this.src='${fallbackImg}'" class="h-24 md:h-32 w-full object-cover opacity-70">
                     <div class="absolute inset-0 flex flex-col justify-center items-center p-1">
-                        <span class="bg-black/80 text-white text-[10px] px-2 py-1 font-bold rounded mb-1 text-center leading-tight">${c.nome}</span>
-                        <span class="bg-yellow-600 text-black font-bold text-xs px-2 py-1 rounded-full shadow">${DB.votiCampo[c.nome] || 0} Voti</span>
+                        <span class="bg-black/80 text-white text-[10px] md:text-xs px-2 py-1 font-bold rounded mb-1 text-center leading-tight shadow-lg">${c.nome}</span>
+                        <span class="bg-yellow-600 text-black font-bold text-xs px-3 py-1 rounded-full shadow-lg">${DB.votiCampo[c.nome] || 0} Voti</span>
                     </div>
                 </div>
             `).join('');
 
             container.innerHTML = `
-                <div class="bg-gray-800/80 p-5 rounded-2xl border border-gray-700 shadow-lg">
-                    <h3 class="font-bold text-white mb-3">📍 Scegli il Campo</h3>
+                <div class="bg-gray-800/80 p-4 md:p-6 rounded-2xl border border-gray-700 shadow-lg">
+                    <h3 class="font-bold text-white mb-3 text-sm md:text-base">📍 Scegli il Campo</h3>
                     <div class="flex gap-2 overflow-x-auto pb-2">${campiHtml}</div>
                 </div>
-                <div class="bg-gray-800/80 p-5 rounded-2xl border border-gray-700 shadow-lg">
-                    <h3 class="font-bold text-white mb-3">⏰ Scegli l'Orario</h3>
-                    <div class="space-y-2">
+                <div class="bg-gray-800/80 p-4 md:p-6 rounded-2xl border border-gray-700 shadow-lg">
+                    <h3 class="font-bold text-white mb-3 text-sm md:text-base">⏰ Scegli l'Orario</h3>
+                    <div class="space-y-3">
                         ${DB.sondaggioOrari.map(o => `
-                            <div class="flex justify-between items-center bg-gray-900 p-3 rounded-lg border border-gray-600">
-                                <span class="font-bold text-sm text-gray-300">${o}</span>
-                                <button onclick="votaOrario('${o}')" class="bg-yellow-600 hover:bg-yellow-500 text-black text-xs font-bold px-3 py-1.5 rounded transition">
+                            <div class="flex justify-between items-center bg-gray-900 p-3 md:p-4 rounded-xl border border-gray-600">
+                                <span class="font-bold text-sm md:text-base text-gray-300">${o}</span>
+                                <button onclick="votaOrario('${o}')" class="bg-yellow-600 hover:bg-yellow-500 text-black text-xs md:text-sm font-bold px-4 py-2 rounded-lg transition shadow">
                                     Vota (${DB.votiOrari[o] || 0})
                                 </button>
                             </div>
@@ -354,12 +360,12 @@
             
             const risultatiMVP = Object.entries(DB.votiMVP).sort((a,b)=>b[1]-a[1]).map(([id, voti]) => {
                 const g = DB.giocatori.find(x => x.id == id);
-                return g ? `<div class="flex justify-between bg-gray-800 p-2 rounded"><span class="text-gray-300">${g.nome}</span> <span class="text-yellow-400 font-bold">${voti} voti</span></div>` : '';
+                return g ? `<div class="flex justify-between items-center bg-gray-800 p-3 rounded-lg border border-gray-700"><span class="text-gray-300 font-bold">${g.nome}</span> <span class="text-yellow-400 font-bold bg-gray-900 px-3 py-1 rounded-full">${voti} voti</span></div>` : '';
             }).join('');
-            document.getElementById('risultati-mvp').innerHTML = risultatiMVP || '<div class="text-center text-gray-500">Nessun voto registrato.</div>';
+            document.getElementById('risultati-mvp').innerHTML = risultatiMVP || '<div class="text-center text-gray-500 py-2">Nessun voto registrato.</div>';
         }
 
-        // --- PARTITE E CONDIVISIONE ---
+        // --- PARTITE E CONDIVISIONE WHATSAPP ---
         function renderPartite() {
             const box = document.getElementById('prossima-partita-box');
             const shareBox = document.getElementById('share-whatsapp-box');
@@ -370,25 +376,26 @@
             } else {
                 const m = DB.matchAttivo;
                 box.innerHTML = `
-                    <div class="pitch-container h-[550px]" style="background-image: url('${getImgCampo(m.campo)}')">
-                        <div class="w-full h-full pitch-overlay flex flex-col p-2 relative">
-                            <div class="bg-black/90 p-3 rounded-lg border border-yellow-700/50 text-center mb-2 flex justify-between items-center px-4 md:px-6 shadow-lg">
-                                <div class="text-blue-400 font-bold font-sport text-sm md:text-lg w-1/3 text-left truncate">${m.nomeA}</div>
-                                <div class="text-white text-[10px] md:text-xs font-bold uppercase flex flex-col w-1/3">
-                                    <span class="text-yellow-400">${m.data}</span> <span>@ ${m.campo}</span>
+                    <div class="pitch-container h-[500px] md:h-[600px]" style="background-image: url('${getImgCampo(m.campo)}')">
+                        <div class="w-full h-full pitch-overlay flex flex-col p-2 md:p-4 relative">
+                            <div class="bg-black/90 p-3 rounded-lg border border-yellow-700/50 text-center mb-2 flex justify-between items-center px-4 md:px-8 shadow-2xl">
+                                <div class="text-blue-400 font-bold font-sport text-sm md:text-xl w-1/3 text-left truncate drop-shadow">${m.nomeA}</div>
+                                <div class="text-white text-[10px] md:text-sm font-bold uppercase flex flex-col w-1/3 items-center">
+                                    <span class="text-yellow-400 bg-gray-900 px-2 py-0.5 rounded border border-gray-700 mb-1 shadow">${m.data}</span> 
+                                    <span class="truncate">📍 ${m.campo}</span>
                                 </div>
-                                <div class="text-red-400 font-bold font-sport text-sm md:text-lg w-1/3 text-right truncate">${m.nomeB}</div>
+                                <div class="text-red-400 font-bold font-sport text-sm md:text-xl w-1/3 text-right truncate drop-shadow">${m.nomeB}</div>
                             </div>
-                            <div class="flex-1 relative border border-white/20 rounded">
-                                <div class="absolute top-1/2 left-0 right-0 h-px bg-white/30"></div>
-                                <div class="absolute top-1/2 left-1/2 w-16 h-16 border border-white/30 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-                                <div class="absolute top-0 w-full h-1/2 flex flex-col justify-around py-2 md:py-4">
-                                    <div class="flex justify-center gap-12">${m.sqA.slice(0,2).map(g=>renderMini(g,'border-blue-500')).join('')}</div>
-                                    <div class="flex justify-center gap-4 md:gap-8 flex-wrap px-2">${m.sqA.slice(2).map(g=>renderMini(g,'border-blue-500')).join('')}</div>
+                            <div class="flex-1 relative border-2 border-white/30 rounded-lg">
+                                <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-white/40"></div>
+                                <div class="absolute top-1/2 left-1/2 w-16 h-16 md:w-24 md:h-24 border-2 border-white/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+                                <div class="absolute top-0 w-full h-1/2 flex flex-col justify-around py-2 md:py-6">
+                                    <div class="flex justify-center gap-12 md:gap-24">${m.sqA.slice(0,2).map(g=>renderMini(g,'border-blue-500')).join('')}</div>
+                                    <div class="flex justify-center gap-4 md:gap-12 flex-wrap px-2">${m.sqA.slice(2).map(g=>renderMini(g,'border-blue-500')).join('')}</div>
                                 </div>
-                                <div class="absolute bottom-0 w-full h-1/2 flex flex-col-reverse justify-around py-2 md:py-4">
-                                    <div class="flex justify-center gap-12">${m.sqB.slice(0,2).map(g=>renderMini(g,'border-red-500')).join('')}</div>
-                                    <div class="flex justify-center gap-4 md:gap-8 flex-wrap px-2">${m.sqB.slice(2).map(g=>renderMini(g,'border-red-500')).join('')}</div>
+                                <div class="absolute bottom-0 w-full h-1/2 flex flex-col-reverse justify-around py-2 md:py-6">
+                                    <div class="flex justify-center gap-12 md:gap-24">${m.sqB.slice(0,2).map(g=>renderMini(g,'border-red-500')).join('')}</div>
+                                    <div class="flex justify-center gap-4 md:gap-12 flex-wrap px-2">${m.sqB.slice(2).map(g=>renderMini(g,'border-red-500')).join('')}</div>
                                 </div>
                             </div>
                         </div>
@@ -398,21 +405,26 @@
             }
 
             document.getElementById('storico-partite').innerHTML = DB.storico.map(s => `
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 flex justify-between items-center shadow-lg hover-scale">
-                    <div class="text-[10px] md:text-xs text-gray-400 font-bold">${s.data}<br><span class="text-white">${s.campo}</span></div>
-                    <div class="text-lg md:text-xl font-sport text-white font-bold bg-gray-900 px-3 py-2 rounded-lg border border-gray-600 shadow-inner flex-1 text-center mx-2 md:mx-6">
-                        <span class="text-blue-400">${s.nomeA}</span> &nbsp;${s.golA} - ${s.golB}&nbsp; <span class="text-red-400">${s.nomeB}</span>
+                <div class="bg-gray-800 p-4 md:p-5 rounded-xl border border-gray-700 flex justify-between items-center shadow-lg hover-scale">
+                    <div class="text-[10px] md:text-sm text-gray-400 font-bold w-1/4">📅 ${s.data}<br><span class="text-white">📍 ${s.campo}</span></div>
+                    <div class="text-lg md:text-2xl font-sport text-white font-bold bg-gray-900 px-4 md:px-6 py-2 md:py-3 rounded-lg border border-gray-600 shadow-inner flex-1 text-center mx-2 md:mx-6 flex justify-center items-center gap-2 md:gap-4">
+                        <span class="text-blue-400 w-1/3 text-right truncate">${s.nomeA}</span> 
+                        <span class="bg-black px-3 rounded-md text-yellow-400">${s.golA} - ${s.golB}</span> 
+                        <span class="text-red-400 w-1/3 text-left truncate">${s.nomeB}</span>
                     </div>
-                    <div class="text-[10px] md:text-xs text-yellow-400 font-bold text-right">MVP:<br><span class="text-white">${s.mvpNome}</span></div>
+                    <div class="text-[10px] md:text-sm text-yellow-400 font-bold text-right w-1/4 flex flex-col items-end">
+                        <span class="bg-yellow-900/40 px-2 py-0.5 rounded mb-1">⭐ MVP</span>
+                        <span class="text-white truncate">${s.mvpNome}</span>
+                    </div>
                 </div>
-            `).join('') || '<p class="text-gray-500 italic text-sm">Nessuna partita in archivio.</p>';
+            `).join('') || '<p class="text-gray-500 italic text-sm text-center py-4">Nessuna partita in archivio.</p>';
         }
 
         function renderMini(g, color) {
             return `
-                <div class="flex flex-col items-center">
-                    <img src="${g.foto}" onerror="this.onerror=null; this.src='${fallbackImg}';" class="w-10 h-10 md:w-14 md:h-14 rounded-full object-cover border-2 ${color} bg-black shadow-lg z-10">
-                    <span class="text-[9px] md:text-[11px] bg-black/90 text-white font-bold px-1.5 py-0.5 rounded -mt-2 md:-mt-3 z-20 border border-gray-700 whitespace-nowrap">${g.nome}</span>
+                <div class="flex flex-col items-center hover-scale">
+                    <img src="${g.foto}" onerror="this.onerror=null; this.src='${fallbackImg}';" class="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover border-2 md:border-4 ${color} bg-black shadow-xl z-10">
+                    <span class="text-[9px] md:text-xs bg-black/95 text-white font-bold px-2 md:px-3 py-1 rounded -mt-3 md:-mt-4 z-20 border border-gray-600 whitespace-nowrap shadow-lg">${g.nome}</span>
                 </div>
             `;
         }
@@ -420,14 +432,19 @@
         window.condividiFormazioni = function() {
             if(!DB.matchAttivo) return;
             const m = DB.matchAttivo;
-            let text = `⚽ *PARTITA FANTACALCETTO* ⚽\n📅 ${m.data}\n📍 ${m.campo}\n\n`;
-            text += `🔵 *${m.nomeA}*\n` + m.sqA.map(g => `- ${g.nome}`).join('\n') + `\n\n`;
-            text += `🔴 *${m.nomeB}*\n` + m.sqB.map(g => `- ${g.nome}`).join('\n');
+            let text = `⚽ *PARTITA FANTACALCETTO* ⚽\n\n`;
+            text += `📅 *Data:* ${m.data}\n`;
+            text += `📍 *Luogo:* ${m.campo}\n\n`;
+            text += `🔵 *${m.nomeA.toUpperCase()}*\n`;
+            m.sqA.forEach(g => text += `  - ${g.nome}\n`);
+            text += `\n🔴 *${m.nomeB.toUpperCase()}*\n`;
+            m.sqB.forEach(g => text += `  - ${g.nome}\n`);
+            text += `\n🔥 Preparatevi!`;
             
             navigator.clipboard.writeText(text).then(() => {
-                alert("Formazioni copiate! Ora puoi incollarle su WhatsApp.");
+                showToast("Dati copiati! Incolla su WhatsApp e allega lo screen.");
             }).catch(err => {
-                alert("Errore nella copia: " + err);
+                showToast("Errore nella copia.", "error");
             });
         }
 
@@ -437,7 +454,7 @@
                 <div class="fc-card hover-scale">
                     <div class="fc-card-top flex justify-center items-end pt-3">
                         <div class="fc-bg-pattern"></div>
-                        <div class="absolute top-3 left-3 text-center z-20 flex flex-col items-center">
+                        <div class="absolute top-2 left-2 md:top-3 md:left-3 text-center z-20 flex flex-col items-center">
                             <span class="text-3xl md:text-4xl font-bold font-fc text-yellow-500 drop-shadow-md leading-none">${getOverall(g)}</span>
                             <span class="text-[10px] md:text-xs font-bold text-gray-300 uppercase tracking-widest drop-shadow">${g.ruolo}</span>
                         </div>
@@ -445,13 +462,13 @@
                     </div>
                     <div class="px-2 pb-3 bg-gradient-to-b from-[#1a1a1a] to-black z-20 flex-1 flex flex-col justify-end">
                         <h4 class="text-center font-bold text-sm md:text-base text-yellow-500 uppercase tracking-widest mb-1 mt-1 font-fc border-b border-yellow-700/50 pb-1 truncate drop-shadow-sm">${g.nome}</h4>
-                        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] md:text-xs font-fc text-gray-300 px-1">
-                            <div class="flex justify-between items-center"><span class="text-gray-500">GOL</span><span class="text-white font-bold text-sm">${g.gol}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">VIN</span><span class="text-white font-bold text-sm">${g.vinte}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">ASS</span><span class="text-white font-bold text-sm">${g.assist}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">PAR</span><span class="text-white font-bold text-sm">${g.pareggiate}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">MVP</span><span class="text-white font-bold text-sm">${g.mvp}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">PER</span><span class="text-white font-bold text-sm">${g.perse}</span></div>
+                        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] md:text-sm font-fc text-gray-300 px-1">
+                            <div class="flex justify-between items-center"><span class="text-gray-500">GOL</span><span class="text-white font-bold">${g.gol}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">VIN</span><span class="text-white font-bold">${g.vinte}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">ASS</span><span class="text-white font-bold">${g.assist}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">PAR</span><span class="text-white font-bold">${g.pareggiate}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">MVP</span><span class="text-white font-bold">${g.mvp}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500">PER</span><span class="text-white font-bold">${g.perse}</span></div>
                         </div>
                     </div>
                 </div>
@@ -459,7 +476,7 @@
         }
 
         function renderClassifiche() {
-            const row = (g, i, val, color) => `<div class="flex justify-between items-center bg-gray-800/50 p-2 rounded-lg border-l-2 border-${color}-400"><span class="font-bold text-sm text-gray-300">${i+1}. ${g.nome}</span><span class="font-bold font-sport text-${color}-400 text-lg">${val}</span></div>`;
+            const row = (g, i, val, color) => `<div class="flex justify-between items-center bg-gray-800/80 p-3 md:p-4 rounded-xl border-l-4 border-${color}-400 shadow-md"><span class="font-bold text-sm md:text-base text-gray-300">${i+1}. ${g.nome}</span><span class="font-bold font-sport text-${color}-400 text-xl md:text-2xl">${val}</span></div>`;
             document.getElementById('rank-gol').innerHTML = [...DB.giocatori].sort((a,b)=>b.gol-a.gol).slice(0,5).map((g,i)=>row(g,i,g.gol,'yellow')).join('');
             document.getElementById('rank-assist').innerHTML = [...DB.giocatori].sort((a,b)=>b.assist-a.assist).slice(0,5).map((g,i)=>row(g,i,g.assist,'blue')).join('');
             document.getElementById('rank-mvp').innerHTML = [...DB.giocatori].sort((a,b)=>b.mvp-a.mvp).slice(0,5).map((g,i)=>row(g,i,g.mvp,'purple')).join('');
@@ -479,44 +496,58 @@
                 document.getElementById('admin-login').classList.add('hidden');
                 document.getElementById('admin-dashboard').classList.remove('hidden');
                 popolaAdminArea();
-            } else alert('Password Errata!');
+                showToast("Accesso Autorizzato");
+            } else {
+                showToast("Password Errata!", "error");
+            }
         }
 
         function popolaAdminArea() {
             // Selettori Giocatori
             const optsGiocatori = '<option value="">-- Seleziona Giocatore --</option>' + DB.giocatori.map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
             document.getElementById('admin-edit-player').innerHTML = optsGiocatori;
-            document.getElementById('edit-foto-id').innerHTML = optsGiocatori;
-
+            
             // Selettori Campi
             const optsCampi = DB.campi.map(c => `<option value="${c.nome}">${c.nome}</option>`).join('');
             document.getElementById('admin-org-campo').innerHTML = optsCampi;
-            document.getElementById('edit-campo-id').innerHTML = optsCampi;
 
-            // Checkbox organizzazione partita
+            // Checkbox organizzazione
             document.getElementById('admin-check-giocatori').innerHTML = DB.giocatori.map(g => `
-                <label class="flex items-center gap-1 bg-gray-900 p-1 rounded border border-gray-700 cursor-pointer text-[10px] text-white">
-                    <input type="checkbox" value="${g.id}" class="admin-gioc-chk" checked> <span class="truncate">${g.nome}</span>
+                <label class="flex items-center gap-2 bg-gray-900 p-2 rounded-lg border border-gray-700 cursor-pointer text-[10px] md:text-xs text-white hover:border-yellow-500 transition">
+                    <input type="checkbox" value="${g.id}" class="admin-gioc-chk w-3 h-3 md:w-4 md:h-4" checked> <span class="truncate">${g.nome}</span>
                 </label>
             `).join('');
 
-            // Storico
+            // Storico (con Cestino)
             document.getElementById('admin-lista-storico').innerHTML = DB.storico.map((s, idx) => `
-                <div class="flex justify-between items-center bg-gray-900 p-1.5 rounded border border-gray-700">
-                    <span class="text-xs text-white truncate">${s.data} - ${s.nomeA} vs ${s.nomeB}</span>
-                    <button onclick="adminEliminaPartita(${idx})" class="text-red-500 font-bold text-xs bg-red-950 px-2 py-1 rounded">X Cancella</button>
+                <div class="flex justify-between items-center bg-gray-900 p-2 md:p-3 rounded-lg border border-gray-700">
+                    <span class="text-[10px] md:text-xs text-white truncate w-3/4">${s.data} - ${s.nomeA} vs ${s.nomeB}</span>
+                    <button onclick="adminEliminaPartita(${idx})" class="text-red-500 hover:text-white font-bold text-xs md:text-sm bg-red-950/50 hover:bg-red-700 px-3 py-1.5 rounded transition">🗑️ Elimina</button>
                 </div>
             `).join('') || '<span class="text-xs text-gray-500">Nessuna partita passata.</span>';
 
-            // Area Scambio/Spostamento Giocatori
+            // Liste Cancellazione Giocatori e Campi
+            document.getElementById('admin-lista-del-giocatori').innerHTML = DB.giocatori.map(g => `
+                <div class="flex justify-between items-center bg-gray-900 p-2 rounded-lg border border-gray-700">
+                    <span class="text-xs text-white">${g.nome}</span>
+                    <button onclick="adminEliminaGiocatore(${g.id})" class="text-red-500 hover:text-white bg-red-950/50 hover:bg-red-700 p-1.5 rounded transition">🗑️</button>
+                </div>
+            `).join('');
+            
+            document.getElementById('admin-lista-del-campi').innerHTML = DB.campi.map(c => `
+                <div class="flex justify-between items-center bg-gray-900 p-2 rounded-lg border border-gray-700">
+                    <span class="text-xs text-white">${c.nome}</span>
+                    <button onclick="adminEliminaCampo('${c.nome}')" class="text-red-500 hover:text-white bg-red-950/50 hover:bg-red-700 p-1.5 rounded transition">🗑️</button>
+                </div>
+            `).join('');
+
+            // Area Scambio
             const swapArea = document.getElementById('admin-swap-area');
             if(DB.matchAttivo) {
                 swapArea.classList.remove('hidden');
-                document.getElementById('swap-player-a').innerHTML = '<option value="">-- Seleziona da Sq. A --</option>' + DB.matchAttivo.sqA.map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
-                document.getElementById('swap-player-b').innerHTML = '<option value="">-- Seleziona da Sq. B --</option>' + DB.matchAttivo.sqB.map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
-            } else {
-                swapArea.classList.add('hidden');
-            }
+                document.getElementById('swap-player-a').innerHTML = '<option value="">-- Da Sq. A --</option>' + DB.matchAttivo.sqA.map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
+                document.getElementById('swap-player-b').innerHTML = '<option value="">-- Da Sq. B --</option>' + DB.matchAttivo.sqB.map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
+            } else { swapArea.classList.add('hidden'); }
 
             // Tabellino
             const tabellinoBox = document.getElementById('admin-tabellino-container');
@@ -525,103 +556,135 @@
             } else {
                 const m = DB.matchAttivo;
                 tabellinoBox.innerHTML = `
-                    <div class="grid grid-cols-2 gap-2 text-sm text-black mb-4">
-                        <div><label class="text-xs text-white">${m.nomeA} (Gol Totali)</label><input type="number" id="tab-gol-a" value="0" class="w-full p-2 rounded border text-center font-bold"></div>
-                        <div><label class="text-xs text-white">${m.nomeB} (Gol Totali)</label><input type="number" id="tab-gol-b" value="0" class="w-full p-2 rounded border text-center font-bold"></div>
+                    <div class="grid grid-cols-2 gap-4 text-sm text-black mb-4">
+                        <div><label class="text-xs text-white mb-1 block">${m.nomeA} (Gol Totali)</label><input type="number" id="tab-gol-a" value="0" class="w-full p-2 rounded-lg border text-center font-bold focus:outline-none"></div>
+                        <div><label class="text-xs text-white mb-1 block">${m.nomeB} (Gol Totali)</label><input type="number" id="tab-gol-b" value="0" class="w-full p-2 rounded-lg border text-center font-bold focus:outline-none"></div>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="space-y-1">
-                            <h5 class="text-[10px] font-bold text-blue-400">Sq. A</h5>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="space-y-2">
+                            <h5 class="text-[10px] md:text-xs font-bold text-blue-400 bg-blue-900/20 p-1 text-center rounded">Sq. A</h5>
                             ${m.sqA.map(g => `
-                                <div class="bg-gray-900 p-1 rounded flex items-center gap-1 text-black">
-                                    <span class="text-[10px] text-white w-12 truncate">${g.nome}</span>
-                                    <input type="number" id="gol_${g.id}" placeholder="Gol" class="w-10 p-1 text-[10px] rounded" min="0">
-                                    <input type="number" id="ass_${g.id}" placeholder="Ass" class="w-10 p-1 text-[10px] rounded" min="0">
+                                <div class="bg-gray-900 p-1.5 md:p-2 rounded flex items-center gap-1 text-black justify-between">
+                                    <span class="text-[10px] md:text-xs text-white w-12 md:w-16 truncate">${g.nome}</span>
+                                    <input type="number" id="gol_${g.id}" placeholder="Gol" class="w-10 md:w-12 p-1 text-[10px] rounded focus:outline-none" min="0">
+                                    <input type="number" id="ass_${g.id}" placeholder="Ass" class="w-10 md:w-12 p-1 text-[10px] rounded focus:outline-none" min="0">
                                 </div>`).join('')}
                         </div>
-                        <div class="space-y-1">
-                            <h5 class="text-[10px] font-bold text-red-400">Sq. B</h5>
+                        <div class="space-y-2">
+                            <h5 class="text-[10px] md:text-xs font-bold text-red-400 bg-red-900/20 p-1 text-center rounded">Sq. B</h5>
                             ${m.sqB.map(g => `
-                                <div class="bg-gray-900 p-1 rounded flex items-center gap-1 text-black">
-                                    <span class="text-[10px] text-white w-12 truncate">${g.nome}</span>
-                                    <input type="number" id="gol_${g.id}" placeholder="Gol" class="w-10 p-1 text-[10px] rounded" min="0">
-                                    <input type="number" id="ass_${g.id}" placeholder="Ass" class="w-10 p-1 text-[10px] rounded" min="0">
+                                <div class="bg-gray-900 p-1.5 md:p-2 rounded flex items-center gap-1 text-black justify-between">
+                                    <span class="text-[10px] md:text-xs text-white w-12 md:w-16 truncate">${g.nome}</span>
+                                    <input type="number" id="gol_${g.id}" placeholder="Gol" class="w-10 md:w-12 p-1 text-[10px] rounded focus:outline-none" min="0">
+                                    <input type="number" id="ass_${g.id}" placeholder="Ass" class="w-10 md:w-12 p-1 text-[10px] rounded focus:outline-none" min="0">
                                 </div>`).join('')}
                         </div>
                     </div>
-                    <div class="mt-4 pt-2 border-t border-gray-700">
-                        <select id="tab-mvp-id" class="w-full p-2 rounded text-sm text-black mb-2">
+                    <div class="mt-4 pt-3 border-t border-gray-700">
+                        <select id="tab-mvp-id" class="w-full p-3 rounded-lg text-sm text-black mb-3 focus:outline-none">
                             <option value="">-- Seleziona MVP --</option>
                             ${[...m.sqA, ...m.sqB].map(g => `<option value="${g.id}">${g.nome}</option>`).join('')}
                         </select>
-                        <button onclick="adminSalvaTabellino()" class="w-full bg-yellow-600 text-black font-bold py-2 rounded">ARCHIVIA RISULTATO</button>
+                        <button onclick="adminSalvaTabellino()" class="w-full bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-3 rounded-lg shadow-lg transition">ARCHIVIA RISULTATO</button>
                     </div>
                 `;
             }
         }
 
-        // --- FUNZIONI AGGIUNTA E MODIFICA ---
+        // --- GESTIONE NUOVO EDITOR STATISTICHE (Intuitivo con +/-) ---
+        let playerInEditing = null;
+
+        window.caricaStatisticheGiocatore = function() {
+            const id = document.getElementById('admin-edit-player').value;
+            const form = document.getElementById('edit-player-stats');
+            const hint = document.getElementById('edit-player-hint');
+            
+            if(!id) { form.classList.add('hidden'); hint.classList.add('hidden'); playerInEditing = null; return; }
+            
+            playerInEditing = DB.giocatori.find(x => x.id == id);
+            const stats = ['gol', 'assist', 'mvp', 'vinte', 'pareggiate', 'perse'];
+            const labels = ['Gol', 'Assist', 'MVP', 'Vinte', 'Pari', 'Perse'];
+            
+            form.innerHTML = stats.map((stat, i) => `
+                <div class="flex flex-col items-center justify-between bg-gray-900 p-2 md:p-3 rounded-lg border border-gray-700 shadow-inner">
+                    <span class="text-gray-400 text-[10px] md:text-xs font-bold uppercase mb-2 tracking-wider">${labels[i]}</span>
+                    <div class="flex items-center gap-3">
+                        <button onclick="modificaStatDinamica(-1, '${stat}')" class="bg-red-600 hover:bg-red-500 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold flex items-center justify-center shadow transition">-</button>
+                        <span id="edit-val-${stat}" class="text-white font-sport text-lg md:text-xl w-6 md:w-8 text-center">${playerInEditing[stat]}</span>
+                        <button onclick="modificaStatDinamica(1, '${stat}')" class="bg-green-600 hover:bg-green-500 text-white w-6 h-6 md:w-8 md:h-8 rounded-full font-bold flex items-center justify-center shadow transition">+</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            form.classList.remove('hidden');
+            hint.classList.remove('hidden');
+        }
+
+        window.modificaStatDinamica = function(delta, statKey) {
+            if(!playerInEditing) return;
+            // Evita valori negativi
+            playerInEditing[statKey] = Math.max(0, playerInEditing[statKey] + delta);
+            document.getElementById(`edit-val-${statKey}`).innerText = playerInEditing[statKey];
+            salvaDB();
+            aggiornaUI(); // Mantiene i tab e aggiorna le classifiche dietro le quinte
+        }
+
+        // --- GESTIONE DATABASE (Aggiunta/Eliminazione) ---
         function adminAggiungiGiocatore() {
             const nome = document.getElementById('add-gioc-nome').value;
             const ruolo = document.getElementById('add-gioc-ruolo').value;
             const foto = document.getElementById('add-gioc-foto').value || fallbackImg;
             const por = document.getElementById('add-gioc-por').checked;
-
-            if(!nome) return alert("Inserisci il nome del giocatore!");
-            const nuovoId = DB.giocatori.length > 0 ? Math.max(...DB.giocatori.map(g=>g.id)) + 1 : 1;
+            if(!nome) return showToast("Inserisci il nome del giocatore!", "error");
             
+            const nuovoId = DB.giocatori.length > 0 ? Math.max(...DB.giocatori.map(g=>g.id)) + 1 : 1;
             DB.giocatori.push({ id: nuovoId, nome, ruolo, foto, por, gol:0, assist:0, mvp:0, vinte:0, pareggiate:0, perse:0 });
-            salvaDB(); aggiornaUI(); alert(`Giocatore ${nome} aggiunto con successo!`);
-            document.getElementById('add-gioc-nome').value = '';
-            document.getElementById('add-gioc-foto').value = '';
+            salvaDB(); aggiornaUI(); showToast(`Giocatore ${nome} aggiunto!`);
+            document.getElementById('add-gioc-nome').value = ''; document.getElementById('add-gioc-foto').value = '';
         }
 
-        function adminModificaFotoGiocatore() {
-            const id = document.getElementById('edit-foto-id').value;
-            const url = document.getElementById('edit-foto-url').value;
-            if(!id || !url) return alert("Seleziona un giocatore e inserisci l'URL o nome file!");
-            
-            const g = DB.giocatori.find(x => x.id == id);
-            if(g) { g.foto = url; salvaDB(); aggiornaUI(); alert("Foto giocatore aggiornata!"); }
+        window.adminEliminaGiocatore = function(id) {
+            if(confirm("Attenzione: Sei sicuro di voler ELIMINARE questo giocatore in modo permanente?")) {
+                DB.giocatori = DB.giocatori.filter(g => g.id !== id);
+                // Rimuove anche i voti MVP associati per sicurezza
+                delete DB.votiMVP[id];
+                salvaDB(); aggiornaUI(); showToast("Giocatore eliminato!");
+            }
         }
 
         function adminAggiungiCampo() {
             const nome = document.getElementById('add-campo-nome').value;
             const img = document.getElementById('add-campo-foto').value;
-            if(!nome || !img) return alert("Inserisci nome e file immagine del campo!");
+            if(!nome || !img) return showToast("Inserisci nome e file immagine!", "error");
+            if(DB.campi.find(c => c.nome.toLowerCase() === nome.toLowerCase())) return showToast("Campo già esistente!", "error");
             
-            if(DB.campi.find(c => c.nome.toLowerCase() === nome.toLowerCase())) return alert("Campo già esistente!");
-            
-            DB.campi.push({ nome, img });
-            DB.votiCampo[nome] = 0;
-            salvaDB(); aggiornaUI(); alert(`Campo ${nome} aggiunto!`);
-            document.getElementById('add-campo-nome').value = '';
-            document.getElementById('add-campo-foto').value = '';
+            DB.campi.push({ nome, img }); DB.votiCampo[nome] = 0;
+            salvaDB(); aggiornaUI(); showToast(`Campo ${nome} aggiunto!`);
+            document.getElementById('add-campo-nome').value = ''; document.getElementById('add-campo-foto').value = '';
         }
 
-        function adminModificaFotoCampo() {
-            const nome = document.getElementById('edit-campo-id').value;
-            const img = document.getElementById('edit-campo-url').value;
-            if(!nome || !img) return alert("Seleziona un campo e inserisci il nuovo nome file!");
-            
-            const c = DB.campi.find(x => x.nome === nome);
-            if(c) { c.img = img; salvaDB(); aggiornaUI(); alert("Foto campo aggiornata!"); }
+        window.adminEliminaCampo = function(nome) {
+            if(confirm(`Attenzione: Sei sicuro di voler ELIMINARE il campo ${nome}?`)) {
+                DB.campi = DB.campi.filter(c => c.nome !== nome);
+                delete DB.votiCampo[nome];
+                salvaDB(); aggiornaUI(); showToast("Campo eliminato!");
+            }
         }
 
-        // --- LOGICA PARTITA E SONDAGGI ---
+        // --- SONDAGGI E PARTITA ---
         function adminCreaSondaggio() {
             const orari = document.getElementById('admin-sond-orari').value.split(',').map(s=>s.trim()).filter(s=>s);
             if(orari.length) DB.sondaggioOrari = orari;
             DB.campi.forEach(c => DB.votiCampo[c.nome] = 0);
             DB.votiOrari = {}; DB.votiMVP = {};
             Object.keys(localStorage).forEach(k => { if(k.startsWith('voto_')) localStorage.removeItem(k); });
-            salvaDB(); aggiornaUI(); alert('Nuovo Sondaggio Pubblicato! Voti locali azzerati.');
+            salvaDB(); aggiornaUI(); showToast('Nuovo Sondaggio Pubblicato!');
         }
 
         function adminOrganizzaPartita() {
             const checks = document.querySelectorAll('.admin-gioc-chk:checked');
-            // MODIFICA: Ora accetta almeno 8 giocatori per consentire squadre dispari o più piccole (es. 4v4, 5v4)
-            if(checks.length < 8) return alert('Devi selezionare ALMENO 8 giocatori per giocare (minimo 4 per squadra)!');
+            // Come richiesto: Nessun avviso rigido se sono dispari, solo che siano almeno 4vs4 (8) per poter giocare.
+            if(checks.length < 8) return showToast('Seleziona almeno 8 giocatori!', 'error');
             
             const ids = Array.from(checks).map(c => parseInt(c.value));
             let presenti = DB.giocatori.filter(g => ids.includes(g.id)).sort((a,b)=>getOverall(b)-getOverall(a));
@@ -635,43 +698,30 @@
                 nomeB: document.getElementById('admin-nome-b').value || 'Squadra B',
                 sqA, sqB
             };
-            salvaDB(); aggiornaUI(); alert('Formazioni Generate! Ora puoi spostare o scambiare liberamente i giocatori nel riquadro sottostante.');
+            salvaDB(); aggiornaUI(); showToast('Formazioni Generate!');
         }
 
-        // NUOVA LOGICA: Sposta o Scambia i giocatori dinamicamente
         window.adminAzioneGiocatori = function(azione) {
             if(!DB.matchAttivo) return;
-            
-            const selA = document.getElementById('swap-player-a').value;
-            const selB = document.getElementById('swap-player-b').value;
-            const idA = selA ? parseInt(selA) : null;
-            const idB = selB ? parseInt(selB) : null;
-
+            const idA = parseInt(document.getElementById('swap-player-a').value);
+            const idB = parseInt(document.getElementById('swap-player-b').value);
             const idxA = idA ? DB.matchAttivo.sqA.findIndex(g => g.id === idA) : -1;
             const idxB = idB ? DB.matchAttivo.sqB.findIndex(g => g.id === idB) : -1;
 
             if (azione === 'scambia') {
-                if(idxA === -1 || idxB === -1) return alert("Per scambiare devi selezionare un giocatore da ENTRAMBE le squadre!");
-                const temp = DB.matchAttivo.sqA[idxA];
-                DB.matchAttivo.sqA[idxA] = DB.matchAttivo.sqB[idxB];
-                DB.matchAttivo.sqB[idxB] = temp;
-                alert("Scambio effettuato!");
+                if(idxA === -1 || idxB === -1) return showToast("Seleziona da ENTRAMBE le squadre!", "error");
+                const temp = DB.matchAttivo.sqA[idxA]; DB.matchAttivo.sqA[idxA] = DB.matchAttivo.sqB[idxB]; DB.matchAttivo.sqB[idxB] = temp;
+                showToast("Scambio effettuato!");
             } else if (azione === 'spostaB') {
-                if(idxA === -1) return alert("Seleziona un giocatore della Squadra A da spostare in B!");
-                if(DB.matchAttivo.sqA.length <= 4) return alert("La Squadra A non può avere meno di 4 giocatori!");
-                const g = DB.matchAttivo.sqA.splice(idxA, 1)[0];
-                DB.matchAttivo.sqB.push(g);
-                alert(`${g.nome} spostato in Squadra B!`);
+                if(idxA === -1) return showToast("Seleziona un giocatore in A!", "error");
+                DB.matchAttivo.sqB.push(DB.matchAttivo.sqA.splice(idxA, 1)[0]);
+                showToast("Spostato in B!");
             } else if (azione === 'spostaA') {
-                if(idxB === -1) return alert("Seleziona un giocatore della Squadra B da spostare in A!");
-                if(DB.matchAttivo.sqB.length <= 4) return alert("La Squadra B non può avere meno di 4 giocatori!");
-                const g = DB.matchAttivo.sqB.splice(idxB, 1)[0];
-                DB.matchAttivo.sqA.push(g);
-                alert(`${g.nome} spostato in Squadra A!`);
+                if(idxB === -1) return showToast("Seleziona un giocatore in B!", "error");
+                DB.matchAttivo.sqA.push(DB.matchAttivo.sqB.splice(idxB, 1)[0]);
+                showToast("Spostato in A!");
             }
-
-            salvaDB(); 
-            aggiornaUI(); 
+            salvaDB(); aggiornaUI(); 
         };
 
         function adminSalvaTabellino() {
@@ -697,32 +747,15 @@
             DB.storico.unshift({ data: DB.matchAttivo.data, campo: DB.matchAttivo.campo, nomeA: DB.matchAttivo.nomeA, nomeB: DB.matchAttivo.nomeB, golA, golB, mvpNome });
             DB.matchAttivo = null; DB.votiMVP = {};
             Object.keys(localStorage).forEach(k => { if(k === 'voto_mvp_fatto') localStorage.removeItem(k); });
-            salvaDB(); aggiornaUI(); alert('Tabellino archiviato!'); closeAdmin();
+            salvaDB(); aggiornaUI(); showToast('Referto Archiviato con Successo!'); closeAdmin();
         }
 
-        function caricaStatisticheGiocatore() {
-            const id = document.getElementById('admin-edit-player').value;
-            const form = document.getElementById('edit-player-stats');
-            if(!id) { form.classList.add('hidden'); return; }
-            const g = DB.giocatori.find(x => x.id == id);
-            document.getElementById('edit-gol').value = g.gol; document.getElementById('edit-assist').value = g.assist;
-            document.getElementById('edit-mvp').value = g.mvp; document.getElementById('edit-vinte').value = g.vinte;
-            document.getElementById('edit-pari').value = g.pareggiate; document.getElementById('edit-perse').value = g.perse;
-            form.classList.remove('hidden');
-        }
-
-        function salvaStatisticheGiocatore() {
-            const id = document.getElementById('admin-edit-player').value;
-            const g = DB.giocatori.find(x => x.id == id);
-            if(!g) return;
-            g.gol = parseInt(document.getElementById('edit-gol').value) || 0; g.assist = parseInt(document.getElementById('edit-assist').value) || 0;
-            g.mvp = parseInt(document.getElementById('edit-mvp').value) || 0; g.vinte = parseInt(document.getElementById('edit-vinte').value) || 0;
-            g.pareggiate = parseInt(document.getElementById('edit-pari').value) || 0; g.perse = parseInt(document.getElementById('edit-perse').value) || 0;
-            salvaDB(); aggiornaUI(); alert('Statistiche aggiornate!');
-        }
-
-        function adminEliminaPartita(idx) {
-            if(confirm('Vuoi cancellare questa partita? (Statistiche giocatori invariate)')) { DB.storico.splice(idx, 1); salvaDB(); aggiornaUI(); }
+        window.adminEliminaPartita = function(idx) {
+            if(confirm('Vuoi cancellare questa partita dallo storico? (Le statistiche dei giocatori NON verranno abbassate)')) { 
+                DB.storico.splice(idx, 1); 
+                salvaDB(); aggiornaUI(); 
+                showToast("Partita eliminata dallo storico.");
+            }
         }
 
         window.onload = aggiornaUI;
