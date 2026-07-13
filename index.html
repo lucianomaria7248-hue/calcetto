@@ -587,8 +587,13 @@
             }).join('');
         }
 
-        // --- RENDER TOTW SU CAMPO E ALBO CON COPPIA (CORRETTO) ---
+    
+        // --- RENDER TOTW SU CAMPO E ALBO CON COPPIA (VERSIONE BLINDATA) ---
         function renderAlboTotw() {
+            // Immagine di sicurezza nel caso non esista fallbackImg nel tuo codice
+            let defaultImg = typeof fallbackImg !== 'undefined' ? fallbackImg : 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+
+            // --- PARTE 1: SQUADRA DELLA SETTIMANA (TOTW) ---
             try {
                 let portieri = DB.giocatori.filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
                 let movimento = DB.giocatori.filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
@@ -596,7 +601,10 @@
                 
                 const totwCont = document.getElementById('totw-container');
                 if(totwCont && typeof buildTotwPitch === 'function') {
-                    let imgPitch = getImgCampo('Default'); 
+                    // Cerca l'immagine del campo, se la funzione non c'è usa uno sfondo di default
+                    let imgPitch = 'https://images.unsplash.com/photo-1518605368461-1ee7c68dc365?auto=format&fit=crop&q=80';
+                    if(typeof getImgCampo === 'function') { imgPitch = getImgCampo('Default') || imgPitch; }
+                    
                     totwCont.innerHTML = `
                         <div class="w-full relative overflow-hidden bg-cover bg-center rounded-xl p-4 flex flex-col justify-around min-h-[500px]" style="background-image: url('${imgPitch}');">
                             <div class="absolute inset-0 bg-black/50"></div>
@@ -607,35 +615,45 @@
                         </div>
                     `;
                 }
+            } catch (e) {
+                console.error("Errore nel render TOTW: ", e);
+            }
 
+            // --- PARTE 2: ALBO D'ORO (PREMI STORICI) ---
+            try {
                 // 1. Calcolo Miglior Coppia
                 let coppie = {};
-                DB.storico.forEach(match => {
-                    const addC = (sq, haVinto) => {
-                        if(!haVinto) return;
-                        for(let i=0; i<sq.length; i++){
-                            for(let j=i+1; j<sq.length; j++){
-                                let k = sq[i].id < sq[j].id ? `${sq[i].id}-${sq[j].id}` : `${sq[j].id}-${sq[i].id}`;
-                                coppie[k] = (coppie[k]||0) + 1;
+                if(DB.storico) {
+                    DB.storico.forEach(match => {
+                        const addC = (sq, haVinto) => {
+                            if(!haVinto || !sq) return;
+                            for(let i=0; i<sq.length; i++){
+                                for(let j=i+1; j<sq.length; j++){
+                                    let k = sq[i].id < sq[j].id ? `${sq[i].id}-${sq[j].id}` : `${sq[j].id}-${sq[i].id}`;
+                                    coppie[k] = (coppie[k]||0) + 1;
+                                }
                             }
-                        }
-                    };
-                    addC(match.sqA, match.golA > match.golB);
-                    addC(match.sqB, match.golB > match.golA);
-                });
+                        };
+                        addC(match.sqA, match.golA > match.golB);
+                        addC(match.sqB, match.golB > match.golA);
+                    });
+                }
+                
                 let maxVittorie = 0, bestCoppiaKey = null;
                 for(let k in coppie) { if(coppie[k] > maxVittorie) { maxVittorie = coppie[k]; bestCoppiaKey = k; } }
                 
                 let htmlCoppia = '';
                 if(bestCoppiaKey && maxVittorie > 0) {
                     let ids = bestCoppiaKey.split('-');
-                    let g1 = DB.giocatori.find(x=>x.id==ids[0]); let g2 = DB.giocatori.find(x=>x.id==ids[1]);
+                    let g1 = DB.giocatori.find(x=>x.id==ids[0]); 
+                    let g2 = DB.giocatori.find(x=>x.id==ids[1]);
+                    
                     if(g1 && g2) {
                         htmlCoppia = `
-                        <div class="bg-gray-800 p-4 rounded-xl border border-pink-600/50 flex items-center gap-4 shadow-lg md:col-span-2 lg:col-span-1">
+                        <div class="bg-gray-800 p-4 rounded-xl border border-pink-600/50 flex items-center gap-4 shadow-lg md:col-span-2 lg:col-span-1 hover-scale">
                             <div class="flex -space-x-4">
-                                <img src="${g1.foto||fallbackImg}" onerror="this.src=fallbackImg" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-10">
-                                <img src="${g2.foto||fallbackImg}" onerror="this.src=fallbackImg" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-0">
+                                <img src="${g1.foto||defaultImg}" onerror="this.src='${defaultImg}'" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-10">
+                                <img src="${g2.foto||defaultImg}" onerror="this.src='${defaultImg}'" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-0">
                             </div>
                             <div>
                                 <h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Miglior Coppia 👯‍♂️</h4>
@@ -652,17 +670,25 @@
                 const mxG = getBest(DB.giocatori, 'gol'); 
                 const mxA = getBest(DB.giocatori, 'assist'); 
                 
-                // Stacanovista (Più presenze: Vinte + Perse + Pareggiate)
                 const stacanovista = [...DB.giocatori].sort((a,b) => 
                     ((b.vinte||0) + (b.perse||0) + (b.pareggiate||0)) - ((a.vinte||0) + (a.perse||0) + (a.pareggiate||0))
                 )[0];
                 const presenzeStac = stacanovista ? ((stacanovista.vinte||0) + (stacanovista.perse||0) + (stacanovista.pareggiate||0)) : 0;
 
-                // Il Muro (Portiere con più rigori parati)
                 const mxRigori = [...DB.giocatori].filter(g => g.por || (g.rigoriParati||0) > 0).sort((a,b)=>(b.rigoriParati||0)-(a.rigoriParati||0))[0];
 
-                // Funzione sicura per stampare i premi (con i colori fissi per farli leggere a Tailwind)
-                const cAlbo = (titolo, g, sStr, tCol, bCol, imgCol) => g ? `<div class="bg-gray-800 p-4 rounded-xl border ${bCol} flex items-center gap-4 shadow-lg hover-scale"><img src="${g.foto||fallbackImg}" onerror="this.src=fallbackImg" class="w-12 h-12 rounded-full border-2 ${imgCol} object-cover"><div class="flex-1 min-w-0"><h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider truncate">${titolo}</h4><p class="text-base font-bold text-white leading-tight truncate">${g.nome}</p><p class="text-xs font-sport ${tCol} mt-0.5">${sStr}</p></div></div>` : '';
+                // Card Template
+                const cAlbo = (titolo, g, sStr, tCol, bCol, imgCol) => {
+                    if (!g) return '';
+                    return `<div class="bg-gray-800 p-4 rounded-xl border ${bCol} flex items-center gap-4 shadow-lg hover-scale">
+                        <img src="${g.foto||defaultImg}" onerror="this.src='${defaultImg}'" class="w-12 h-12 rounded-full border-2 ${imgCol} object-cover">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider truncate">${titolo}</h4>
+                            <p class="text-base font-bold text-white leading-tight truncate">${g.nome}</p>
+                            <p class="text-xs font-sport ${tCol} mt-0.5">${sStr}</p>
+                        </div>
+                    </div>`;
+                };
 
                 const alC = document.getElementById('albo-container');
                 if(alC) {
@@ -674,7 +700,7 @@
                         htmlCoppia;
                 }
             } catch (e) {
-                console.error("Errore nel renderAlboTotw: ", e);
+                console.error("Errore nel render Albo d'Oro: ", e);
             }
         }
 
