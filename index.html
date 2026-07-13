@@ -594,7 +594,7 @@
             
             const totwCont = document.getElementById('totw-container');
             if(totwCont) {
-                let imgPitch = getImgCampo('Default'); // user can't pick field for TOTW, use generic
+                let imgPitch = getImgCampo('Default'); // Usa campo base per il TOTW
                 totwCont.innerHTML = `
                     <div class="w-full relative overflow-hidden bg-cover bg-center rounded-xl p-4 flex flex-col justify-around min-h-[500px]" style="background-image: url('${imgPitch}');">
                         <div class="absolute inset-0 bg-black/50"></div>
@@ -606,7 +606,7 @@
                 `;
             }
 
-            // Calcolo Miglior Coppia
+            // 1. Calcolo Miglior Coppia (Giocatori che hanno vinto più match insieme)
             let coppie = {};
             DB.storico.forEach(match => {
                 const addC = (sq, haVinto) => {
@@ -625,7 +625,7 @@
             for(let k in coppie) { if(coppie[k] > maxVittorie) { maxVittorie = coppie[k]; bestCoppiaKey = k; } }
             
             let htmlCoppia = '';
-            if(bestCoppiaKey) {
+            if(bestCoppiaKey && maxVittorie > 0) {
                 let ids = bestCoppiaKey.split('-');
                 let g1 = DB.giocatori.find(x=>x.id==ids[0]); let g2 = DB.giocatori.find(x=>x.id==ids[1]);
                 if(g1 && g2) {
@@ -644,22 +644,64 @@
                 }
             }
 
-            const getBest = (arr, stat) => [...arr].sort((a,b)=>b[stat]-a[stat])[0];
-            const mxV = getBest(DB.giocatori, 'vinte'); const mxS = getBest(DB.giocatori, 'perse');
-            const mxG = getBest(DB.giocatori, 'gol'); const mxA = getBest(DB.giocatori, 'assist');
+            // 2. Calcolo Statistiche Individuali Albo d'Oro
+            const mxG = [...DB.giocatori].sort((a,b)=>b.gol-a.gol)[0]; // Bomber
+            const mxA = [...DB.giocatori].sort((a,b)=>b.assist-a.assist)[0]; // Assist Man
             
-            const cAlbo = (titolo, g, sStr) => g ? `<div class="bg-gray-800 p-4 rounded-xl border border-yellow-600/50 flex items-center gap-4 shadow-lg"><img src="${g.foto||fallbackImg}" class="w-12 h-12 rounded-full border-2 border-yellow-500 object-cover"><div class="flex-1 min-w-0"><h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider truncate">${titolo}</h4><p class="text-base font-bold text-white leading-tight truncate">${g.nome}</p><p class="text-xs font-sport text-yellow-400 mt-0.5">${sStr}</p></div></div>` : '';
+            // Stacanovista (Più presenze calcolate: vinte + perse + pari)
+            const stacanovista = [...DB.giocatori].sort((a,b) => 
+                ((b.vinte + b.perse + b.pareggiate) - (a.vinte + a.perse + a.pareggiate))
+            )[0];
+            const presenzeStac = stacanovista ? (stacanovista.vinte + stacanovista.perse + stacanovista.pareggiate) : 0;
 
+            // Il Muro (Portiere con più rigori parati)
+            const mxRigori = [...DB.giocatori].filter(g => g.por || g.rigoriParati > 0).sort((a,b)=>b.rigoriParati-a.rigoriParati)[0];
+
+            // Funzione per generare la card premio con colore dinamico
+            const cAlbo = (titolo, g, sStr, colore) => g ? `<div class="bg-gray-800 p-4 rounded-xl border border-${colore}-600/50 flex items-center gap-4 shadow-lg"><img src="${g.foto||fallbackImg}" class="w-12 h-12 rounded-full border-2 border-${colore}-500 object-cover"><div class="flex-1 min-w-0"><h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider truncate">${titolo}</h4><p class="text-base font-bold text-white leading-tight truncate">${g.nome}</p><p class="text-xs font-sport text-${colore}-400 mt-0.5">${sStr}</p></div></div>` : '';
+
+            // Renderizza i premi nella griglia
             const alC = document.getElementById('albo-container');
-            if(alC) alC.innerHTML = cAlbo('Leader Vittorie 🏆', mxV, mxV?.vinte + ' Vinte') + cAlbo('Capocannoniere ⚽', mxG, mxG?.gol + ' Gol') + cAlbo('Uomo Assist 👟', mxA, mxA?.assist + ' Assist') + htmlCoppia + cAlbo('Cucchiaio Legno 💀', mxS, mxS?.perse + ' Sconfitte');
+            if(alC) {
+                alC.innerHTML = 
+                    cAlbo('Bomber ⚽', mxG, (mxG?.gol || 0) + ' Gol Totali', 'yellow') + 
+                    cAlbo('Assist Man 👟', mxA, (mxA?.assist || 0) + ' Assist Totali', 'blue') + 
+                    cAlbo('Stacanovista 🏃‍♂️', stacanovista, presenzeStac + ' Presenze', 'green') +
+                    cAlbo('Il Muro 🧤', mxRigori, (mxRigori?.rigoriParati || 0) + ' Rigori Parati', 'red') +
+                    htmlCoppia;
+            }
         }
 
+        // --- RENDER CLASSIFICHE TOP 10 (AGGIORNATO) ---
         function renderClassifiche() {
-            const rGol = document.getElementById('rank-gol'); const rAss = document.getElementById('rank-assist'); const rMvp = document.getElementById('rank-mvp');
+            const rGol = document.getElementById('rank-gol'); 
+            const rAss = document.getElementById('rank-assist'); 
+            const rMvp = document.getElementById('rank-mvp');
+            
             if(!rGol || !rAss || !rMvp) return;
-            const r = (arr, stat, col, sym) => [...arr].sort((a,b)=>b[stat]-a[stat]||getOverall(b)-getOverall(a)).slice(0,10).map((g,i)=>`<div class="flex justify-between items-center bg-gray-800/50 p-2 rounded-xl border border-gray-700/40"><div class="flex items-center gap-2"><span class="font-bold text-xs text-gray-500 w-4">${i+1}.</span><span class="font-bold text-sm text-white">${g.nome}</span></div><span class="font-bold text-sm text-${col}-400 font-mono">${g[stat]} ${sym}</span></div>`).join('') || '<p class="text-gray-500 text-xs">Dati assenti.</p>';
-            rGol.innerHTML = r(DB.giocatori, 'gol', 'yellow', 'G');
-            rAss.innerHTML = r(DB.giocatori, 'assist', 'blue', 'A');
+            
+            // Funzione riutilizzabile per renderizzare liste (Mostra solo se valore > 0 o mostra tutti, ordinato desc)
+            const r = (arr, stat, col, sym) => {
+                let classifica = [...arr]
+                    .filter(g => g[stat] > 0) // Mostra in classifica solo se ha almeno 1 in quella statistica
+                    .sort((a,b)=>b[stat]-a[stat] || getOverall(b)-getOverall(a))
+                    .slice(0, 10);
+                
+                if (classifica.length === 0) return '<p class="text-gray-500 text-xs italic py-2">Ancora nessun dato registrato.</p>';
+
+                return classifica.map((g, i) => `
+                    <div class="flex justify-between items-center bg-gray-800/50 p-2 rounded-xl border border-gray-700/40 hover-scale">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-xs text-gray-500 w-4">${i+1}.</span>
+                            <span class="font-bold text-sm text-white">${g.nome}</span>
+                        </div>
+                        <span class="font-bold text-sm text-${col}-400 font-mono">${g[stat]} ${sym}</span>
+                    </div>
+                `).join('');
+            };
+
+            rGol.innerHTML = r(DB.giocatori, 'gol', 'yellow', 'Gol');
+            rAss.innerHTML = r(DB.giocatori, 'assist', 'blue', 'Ass');
             rMvp.innerHTML = r(DB.giocatori, 'mvp', 'purple', '⭐');
         }
 
