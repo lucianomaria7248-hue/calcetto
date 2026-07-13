@@ -587,122 +587,131 @@
             }).join('');
         }
 
+        // --- RENDER TOTW SU CAMPO E ALBO CON COPPIA (CORRETTO) ---
         function renderAlboTotw() {
-            let portieri = DB.giocatori.filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
-            let movimento = DB.giocatori.filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
-            let totw = [portieri[0], ...movimento.slice(0,4)].filter(Boolean);
-            
-            const totwCont = document.getElementById('totw-container');
-            if(totwCont) {
-                let imgPitch = getImgCampo('Default'); // Usa campo base per il TOTW
-                totwCont.innerHTML = `
-                    <div class="w-full relative overflow-hidden bg-cover bg-center rounded-xl p-4 flex flex-col justify-around min-h-[500px]" style="background-image: url('${imgPitch}');">
-                        <div class="absolute inset-0 bg-black/50"></div>
-                        <div class="absolute inset-0 border-2 border-white/20 m-4 rounded"></div>
-                        <div class="relative z-10 flex flex-col justify-between h-full py-4 gap-4">
-                            ${buildTotwPitch(totw)}
+            try {
+                let portieri = DB.giocatori.filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
+                let movimento = DB.giocatori.filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
+                let totw = [portieri[0], ...movimento.slice(0,4)].filter(Boolean);
+                
+                const totwCont = document.getElementById('totw-container');
+                if(totwCont && typeof buildTotwPitch === 'function') {
+                    let imgPitch = getImgCampo('Default'); 
+                    totwCont.innerHTML = `
+                        <div class="w-full relative overflow-hidden bg-cover bg-center rounded-xl p-4 flex flex-col justify-around min-h-[500px]" style="background-image: url('${imgPitch}');">
+                            <div class="absolute inset-0 bg-black/50"></div>
+                            <div class="absolute inset-0 border-2 border-white/20 m-4 rounded"></div>
+                            <div class="relative z-10 flex flex-col justify-between h-full py-4 gap-4">
+                                ${buildTotwPitch(totw)}
+                            </div>
                         </div>
-                    </div>
-                `;
-            }
-
-            // 1. Calcolo Miglior Coppia (Giocatori che hanno vinto più match insieme)
-            let coppie = {};
-            DB.storico.forEach(match => {
-                const addC = (sq, haVinto) => {
-                    if(!haVinto) return;
-                    for(let i=0; i<sq.length; i++){
-                        for(let j=i+1; j<sq.length; j++){
-                            let k = sq[i].id < sq[j].id ? `${sq[i].id}-${sq[j].id}` : `${sq[j].id}-${sq[i].id}`;
-                            coppie[k] = (coppie[k]||0) + 1;
-                        }
-                    }
-                };
-                addC(match.sqA, match.golA > match.golB);
-                addC(match.sqB, match.golB > match.golA);
-            });
-            let maxVittorie = 0, bestCoppiaKey = null;
-            for(let k in coppie) { if(coppie[k] > maxVittorie) { maxVittorie = coppie[k]; bestCoppiaKey = k; } }
-            
-            let htmlCoppia = '';
-            if(bestCoppiaKey && maxVittorie > 0) {
-                let ids = bestCoppiaKey.split('-');
-                let g1 = DB.giocatori.find(x=>x.id==ids[0]); let g2 = DB.giocatori.find(x=>x.id==ids[1]);
-                if(g1 && g2) {
-                    htmlCoppia = `
-                    <div class="bg-gray-800 p-4 rounded-xl border border-pink-600/50 flex items-center gap-4 shadow-lg md:col-span-2 lg:col-span-1">
-                        <div class="flex -space-x-4">
-                            <img src="${g1.foto||fallbackImg}" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-10">
-                            <img src="${g2.foto||fallbackImg}" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-0">
-                        </div>
-                        <div>
-                            <h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Miglior Coppia 👯‍♂️</h4>
-                            <p class="text-sm font-bold text-white leading-tight">${g1.nome} & ${g2.nome}</p>
-                            <p class="text-xs font-sport text-pink-400 mt-0.5">${maxVittorie} Vittorie Insieme</p>
-                        </div>
-                    </div>`;
+                    `;
                 }
-            }
 
-            // 2. Calcolo Statistiche Individuali Albo d'Oro
-            const mxG = [...DB.giocatori].sort((a,b)=>b.gol-a.gol)[0]; // Bomber
-            const mxA = [...DB.giocatori].sort((a,b)=>b.assist-a.assist)[0]; // Assist Man
-            
-            // Stacanovista (Più presenze calcolate: vinte + perse + pari)
-            const stacanovista = [...DB.giocatori].sort((a,b) => 
-                ((b.vinte + b.perse + b.pareggiate) - (a.vinte + a.perse + a.pareggiate))
-            )[0];
-            const presenzeStac = stacanovista ? (stacanovista.vinte + stacanovista.perse + stacanovista.pareggiate) : 0;
+                // 1. Calcolo Miglior Coppia
+                let coppie = {};
+                DB.storico.forEach(match => {
+                    const addC = (sq, haVinto) => {
+                        if(!haVinto) return;
+                        for(let i=0; i<sq.length; i++){
+                            for(let j=i+1; j<sq.length; j++){
+                                let k = sq[i].id < sq[j].id ? `${sq[i].id}-${sq[j].id}` : `${sq[j].id}-${sq[i].id}`;
+                                coppie[k] = (coppie[k]||0) + 1;
+                            }
+                        }
+                    };
+                    addC(match.sqA, match.golA > match.golB);
+                    addC(match.sqB, match.golB > match.golA);
+                });
+                let maxVittorie = 0, bestCoppiaKey = null;
+                for(let k in coppie) { if(coppie[k] > maxVittorie) { maxVittorie = coppie[k]; bestCoppiaKey = k; } }
+                
+                let htmlCoppia = '';
+                if(bestCoppiaKey && maxVittorie > 0) {
+                    let ids = bestCoppiaKey.split('-');
+                    let g1 = DB.giocatori.find(x=>x.id==ids[0]); let g2 = DB.giocatori.find(x=>x.id==ids[1]);
+                    if(g1 && g2) {
+                        htmlCoppia = `
+                        <div class="bg-gray-800 p-4 rounded-xl border border-pink-600/50 flex items-center gap-4 shadow-lg md:col-span-2 lg:col-span-1">
+                            <div class="flex -space-x-4">
+                                <img src="${g1.foto||fallbackImg}" onerror="this.src=fallbackImg" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-10">
+                                <img src="${g2.foto||fallbackImg}" onerror="this.src=fallbackImg" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-0">
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Miglior Coppia 👯‍♂️</h4>
+                                <p class="text-sm font-bold text-white leading-tight">${g1.nome} & ${g2.nome}</p>
+                                <p class="text-xs font-sport text-pink-400 mt-0.5">${maxVittorie} Vittorie Insieme</p>
+                            </div>
+                        </div>`;
+                    }
+                }
 
-            // Il Muro (Portiere con più rigori parati)
-            const mxRigori = [...DB.giocatori].filter(g => g.por || g.rigoriParati > 0).sort((a,b)=>b.rigoriParati-a.rigoriParati)[0];
+                // 2. Calcolo Statistiche Individuali Albo d'Oro
+                const getBest = (arr, stat) => [...arr].sort((a,b)=>(b[stat]||0)-(a[stat]||0))[0];
+                
+                const mxG = getBest(DB.giocatori, 'gol'); 
+                const mxA = getBest(DB.giocatori, 'assist'); 
+                
+                // Stacanovista (Più presenze: Vinte + Perse + Pareggiate)
+                const stacanovista = [...DB.giocatori].sort((a,b) => 
+                    ((b.vinte||0) + (b.perse||0) + (b.pareggiate||0)) - ((a.vinte||0) + (a.perse||0) + (a.pareggiate||0))
+                )[0];
+                const presenzeStac = stacanovista ? ((stacanovista.vinte||0) + (stacanovista.perse||0) + (stacanovista.pareggiate||0)) : 0;
 
-            // Funzione per generare la card premio con colore dinamico
-            const cAlbo = (titolo, g, sStr, colore) => g ? `<div class="bg-gray-800 p-4 rounded-xl border border-${colore}-600/50 flex items-center gap-4 shadow-lg"><img src="${g.foto||fallbackImg}" class="w-12 h-12 rounded-full border-2 border-${colore}-500 object-cover"><div class="flex-1 min-w-0"><h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider truncate">${titolo}</h4><p class="text-base font-bold text-white leading-tight truncate">${g.nome}</p><p class="text-xs font-sport text-${colore}-400 mt-0.5">${sStr}</p></div></div>` : '';
+                // Il Muro (Portiere con più rigori parati)
+                const mxRigori = [...DB.giocatori].filter(g => g.por || (g.rigoriParati||0) > 0).sort((a,b)=>(b.rigoriParati||0)-(a.rigoriParati||0))[0];
 
-            // Renderizza i premi nella griglia
-            const alC = document.getElementById('albo-container');
-            if(alC) {
-                alC.innerHTML = 
-                    cAlbo('Bomber ⚽', mxG, (mxG?.gol || 0) + ' Gol Totali', 'yellow') + 
-                    cAlbo('Assist Man 👟', mxA, (mxA?.assist || 0) + ' Assist Totali', 'blue') + 
-                    cAlbo('Stacanovista 🏃‍♂️', stacanovista, presenzeStac + ' Presenze', 'green') +
-                    cAlbo('Il Muro 🧤', mxRigori, (mxRigori?.rigoriParati || 0) + ' Rigori Parati', 'red') +
-                    htmlCoppia;
+                // Funzione sicura per stampare i premi (con i colori fissi per farli leggere a Tailwind)
+                const cAlbo = (titolo, g, sStr, tCol, bCol, imgCol) => g ? `<div class="bg-gray-800 p-4 rounded-xl border ${bCol} flex items-center gap-4 shadow-lg hover-scale"><img src="${g.foto||fallbackImg}" onerror="this.src=fallbackImg" class="w-12 h-12 rounded-full border-2 ${imgCol} object-cover"><div class="flex-1 min-w-0"><h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider truncate">${titolo}</h4><p class="text-base font-bold text-white leading-tight truncate">${g.nome}</p><p class="text-xs font-sport ${tCol} mt-0.5">${sStr}</p></div></div>` : '';
+
+                const alC = document.getElementById('albo-container');
+                if(alC) {
+                    alC.innerHTML = 
+                        cAlbo('Bomber ⚽', mxG, (mxG?.gol || 0) + ' Gol Totali', 'text-yellow-400', 'border-yellow-600/50', 'border-yellow-500') + 
+                        cAlbo('Assist Man 👟', mxA, (mxA?.assist || 0) + ' Assist Totali', 'text-blue-400', 'border-blue-600/50', 'border-blue-500') + 
+                        cAlbo('Stacanovista 🏃‍♂️', stacanovista, presenzeStac + ' Presenze', 'text-green-400', 'border-green-600/50', 'border-green-500') +
+                        cAlbo('Il Muro 🧤', mxRigori, (mxRigori?.rigoriParati || 0) + ' Rigori Parati', 'text-red-400', 'border-red-600/50', 'border-red-500') +
+                        htmlCoppia;
+                }
+            } catch (e) {
+                console.error("Errore nel renderAlboTotw: ", e);
             }
         }
 
-        // --- RENDER CLASSIFICHE TOP 10 (AGGIORNATO) ---
+        // --- RENDER CLASSIFICHE TOP 10 (CORRETTO) ---
         function renderClassifiche() {
-            const rGol = document.getElementById('rank-gol'); 
-            const rAss = document.getElementById('rank-assist'); 
-            const rMvp = document.getElementById('rank-mvp');
-            
-            if(!rGol || !rAss || !rMvp) return;
-            
-            // Funzione riutilizzabile per renderizzare liste (Mostra solo se valore > 0 o mostra tutti, ordinato desc)
-            const r = (arr, stat, col, sym) => {
-                let classifica = [...arr]
-                    .filter(g => g[stat] > 0) // Mostra in classifica solo se ha almeno 1 in quella statistica
-                    .sort((a,b)=>b[stat]-a[stat] || getOverall(b)-getOverall(a))
-                    .slice(0, 10);
+            try {
+                const rGol = document.getElementById('rank-gol'); 
+                const rAss = document.getElementById('rank-assist'); 
+                const rMvp = document.getElementById('rank-mvp');
                 
-                if (classifica.length === 0) return '<p class="text-gray-500 text-xs italic py-2">Ancora nessun dato registrato.</p>';
+                if(!rGol || !rAss || !rMvp) return;
+                
+                // Funzione per generare lista (senza filtri sui dati a zero)
+                const r = (arr, stat, testColorClass, sym) => {
+                    let classifica = [...arr]
+                        .sort((a,b)=>(b[stat]||0)-(a[stat]||0) || getOverall(b)-getOverall(a))
+                        .slice(0, 10); // Prende la top 10
+                    
+                    if (classifica.length === 0) return '<p class="text-gray-500 text-xs italic py-2">Nessun giocatore registrato.</p>';
 
-                return classifica.map((g, i) => `
-                    <div class="flex justify-between items-center bg-gray-800/50 p-2 rounded-xl border border-gray-700/40 hover-scale">
-                        <div class="flex items-center gap-2">
-                            <span class="font-bold text-xs text-gray-500 w-4">${i+1}.</span>
-                            <span class="font-bold text-sm text-white">${g.nome}</span>
+                    return classifica.map((g, i) => `
+                        <div class="flex justify-between items-center bg-gray-800/50 p-2 rounded-xl border border-gray-700/40 hover-scale">
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-xs text-gray-500 w-4">${i+1}.</span>
+                                <span class="font-bold text-sm text-white">${g.nome}</span>
+                            </div>
+                            <span class="font-bold text-sm ${testColorClass} font-mono">${g[stat]||0} ${sym}</span>
                         </div>
-                        <span class="font-bold text-sm text-${col}-400 font-mono">${g[stat]} ${sym}</span>
-                    </div>
-                `).join('');
-            };
+                    `).join('');
+                };
 
-            rGol.innerHTML = r(DB.giocatori, 'gol', 'yellow', 'Gol');
-            rAss.innerHTML = r(DB.giocatori, 'assist', 'blue', 'Ass');
-            rMvp.innerHTML = r(DB.giocatori, 'mvp', 'purple', '⭐');
+                rGol.innerHTML = r(DB.giocatori, 'gol', 'text-yellow-400', 'Gol');
+                rAss.innerHTML = r(DB.giocatori, 'assist', 'text-blue-400', 'Ass');
+                rMvp.innerHTML = r(DB.giocatori, 'mvp', 'text-purple-400', '⭐');
+            } catch (e) {
+                console.error("Errore nel renderClassifiche: ", e);
+            }
         }
 
         // --- ADMIN AREA COMPLETA ---
