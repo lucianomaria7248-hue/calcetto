@@ -29,7 +29,7 @@
             flex-direction: column;
         }
         .fc-card.totw-card {
-            border-color: #3b82f6; /* Blu per TOTW */
+            border-color: #3b82f6;
             box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2), 0 8px 15px rgba(0, 0, 0, 0.8);
         }
         .fc-card:hover { transform: scale(1.05); border-color: #fce68f; box-shadow: inset 0 0 25px rgba(212, 175, 55, 0.3), 0 12px 25px rgba(0, 0, 0, 0.9); }
@@ -43,10 +43,11 @@
         .fc-card:hover::before { left: 150%; }
 
         .fc-card-top { position: relative; height: 140px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); overflow: hidden; }
-        .fc-bg-pattern { position: absolute; inset: 0; background-image: radial-gradient(#d4af37 1px, transparent 1px); background-size: 10px 10px; opacity: 0.1; }
         
-        .pitch-container { background-size: cover; background-position: center; border-radius: 16px; position: relative; }
-        .pitch-overlay { background: linear-gradient(to bottom, rgba(16, 38, 16, 0.9), rgba(16, 38, 16, 0.7)); border: 2px solid rgba(255,255,255,0.2); }
+        /* Modifiche per Carte nel TOTW su Campetto */
+        .mini-card-container { width: 110px; flex-shrink: 0; }
+        .mini-card-container .fc-card-top { height: 100px; }
+        .mini-card-container img { height: 90px; }
         
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1f2937; }
@@ -80,25 +81,27 @@
 
     <main class="max-w-6xl mx-auto">
         
+        <!-- SEZIONE SONDAGGI -->
         <section id="tab-sondaggi" class="tab-content space-y-6">
             <h2 class="text-2xl font-bold text-white font-sport border-b border-gray-800 pb-2">🗳️ SONDAGGI LIVE</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="container-sondaggi"></div>
             
-            <h2 class="text-2xl font-bold text-yellow-400 font-sport border-b border-gray-800 pb-2 mt-10">⭐ VOTA L'MVP</h2>
+            <h2 class="text-2xl font-bold text-yellow-400 font-sport border-b border-gray-800 pb-2 mt-10">⭐ VOTA L'MVP DI SETTIMANA</h2>
             <div class="bg-gray-900 border border-yellow-700/50 p-6 rounded-2xl shadow-xl flex flex-col items-center">
                 <select id="voto-mvp-user" class="w-full max-w-md bg-gray-800 text-white p-3 rounded-xl border border-gray-700 font-bold mb-4 focus:outline-none"></select>
                 <button onclick="inviaVotoMVP()" class="w-full max-w-md bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold px-8 py-3 rounded-xl shadow-lg hover-scale">Registra Voto MVP</button>
-                <div id="risultati-mvp" class="w-full max-w-md mt-4 space-y-2 text-xs"></div>
+                <div id="risultati-mvp" class="w-full max-w-md mt-6 space-y-2 text-xs"></div>
             </div>
         </section>
 
+        <!-- SEZIONE PARTITE -->
         <section id="tab-partite" class="tab-content hidden space-y-8">
             <div>
-                <h2 class="text-2xl font-bold text-green-400 font-sport border-b border-gray-800 pb-2 mb-4">🔜 PROSSIMA PARTITA</h2>
+                <h2 class="text-2xl font-bold text-green-400 font-sport border-b border-gray-800 pb-2 mb-4">🔜 FORMAZIONI UFFICIALI (LIVE)</h2>
                 <div id="prossima-partita-box" class="bg-gray-900 border border-gray-700 p-1 rounded-2xl shadow-2xl relative overflow-hidden mb-4"></div>
                 <div id="share-whatsapp-box" class="text-center hidden">
                     <button onclick="condividiFormazioni()" class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition flex items-center justify-center mx-auto gap-2 text-sm">
-                        Invia Convocazione su WhatsApp
+                        Invia Formazioni su WhatsApp
                     </button>
                 </div>
             </div>
@@ -109,22 +112,25 @@
             </div>
         </section>
 
+        <!-- SEZIONE GIOCATORI -->
         <section id="tab-giocatori" class="tab-content hidden">
             <h2 class="text-2xl font-bold text-white font-sport border-b border-gray-800 pb-2 mb-6">🎴 DATABASE GIOCATORI</h2>
             <div id="cards-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"></div>
         </section>
 
+        <!-- SEZIONE ALBO D'ORO & TOTW -->
         <section id="tab-albo" class="tab-content hidden space-y-8">
             <div>
                 <h2 class="text-2xl font-bold text-blue-400 font-sport border-b border-gray-800 pb-2 mb-4">🔥 SQUADRA DELLA SETTIMANA (TOTW)</h2>
-                <div id="totw-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"></div>
+                <div id="totw-container" class="bg-gray-900 border border-gray-700 p-1 rounded-2xl shadow-2xl"></div>
             </div>
             <div>
-                <h2 class="text-2xl font-bold text-yellow-400 font-sport border-b border-gray-800 pb-2 mb-4">🏆 ALBO D'ORO</h2>
+                <h2 class="text-2xl font-bold text-yellow-400 font-sport border-b border-gray-800 pb-2 mb-4">🏆 ALBO D'ORO STORICO</h2>
                 <div id="albo-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             </div>
         </section>
 
+        <!-- SEZIONE CLASSIFICHE -->
         <section id="tab-classifiche" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="bg-gray-900 p-5 rounded-2xl border border-gray-800"><h3 class="text-lg font-bold text-yellow-400 font-sport mb-3">⚽ TOP MARCATORI</h3><div id="rank-gol" class="space-y-2"></div></div>
             <div class="bg-gray-900 p-5 rounded-2xl border border-gray-800"><h3 class="text-lg font-bold text-blue-400 font-sport mb-3">👟 TOP ASSIST</h3><div id="rank-assist" class="space-y-2"></div></div>
@@ -132,6 +138,7 @@
         </section>
     </main>
 
+    <!-- MODALE DETTAGLI MATCH -->
     <div id="match-detail-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
         <div class="bg-gray-900 border border-yellow-700/50 rounded-2xl max-w-3xl w-full p-4 md:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeMatchDetail()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">&times;</button>
@@ -140,14 +147,15 @@
         </div>
     </div>
 
+    <!-- MODALE ADMIN -->
     <div id="admin-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center hidden p-2 md:p-4">
         <div class="bg-gray-900 border border-gray-700 rounded-2xl max-w-4xl w-full p-4 md:p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto">
             <button onclick="closeAdmin()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold z-50">&times;</button>
             
             <div id="admin-login" class="space-y-4 text-center mt-4">
-                <h3 class="text-2xl font-bold text-red-500 font-sport">ACCESSO ADMIN</h3>
+                <h3 class="text-2xl font-bold text-red-500 font-sport">ACCESSO AMMINISTRATORE</h3>
                 <input type="password" id="admin-pass" placeholder="Password..." class="w-full max-w-sm bg-gray-800 text-white p-3 rounded-xl border border-gray-700 text-center text-lg outline-none">
-                <button onclick="verificaAdmin()" class="block w-full max-w-sm mx-auto bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition">Sblocca</button>
+                <button onclick="verificaAdmin()" class="block w-full max-w-sm mx-auto bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition">Sblocca Pannello</button>
             </div>
 
             <div id="admin-dashboard" class="hidden space-y-6 mt-2">
@@ -156,67 +164,107 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div class="space-y-4">
                         <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                            <h4 class="font-bold text-white mb-2 text-sm">1. CREA SONDAGGIO ORARI</h4>
-                            <input type="text" id="admin-sond-orari" placeholder="Es: Lunedì 20:00, Giovedì 21:00" class="w-full bg-gray-900 p-3 text-sm rounded-lg border border-gray-600 mb-2 text-white outline-none">
-                            <button onclick="adminCreaSondaggio()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-3 rounded-lg">Pubblica Sondaggio</button>
+                            <h4 class="font-bold text-white mb-2 text-sm">1. CREA NUOVO SONDAGGIO ORARI</h4>
+                            <input type="text" id="admin-sond-orari" placeholder="Es: Lunedì 20:30, Giovedì 21:00" class="w-full bg-gray-900 p-3 text-sm rounded-lg border border-gray-600 mb-2 text-white outline-none">
+                            <button onclick="adminCreaSondaggio()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-3 rounded-lg">Pubblica Nuovo Sondaggio</button>
                         </div>
                         <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                            <h4 class="font-bold text-white mb-2 text-sm">2. ORGANIZZA PARTITA</h4>
-                            <input type="text" id="admin-org-ora" placeholder="Data/Orario" class="w-full p-2 rounded border mb-2 text-sm text-black">
-                            <select id="admin-org-campo" class="w-full p-2 rounded border mb-2 text-sm text-black"></select>
+                            <h4 class="font-bold text-white mb-2 text-sm">2. DRAFT E CREAZIONE PARTITA</h4>
+                            <input type="text" id="admin-org-ora" placeholder="Data e Ora (es. Lunedì ore 20:30)" class="w-full p-2 rounded border mb-2 text-sm text-black outline-none">
+                            <select id="admin-org-campo" class="w-full p-2 rounded border mb-2 text-sm text-black outline-none"></select>
                             <div class="flex gap-2 mb-2">
-                                <input type="text" id="admin-nome-a" placeholder="Sq. A" class="w-1/2 p-2 rounded border text-sm text-black" value="Squadra A">
-                                <input type="text" id="admin-nome-b" placeholder="Sq. B" class="w-1/2 p-2 rounded border text-sm text-black" value="Squadra B">
+                                <input type="text" id="admin-nome-a" placeholder="Nome Sq. A" class="w-1/2 p-2 rounded border text-sm text-black outline-none" value="Squadra Blu">
+                                <input type="text" id="admin-nome-b" placeholder="Nome Sq. B" class="w-1/2 p-2 rounded border text-sm text-black outline-none" value="Squadra Rossa">
                             </div>
-                            <div id="admin-check-giocatori" class="grid grid-cols-2 gap-1 mb-2 max-h-24 overflow-y-auto pr-1"></div>
-                            <button onclick="adminOrganizzaPartita()" class="w-full bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-4 py-3 rounded-lg mb-2">Genera Formazioni</button>
+                            <label class="text-xs text-gray-400 font-bold block mb-1">Seleziona i Giocatori Convocati:</label>
+                            <div id="admin-check-giocatori" class="grid grid-cols-2 gap-1 mb-2 max-h-32 overflow-y-auto pr-1 bg-gray-900 p-2 rounded border border-gray-700"></div>
+                            <button onclick="avviaBuilderMatch()" class="w-full bg-yellow-600 hover:bg-yellow-500 text-white text-xs font-bold px-4 py-3 rounded-lg mb-2">Avvia Composizione Formazioni</button>
+                            
+                            <!-- SEZIONE DRAFT HIDDEN INIZIALMENTE -->
+                            <div id="admin-match-builder" class="hidden mt-3 p-3 bg-gray-900 rounded border border-yellow-600/50">
+                                <p class="text-xs text-gray-300 font-bold mb-2 text-center">COMPONI LE SQUADRE (Scambia o Genera in base all'OVR)</p>
+                                <button onclick="generaSquadreOVR()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold py-2 rounded mb-2">Genera Automaticamente in base all'Overall</button>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-gray-800 p-2 rounded border border-blue-500/50 min-h-[100px]" id="draft-sq-a"></div>
+                                    <div class="bg-gray-800 p-2 rounded border border-red-500/50 min-h-[100px]" id="draft-sq-b"></div>
+                                </div>
+                                <button onclick="salvaPartitaDraft()" class="w-full mt-3 bg-green-600 hover:bg-green-500 text-white text-xs font-bold py-3 rounded">Pubblica Match Ufficiale</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                        <h4 class="font-bold text-yellow-400 mb-2">3. TABELLINO FINE PARTITA (O MODIFICA)</h4>
-                        <div id="admin-tabellino-container"></div>
+                    <div class="bg-gray-800 p-4 rounded-xl border border-gray-700 flex flex-col">
+                        <h4 class="font-bold text-yellow-400 mb-2 border-b border-gray-700 pb-1">3. COMPILAZIONE TABELLINO EVENTI</h4>
+                        <div id="admin-tabellino-container" class="flex-1 overflow-y-auto"></div>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                        <h4 class="font-bold text-purple-400 mb-4 border-b border-gray-700 pb-2">4. GESTIONE GIOCATORI</h4>
+                        <h4 class="font-bold text-purple-400 mb-4 border-b border-gray-700 pb-2">4. ANAGRAFICA GIOCATORI</h4>
                         <div class="mb-4 border border-gray-600 p-3 rounded-lg bg-gray-900/50">
-                            <h5 class="text-sm font-bold text-white mb-3" id="lbl-add-edit-giocatore">Aggiungi/Modifica Giocatore</h5>
+                            <h5 class="text-sm font-bold text-white mb-3" id="lbl-add-edit-giocatore">Aggiungi Nuovo Giocatore</h5>
                             <input type="hidden" id="edit-gioc-id" value="">
                             <div class="grid grid-cols-2 gap-2 mb-2">
                                 <input type="text" id="add-gioc-nome" placeholder="Nome" class="p-2 rounded text-sm text-black border outline-none">
                                 <select id="add-gioc-ruolo" class="p-2 rounded text-sm text-black border outline-none">
-                                    <option value="ATT">Attaccante</option><option value="CEN">Centrocampista</option>
-                                    <option value="DIF">Difensore</option><option value="POR">Portiere</option>
+                                    <option value="ATT">Attaccante</option>
+                                    <option value="CEN">Centrocampista</option>
+                                    <option value="DIF">Difensore</option>
+                                    <option value="POR">Portiere</option>
                                 </select>
                             </div>
-                            <input type="text" id="add-gioc-foto" placeholder="URL Foto" class="w-full p-2 rounded text-sm text-black border mb-2 outline-none">
-                            <label class="flex items-center text-sm text-white mb-3 gap-2"><input type="checkbox" id="add-gioc-por" class="w-4 h-4"> È un portiere principale?</label>
-                            <button onclick="adminSalvaGiocatore()" id="btn-salva-giocatore" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-3 rounded-lg">Salva Giocatore</button>
+                            <input type="text" id="add-gioc-foto" placeholder="URL Foto Giocatore" class="w-full p-2 rounded text-sm text-black border mb-2 outline-none">
+                            <label class="flex items-center text-sm text-white mb-3 gap-2 cursor-pointer"><input type="checkbox" id="add-gioc-por" class="w-4 h-4"> È un Portiere Principale?</label>
+                            <button onclick="adminSalvaGiocatore()" id="btn-salva-giocatore" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-3 rounded-lg">Crea Giocatore</button>
                             <button onclick="annullaModificaGiocatore()" id="btn-annulla-gioc" class="w-full bg-gray-600 hover:bg-gray-500 text-white text-xs font-bold py-2 mt-2 rounded-lg hidden">Annulla Modifica</button>
                         </div>
                         <div id="admin-lista-del-giocatori" class="space-y-1 max-h-32 overflow-y-auto pr-2"></div>
                     </div>
 
-                    <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                        <h4 class="font-bold text-white mb-4 border-b border-gray-700 pb-2">5. GESTIONE CAMPI</h4>
-                        <div class="mb-4 border border-gray-600 p-3 rounded-lg bg-gray-900/50">
-                            <input type="hidden" id="edit-campo-old-name" value="">
-                            <input type="text" id="add-campo-nome" placeholder="Nome Campo" class="w-full p-2 rounded text-sm text-black border mb-2">
-                            <input type="text" id="add-campo-foto" placeholder="URL Foto" class="w-full p-2 rounded text-sm text-black border mb-2">
-                            <button onclick="adminSalvaCampo()" id="btn-salva-campo" class="w-full bg-green-700 hover:bg-green-600 text-white text-xs font-bold py-3 rounded-lg">Salva Campo</button>
+                    <div class="space-y-4">
+                        <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
+                            <h4 class="font-bold text-white mb-2 border-b border-gray-700 pb-2">5. CONFIGURAZIONE CAMPI</h4>
+                            <div class="mb-2 border border-gray-600 p-2 rounded-lg bg-gray-900/50">
+                                <input type="hidden" id="edit-campo-old-name" value="">
+                                <input type="text" id="add-campo-nome" placeholder="Nome Campo" class="w-full p-2 rounded text-sm text-black border mb-2 outline-none">
+                                <input type="text" id="add-campo-foto" placeholder="URL Foto Sfondo Campo" class="w-full p-2 rounded text-sm text-black border mb-2 outline-none">
+                                <button onclick="adminSalvaCampo()" id="btn-salva-campo" class="w-full bg-green-700 hover:bg-green-600 text-white text-xs font-bold py-2 rounded-lg">Salva Campo</button>
+                            </div>
+                            <div id="admin-lista-del-campi" class="space-y-1 max-h-20 overflow-y-auto pr-2"></div>
                         </div>
-                        <div id="admin-lista-del-campi" class="space-y-1 max-h-24 overflow-y-auto pr-2"></div>
+
+                        <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
+                            <p class="text-sm text-red-400 mb-1 font-bold border-b border-gray-700 pb-2">6. RETRO-MODIFICA ARCHIVIO (STORICO)</p>
+                            <div id="admin-lista-storico" class="space-y-2 max-h-24 overflow-y-auto pr-2 mt-2"></div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- SEZIONE MODIFICHE RAPIDE -->
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <p class="text-sm text-red-400 mb-2 font-bold border-b border-gray-700 pb-2">6. STORICO PARTITE (Archivio)</p>
-                    <p class="text-xs text-gray-400 mb-2">Modificare una partita ricalcolerà automaticamente tutte le statistiche totali dei giocatori.</p>
-                    <div id="admin-lista-storico" class="space-y-2 max-h-40 overflow-y-auto pr-2 mt-3"></div>
+                    <h4 class="font-bold text-orange-400 mb-4 border-b border-gray-700 pb-2">7. MODIFICA RAPIDA STATISTICHE GLOBALI</h4>
+                    <div class="flex gap-2 mb-4">
+                        <select id="quick-edit-select" onchange="caricaModificaRapida()" class="w-full p-2 rounded text-sm text-black outline-none border">
+                            <option value="">-- Seleziona Giocatore per Sovrascrivere --</option>
+                        </select>
+                    </div>
+                    <div id="quick-edit-panel" class="hidden grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-900 p-3 rounded border border-gray-700">
+                        <div><label class="text-[10px] text-gray-400 block">Gol</label><input type="number" id="qe-gol" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        <div><label class="text-[10px] text-gray-400 block">Assist</label><input type="number" id="qe-assist" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        <div><label class="text-[10px] text-gray-400 block">Autogol</label><input type="number" id="qe-autogol" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        <div><label class="text-[10px] text-gray-400 block">Rig. Parati</label><input type="number" id="qe-rigori" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        <div><label class="text-[10px] text-gray-400 block">Vinte</label><input type="number" id="qe-vinte" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        <div><label class="text-[10px] text-gray-400 block">Perse</label><input type="number" id="qe-perse" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        <div><label class="text-[10px] text-gray-400 block">Pari</label><input type="number" id="qe-pari" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        <div><label class="text-[10px] text-gray-400 block">MVP</label><input type="number" id="qe-mvp" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        
+                        <div class="col-span-3 md:col-span-6 mt-2">
+                            <button onclick="salvaModificaRapida()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 rounded text-xs shadow-lg">SOVRASCRIVI STATISTICHE</button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -225,9 +273,12 @@
 
     <script>
         const fallbackImg = "https://placehold.co/200x200/1e293b/ffffff?text=FOTO";
-        let editStoricoIndex = -1; // Usato se stiamo modificando un match vecchio
+        let editStoricoIndex = -1;
+        let draftMatch = null;
 
-        // Toast
+        // Configurazione URL Google Apps Script
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRx9e6YyT8Sp0OQ3-49Jg1z6FTi4gFbGILOweC1s1jkpQsknqBsq1MLYiXgVsGz70ubw/exec";
+
         window.showToast = function(msg, type='success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -237,437 +288,576 @@
             setTimeout(() => toast.remove(), 3000);
         }
 
-        // Struttura Dati Iniziale (Aggiornata)
         const initData = {
             giocatori: [
-                { id: 1, nome: "Bonetti", ruolo: "DIF", gol: 0, assist: 0, autogol: 0, golSubiti: 0, rigoriParati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5129.jpg", por: false },
-                { id: 2, nome: "Schivonsky", ruolo: "POR", gol: 0, assist: 0, autogol: 0, golSubiti: 0, rigoriParati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5126.jpg", por: true }
-                // (Aggiungi gli altri qui o caricali da LocalStorage/Sheets)
+                { id: 1, nome: "Bonetti", ruolo: "DIF", gol: 4, assist: 2, autogol: 0, rigoriParati: 0, mvp: 1, vinte: 2, pareggiate: 0, perse: 1, foto: "", por: false },
+                { id: 2, nome: "Schivonsky", ruolo: "POR", gol: 0, assist: 1, autogol: 0, rigoriParati: 2, mvp: 2, vinte: 3, pareggiate: 0, perse: 0, foto: "", por: true }
             ],
             campi: [
-                { nome: "Ponte Rumito", img: "ponte-rumito.jpg" },
-                { nome: "Castelfranci", img: "castelfranci.jpg" }
+                { nome: "Ponte Rumito", img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=600" }
             ],
-            sondaggioOrari: ["Lunedì 20:30", "Giovedì 21:00"],
+            sondaggioOrari: ["Lunedì 20:30"],
             votiCampo: {}, votiOrari: {}, votiMVP: {},
-            matchAttivo: null,
-            storico: [] // Oggetti con { data, campo, nomeA, nomeB, golA, golB, mvpId, sqA: [], sqB: [], dettA: {}, dettB: {} }
+            matchAttivo: null, storico: []
         };
 
-        // Assicurati che i vecchi giocatori nel LocalStorage abbiano le nuove properties
-        let DB = JSON.parse(localStorage.getItem('fantaHubV7')) || initData;
-        DB.giocatori.forEach(g => {
-            if(g.autogol === undefined) { g.autogol = 0; g.golSubiti = 0; g.rigoriParati = 0; }
-        });
+        let DB = JSON.parse(localStorage.getItem('fantaHubV8')) || initData;
 
-        function getImgCampo(nome) { const c = DB.campi.find(x => x.nome === nome); return c ? c.img : fallbackImg; }
+        // SANIFICAZIONE: Rimuoviamo "golSubiti" definitivamente da tutto il DB
+        function sanificaDatabase() {
+            DB.giocatori.forEach(g => {
+                if(g.autogol === undefined) g.autogol = 0;
+                if(g.rigoriParati === undefined) g.rigoriParati = 0;
+                if(g.por === undefined) g.por = (g.ruolo === "POR");
+                delete g.golSubiti;
+            });
+            DB.storico.forEach(match => {
+                if(match.dettA) Object.values(match.dettA).forEach(d => delete d.golSubiti);
+                if(match.dettB) Object.values(match.dettB).forEach(d => delete d.golSubiti);
+            });
+            if(DB.matchAttivo) {
+                if(DB.matchAttivo.dettA) Object.values(DB.matchAttivo.dettA).forEach(d => delete d.golSubiti);
+                if(DB.matchAttivo.dettB) Object.values(DB.matchAttivo.dettB).forEach(d => delete d.golSubiti);
+            }
+            if(!DB.votiOrari) DB.votiOrari = {};
+            if(!DB.votiCampo) DB.votiCampo = {};
+            if(!DB.votiMVP) DB.votiMVP = {};
+            if(!DB.campi) DB.campi = initData.campi;
+        }
+        sanificaDatabase();
 
-        // --- SISTEMA OVERALL E PLAYSTYLES ---
+        function getImgCampo(nome) { 
+            const c = DB.campi.find(x => x.nome === nome); 
+            return c && c.img ? c.img : "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=600"; 
+        }
+
+        // --- CALCOLO OVERALL E PLAYSTYLES AGGIORNATI ---
         function getOverall(g) {
             let base = 65 + (g.vinte * 1.5) + (g.mvp * 2) - (g.perse * 0.5) - (g.autogol * 1);
-            if (g.por) { base += (g.rigoriParati * 2.5) - (g.golSubiti * 0.1) + (g.assist * 2) + (g.gol * 3); } 
-            else { base += (g.gol * 0.8) + (g.assist * 0.6); }
+            if (g.por) { 
+                base += (g.rigoriParati * 2.5) + (g.assist * 1.5) + (g.gol * 3); 
+            } else { 
+                base += (g.gol * 0.8) + (g.assist * 0.6); 
+            }
             return Math.min(Math.max(Math.round(base), 65), 99);
         }
 
         function getPlayStyles(g) {
             let icons = [];
-            if(g.gol >= 10 && !g.por) icons.push('<span title="Cecchino">🎯</span>');
-            if(g.assist >= 8) icons.push('<span title="Regista">👁️</span>');
+            if(g.gol >= 20 && !g.por) icons.push('<span title="Bomber Implacabile">🚀</span>');
+            else if(g.gol >= 10 && !g.por) icons.push('<span title="Cecchino">🎯</span>');
+            
+            if(g.assist >= 10) icons.push('<span title="Maestro degli Assist">🎩</span>');
+            else if(g.assist >= 5) icons.push('<span title="Regista Visionario">👁️</span>');
+            
             if(g.por && g.rigoriParati >= 2) icons.push('<span title="Saracinesca">🧤</span>');
-            if(g.autogol >= 2) icons.push('<span title="Sfortunato">🤡</span>');
-            if(g.mvp >= 3) icons.push('<span title="Trascinatore">👑</span>');
+            if(g.autogol >= 2) icons.push('<span title="Sfortuna Cronica">🤡</span>');
+            if(g.mvp >= 3) icons.push('<span title="Trascinatore Carismatico">👑</span>');
+            
+            if(g.vinte >= 10 && g.ruolo === 'DIF') icons.push('<span title="Muro Invalicabile">🧱</span>');
+            if(g.perse >= 5) icons.push('<span title="Cuore Impavido (Molte sconfitte)">❤️‍🩹</span>');
             return icons.join(' ');
         }
 
-        function switchTab(id) {
+        window.switchTab = function(id) {
             document.querySelectorAll('.tab-content').forEach(el => { el.classList.add('hidden'); el.classList.remove('animate-fade'); });
             const active = document.getElementById(`tab-${id}`);
-            active.classList.remove('hidden'); setTimeout(() => active.classList.add('animate-fade'), 10);
-            
+            if(active) { active.classList.remove('hidden'); setTimeout(() => active.classList.add('animate-fade'), 10); }
             document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('bg-gray-800', 'text-yellow-400'); b.classList.add('text-gray-400'); });
             const btn = document.getElementById(`btn-${id}`);
-            btn.classList.remove('text-gray-400'); btn.classList.add('bg-gray-800', 'text-yellow-400');
+            if(btn) { btn.classList.remove('text-gray-400'); btn.classList.add('bg-gray-800', 'text-yellow-400'); }
         }
 
         function aggiornaUI() {
             renderSondaggi(); renderPartite(); renderCarteFC(); renderAlboTotw(); renderClassifiche(); popolaAdminArea();
         }
 
-        // --- SONDAGGI --- (Logica Identica)
-        window.inviaVotoMVP = function() {
-            if(localStorage.getItem('voto_mvp_fatto')) return showToast('Hai già votato!', 'error');
-            const id = document.getElementById('voto-mvp-user').value;
-            if(!id) return; DB.votiMVP[id] = (DB.votiMVP[id] || 0) + 1;
-            localStorage.setItem('voto_mvp_fatto', 'si'); salvaDB(); aggiornaUI(); showToast('Voto registrato!');
+        // --- RENDER SONDAGGI ---
+        function renderSondaggi() {
+            const container = document.getElementById('container-sondaggi');
+            if (!container) return;
+            let totalOrariVoti = Object.values(DB.votiOrari).reduce((a, b) => a + b, 0) || 0;
+            let totalCampiVoti = Object.values(DB.votiCampo).reduce((a, b) => a + b, 0) || 0;
+
+            let htmlOrari = `<div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl"><h3 class="text-lg font-bold text-yellow-400 font-sport mb-4">⏰ DISPONIBILITÀ ORARI</h3><div class="space-y-4">`;
+            DB.sondaggioOrari.forEach(ora => {
+                let voti = DB.votiOrari[ora] || 0; let pct = totalOrariVoti > 0 ? Math.round((voti/totalOrariVoti)*100) : 0;
+                htmlOrari += `<div><div class="flex justify-between text-xs font-bold mb-1"><span>${ora}</span><span class="text-yellow-400">${voti} voti (${pct}%)</span></div><div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden flex items-center border border-gray-700"><div class="bg-gradient-to-r from-yellow-500 to-yellow-600 h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div></div><button onclick="votaOpzione('orari', '${ora}')" class="mt-2 text-[10px] bg-gray-800 hover:bg-gray-700 text-yellow-400 font-bold px-3 py-1 rounded-lg border border-yellow-700/30 transition">Vota Opzione</button></div>`;
+            }); htmlOrari += `</div></div>`;
+
+            let htmlCampi = `<div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl"><h3 class="text-lg font-bold text-blue-400 font-sport mb-4">🏟️ SCELTA DEL CAMPO</h3><div class="space-y-4">`;
+            DB.campi.forEach(c => {
+                let voti = DB.votiCampo[c.nome] || 0; let pct = totalCampiVoti > 0 ? Math.round((voti/totalCampiVoti)*100) : 0;
+                htmlCampi += `<div class="flex gap-3 items-center bg-gray-800/40 p-2 rounded-xl border border-gray-700/50"><img src="${c.img}" onerror="this.onerror=null; this.src=fallbackImg;" class="w-16 h-12 rounded-lg object-cover border border-gray-700"><div class="flex-1"><div class="flex justify-between text-xs font-bold mb-1"><span class="text-white">${c.nome}</span><span class="text-blue-400">${voti} voti (${pct}%)</span></div><div class="w-full bg-gray-800 rounded-full h-2 overflow-hidden border border-gray-700"><div class="bg-blue-500 h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div></div><button onclick="votaOpzione('campi', '${c.nome}')" class="mt-1.5 text-[10px] bg-gray-800 hover:bg-gray-700 text-blue-400 font-bold px-3 py-1 rounded-lg border border-blue-900/30 transition">Vota Campo</button></div></div>`;
+            }); htmlCampi += `</div></div>`;
+            container.innerHTML = htmlOrari + htmlCampi;
+
+            const selectMvp = document.getElementById('voto-mvp-user');
+            if (selectMvp) {
+                let opts = `<option value="">-- Seleziona Giocatore --</option>`;
+                [...DB.giocatori].sort((a,b)=>a.nome.localeCompare(b.nome)).forEach(g => { opts += `<option value="${g.id}">${g.nome} (${g.ruolo})</option>`; });
+                selectMvp.innerHTML = opts;
+            }
+
+            const rMvp = document.getElementById('risultati-mvp');
+            if (rMvp) {
+                let totMvp = Object.values(DB.votiMVP).reduce((a,b)=>a+b,0) || 0;
+                let sMvp = Object.entries(DB.votiMVP).sort((a,b)=>b[1]-a[1]);
+                if(sMvp.length === 0) rMvp.innerHTML = `<p class="text-gray-500 text-center py-2 italic">Nessun voto registrato.</p>`;
+                else rMvp.innerHTML = `<p class="text-white font-bold mb-1 uppercase tracking-wider text-[11px]">Voti Ricevuti:</p>` + sMvp.map(([id,v]) => {
+                    const g = DB.giocatori.find(x=>x.id==id); if(!g) return '';
+                    let pct = totMvp>0 ? Math.round((v/totMvp)*100) : 0;
+                    return `<div class="flex justify-between items-center bg-gray-800/60 p-2 rounded-lg border border-gray-700/50"><span class="text-white font-bold">${g.nome}</span><span class="text-yellow-400 font-mono font-bold">${v} voti (${pct}%)</span></div>`;
+                }).join('');
+            }
         }
-        function renderSondaggi() { /* Omesso per brevità HTML: popola i box campi, orari e mvp come prima */ }
 
-        // --- PARTITE E TABELLINI ---
+        window.votaOpzione = function(tipo, chiave) {
+            let sk = `voto_${tipo}_fatto`; if (localStorage.getItem(sk)) return showToast('Hai già votato!', 'error');
+            if (tipo === 'orari') DB.votiOrari[chiave] = (DB.votiOrari[chiave] || 0) + 1; else DB.votiCampo[chiave] = (DB.votiCampo[chiave] || 0) + 1;
+            localStorage.setItem(sk, 'si'); salvaDB(); aggiornaUI(); showToast('Voto registrato!');
+        }
+
+        window.inviaVotoMVP = function() {
+            if(localStorage.getItem('voto_mvp_fatto')) return showToast('Hai già votato MVP!', 'error');
+            const id = document.getElementById('voto-mvp-user').value; if(!id) return showToast('Seleziona giocatore!', 'error');
+            DB.votiMVP[id] = (DB.votiMVP[id] || 0) + 1; localStorage.setItem('voto_mvp_fatto', 'si'); salvaDB(); aggiornaUI(); showToast('Voto MVP memorizzato!');
+        }
+
+        // --- SISTEMA RENDERING CAMPO "ONEFOOTBALL" (PALLINI) ---
+        const renderPlayerDot = (g, color) => `
+            <div class="flex flex-col items-center z-10 mx-1 w-16">
+                <div class="relative group cursor-pointer hover-scale">
+                    <img src="${g.foto || fallbackImg}" class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-${color}-500 bg-gray-800 object-cover shadow-lg">
+                    <span class="absolute -bottom-1 -right-2 bg-${color}-600 text-white text-[10px] font-bold px-1 rounded shadow-md font-mono">${getOverall(g)}</span>
+                </div>
+                <span class="bg-black/90 text-white text-[9px] font-bold px-1.5 py-0.5 rounded mt-1.5 truncate w-full text-center border border-gray-700/50 shadow-md leading-tight">${g.nome}</span>
+            </div>
+        `;
+
+        const buildHalfPitch = (team, isTopHalf, color) => {
+            let pors = team.filter(g=>g.por);
+            let difs = team.filter(g=>g.ruolo==='DIF');
+            let cens = team.filter(g=>g.ruolo==='CEN');
+            let atts = team.filter(g=>g.ruolo==='ATT');
+            
+            // Fallback x ruoli anomali
+            team.forEach(g => { if(!g.por && !['DIF','CEN','ATT'].includes(g.ruolo)) difs.push(g); });
+            let rows = isTopHalf ? [pors, difs, cens, atts] : [atts, cens, difs, pors];
+            
+            return rows.map(row => {
+                if(row.length === 0) return '';
+                return `<div class="flex justify-center w-full my-1 md:my-2">` + row.map(g => renderPlayerDot(g, color)).join('') + `</div>`;
+            }).join('');
+        };
+
         function renderPartite() {
-            // Box Partita Attiva
             const box = document.getElementById('prossima-partita-box');
-            if (!DB.matchAttivo) {
-                box.innerHTML = `<div class="p-8 text-center text-gray-400 bg-gray-800 rounded-xl font-bold">Nessun match programmato.</div>`;
-            } else { /* Usa la logica del campo pitch già sviluppata */ }
+            const shareBox = document.getElementById('share-whatsapp-box');
+            if (!box) return;
 
-            // Storico Cliccabile
-            document.getElementById('storico-partite').innerHTML = DB.storico.map((s, idx) => {
-                const mvpName = DB.giocatori.find(g => g.id == s.mvpId)?.nome || "Nessuno";
-                return `
-                <div onclick="apriDettaglioPartita(${idx})" class="bg-gray-800 p-4 md:p-5 rounded-xl border border-gray-700 flex justify-between items-center shadow-lg hover-scale cursor-pointer">
-                    <div class="text-[10px] md:text-sm text-gray-400 font-bold w-1/4">📅 ${s.data}<br><span class="text-white">📍 ${s.campo}</span></div>
-                    <div class="text-lg md:text-2xl font-sport text-white font-bold bg-gray-900 px-4 md:px-6 py-2 md:py-3 rounded-lg border border-gray-600 flex-1 text-center mx-2 flex justify-center items-center gap-2">
-                        <span class="text-blue-400 w-1/3 text-right truncate">${s.nomeA}</span> 
-                        <span class="bg-black px-3 rounded-md text-yellow-400">${s.golA} - ${s.golB}</span> 
-                        <span class="text-red-400 w-1/3 text-left truncate">${s.nomeB}</span>
+            if (!DB.matchAttivo) {
+                box.innerHTML = `<div class="p-8 text-center text-gray-400 bg-gray-800 rounded-xl font-bold">Nessun match in corso.</div>`;
+                if(shareBox) shareBox.classList.add('hidden');
+            } else {
+                if(shareBox) shareBox.classList.remove('hidden');
+                let m = DB.matchAttivo; let imgCampo = getImgCampo(m.campo);
+                
+                box.innerHTML = `
+                    <div class="relative text-center bg-gray-900 border-b border-gray-800 p-3 flex flex-col items-center">
+                        <span class="text-xs bg-yellow-500 text-black px-3 py-0.5 rounded-full font-bold uppercase font-sport mb-1 shadow-lg">LIVE MATCH</span>
+                        <h3 class="text-lg font-bold text-white uppercase">${m.campo}</h3>
+                        <p class="text-[10px] text-gray-400 font-bold font-mono">📅 ${m.data}</p>
+                        <div class="w-full flex justify-between mt-2 px-4 text-xs font-sport uppercase">
+                            <span class="text-blue-400 font-bold drop-shadow-md">${m.nomeA}</span>
+                            <span class="text-red-400 font-bold drop-shadow-md">${m.nomeB}</span>
+                        </div>
                     </div>
-                    <div class="text-[10px] md:text-sm text-yellow-400 font-bold text-right w-1/4 flex flex-col items-end">
-                        <span class="bg-yellow-900/40 px-2 py-0.5 rounded mb-1">⭐ MVP</span><span class="text-white truncate">${mvpName}</span>
+                    <div class="w-full aspect-[3/4] md:aspect-square bg-cover bg-center relative overflow-hidden" style="background-image: url('${imgCampo}');">
+                        <div class="absolute inset-0 bg-black/40"></div>
+                        <div class="absolute inset-0 border-[3px] border-white/20 m-4 rounded"></div>
+                        <div class="absolute top-1/2 left-0 right-0 border-t-[3px] border-white/20 transform -translate-y-1/2"></div>
+                        <div class="absolute top-1/2 left-1/2 w-16 h-16 border-[3px] border-white/20 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+                        
+                        <div class="absolute inset-0 flex flex-col p-4">
+                            <div class="flex-1 flex flex-col justify-start z-10">${buildHalfPitch(m.sqA, true, 'blue')}</div>
+                            <div class="flex-1 flex flex-col justify-end z-10">${buildHalfPitch(m.sqB, false, 'red')}</div>
+                        </div>
                     </div>
-                </div>`
-            }).join('') || '<p class="text-gray-500 text-center py-4">Nessun archivio.</p>';
+                `;
+            }
+
+            const sCont = document.getElementById('storico-partite');
+            if(sCont) {
+                sCont.innerHTML = DB.storico.map((s, idx) => {
+                    const mvpName = DB.giocatori.find(g => g.id == s.mvpId)?.nome || "Nessuno";
+                    return `<div onclick="apriDettaglioPartita(${idx})" class="bg-gray-800 p-4 md:p-5 rounded-xl border border-gray-700 flex justify-between items-center shadow-lg hover-scale cursor-pointer">
+                        <div class="text-[10px] md:text-sm text-gray-400 font-bold w-1/4">📅 ${s.data}<br><span class="text-white">📍 ${s.campo}</span></div>
+                        <div class="text-lg md:text-2xl font-sport text-white font-bold bg-gray-900 px-2 md:px-6 py-2 rounded-lg border border-gray-600 flex-1 text-center mx-2 flex justify-center items-center gap-2">
+                            <span class="text-blue-400 w-1/3 text-right truncate">${s.nomeA}</span> <span class="bg-black px-2 rounded-md text-yellow-400">${s.golA} - ${s.golB}</span> <span class="text-red-400 w-1/3 text-left truncate">${s.nomeB}</span>
+                        </div>
+                        <div class="text-[10px] md:text-sm text-yellow-400 font-bold text-right w-1/4 flex flex-col items-end"><span class="bg-yellow-900/40 px-2 py-0.5 rounded mb-1">⭐ MVP</span><span class="text-white truncate">${mvpName}</span></div>
+                    </div>`
+                }).join('') || '<p class="text-gray-500 text-center py-4">Nessun match archiviato in memoria.</p>';
+            }
+        }
+
+        window.condividiFormazioni = function() {
+            if(!DB.matchAttivo) return; let m = DB.matchAttivo;
+            let testo = `*⚽ FORMAZIONI FANTACALCETTO ⚽*%0A📍 Campo: *${m.campo}*%0A📅 Data/Ora: *${m.data}*%0A%0A🔵 *${m.nomeA}*:%0A` + m.sqA.map(g=>`- ${g.nome} (${g.ruolo})`).join('%0A') + `%0A%0A🔴 *${m.nomeB}*:%0A` + m.sqB.map(g=>`- ${g.nome} (${g.ruolo})`).join('%0A') + `%0A%0AAllacciate gli scarpini! 🔥`;
+            window.open(`https://api.whatsapp.com/send?text=${testo}`, '_blank');
         }
 
         window.apriDettaglioPartita = function(idx) {
             const m = DB.storico[idx];
-            if(!m.dettA || !m.dettB) return showToast("Dettagli non disponibili per i match troppo vecchi.", "error");
+            // Fix x match storici senza dettagli
+            const dA = m.dettA || {}; const dB = m.dettB || {};
 
-            const renderRighe = (sq, dett, colore) => sq.map(g => {
-                const d = dett[g.id] || {gol:0, assist:0, autogol:0, golSubiti:0, rigoriParati:0};
+            const riga = (sq, dett, colore) => sq.map(g => {
+                const d = dett[g.id] || {gol:0, assist:0, autogol:0, rigoriParati:0};
                 let extra = "";
                 if(d.gol > 0) extra += `⚽x${d.gol} `;
                 if(d.assist > 0) extra += `👟x${d.assist} `;
                 if(d.autogol > 0) extra += `🤡x${d.autogol} `;
                 if(d.rigoriParati > 0) extra += `🧤x${d.rigoriParati} `;
-                if(d.golSubiti > 0) extra += `🥅-${d.golSubiti} `;
                 return `<div class="flex justify-between border-b border-gray-700 py-1"><span class="text-white text-sm">${g.nome} ${m.mvpId==g.id?'⭐':''}</span><span class="text-xs text-${colore}-400 font-bold">${extra}</span></div>`;
             }).join('');
 
             document.getElementById('md-content').innerHTML = `
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-gray-800 p-3 rounded"><h4 class="font-bold text-blue-400 border-b border-gray-700 pb-1 mb-2">${m.nomeA}</h4>${renderRighe(m.sqA, m.dettA, 'blue')}</div>
-                    <div class="bg-gray-800 p-3 rounded"><h4 class="font-bold text-red-400 border-b border-gray-700 pb-1 mb-2">${m.nomeB}</h4>${renderRighe(m.sqB, m.dettB, 'red')}</div>
+                    <div class="bg-gray-800 p-3 rounded"><h4 class="font-bold text-blue-400 border-b border-gray-700 pb-1 mb-2">${m.nomeA}</h4>${riga(m.sqA, dA, 'blue')}</div>
+                    <div class="bg-gray-800 p-3 rounded"><h4 class="font-bold text-red-400 border-b border-gray-700 pb-1 mb-2">${m.nomeB}</h4>${riga(m.sqB, dB, 'red')}</div>
                 </div>
             `;
             document.getElementById('match-detail-modal').classList.remove('hidden');
         }
         window.closeMatchDetail = () => document.getElementById('match-detail-modal').classList.add('hidden');
 
-        // --- CARTE E ALBO ---
+        // --- RENDER CARTE ---
         function renderCarteFC() {
-            document.getElementById('cards-grid').innerHTML = DB.giocatori.sort((a,b)=>getOverall(b)-getOverall(a)).map(g => `
+            const grid = document.getElementById('cards-grid'); if(!grid) return;
+            grid.innerHTML = [...DB.giocatori].sort((a,b)=>getOverall(b)-getOverall(a)).map(g => `
                 <div class="fc-card hover-scale relative">
-                    <div class="absolute top-1 right-1 text-sm z-40">${getPlayStyles(g)}</div>
+                    <div class="absolute top-1 right-2 text-sm z-30 font-mono">${getPlayStyles(g)}</div>
                     <div class="fc-card-top flex justify-center items-end pt-3">
-                        <div class="absolute top-2 left-2 md:top-3 md:left-3 text-center z-20 flex flex-col items-center">
-                            <span class="text-3xl md:text-4xl font-bold font-fc text-yellow-500 drop-shadow-md leading-none">${getOverall(g)}</span>
-                            <span class="text-[10px] md:text-xs font-bold text-gray-300 uppercase tracking-widest drop-shadow">${g.ruolo}</span>
-                        </div>
-                        <img src="${g.foto}" onerror="this.onerror=null; this.src='${fallbackImg}';" class="h-[90%] w-auto object-cover z-10">
+                        <div class="absolute top-2 left-3 text-center z-20 flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold font-fc text-yellow-500 drop-shadow-md leading-none">${getOverall(g)}</span><span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest drop-shadow">${g.ruolo}</span></div>
+                        <img src="${g.foto || fallbackImg}" onerror="this.onerror=null; this.src=fallbackImg;" class="h-[90%] w-auto object-cover z-10">
                     </div>
                     <div class="px-2 pb-3 bg-gradient-to-b from-[#1a1a1a] to-black z-20 flex-1 flex flex-col justify-end">
                         <h4 class="text-center font-bold text-sm md:text-base text-yellow-500 uppercase font-fc border-b border-yellow-700/50 pb-1 truncate">${g.nome}</h4>
-                        ${g.por ? `
-                        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] md:text-sm font-fc text-gray-300 px-1">
-                            <div class="flex justify-between items-center"><span class="text-gray-500">GS</span><span class="text-white font-bold">${g.golSubiti}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">VIN</span><span class="text-white font-bold">${g.vinte}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">RP</span><span class="text-white font-bold">${g.rigoriParati}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">PAR</span><span class="text-white font-bold">${g.pareggiate}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">MVP</span><span class="text-white font-bold">${g.mvp}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">PER</span><span class="text-white font-bold">${g.perse}</span></div>
-                        </div>` : `
-                        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] md:text-sm font-fc text-gray-300 px-1">
-                            <div class="flex justify-between items-center"><span class="text-gray-500">GOL</span><span class="text-white font-bold">${g.gol}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">VIN</span><span class="text-white font-bold">${g.vinte}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">ASS</span><span class="text-white font-bold">${g.assist}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">PAR</span><span class="text-white font-bold">${g.pareggiate}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">AUT</span><span class="text-white font-bold">${g.autogol}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500">PER</span><span class="text-white font-bold">${g.perse}</span></div>
-                        </div>`}
+                        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] font-fc text-gray-300 px-1 mt-1">
+                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">GOL</span><span class="text-white font-bold">${g.gol}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">VINTE</span><span class="text-white font-bold">${g.vinte}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">ASSIST</span><span class="text-white font-bold">${g.assist}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">PARI</span><span class="text-white font-bold">${g.pareggiate}</span></div>
+                            ${g.por ? `<div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">RIG.PAR</span><span class="text-white font-bold">${g.rigoriParati}</span></div>` : `<div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">AUTOGOL</span><span class="text-white font-bold">${g.autogol}</span></div>`}
+                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">PERSE</span><span class="text-white font-bold">${g.perse}</span></div>
+                        </div>
                     </div>
                 </div>
             `).join('');
+        }
+
+        // --- RENDER TOTW SU CAMPO E ALBO CON COPPIA ---
+        const renderMiniTotwCard = (g) => `
+            <div class="mini-card-container mx-auto">
+                <div class="fc-card totw-card hover-scale shadow-2xl relative">
+                    <div class="fc-card-top flex justify-center items-end pt-2">
+                        <span class="absolute top-1 left-1.5 text-xl font-bold font-fc text-blue-300">${getOverall(g)}</span>
+                        <span class="absolute top-1 right-1.5 text-[10px] font-mono">${g.ruolo}</span>
+                        <img src="${g.foto || fallbackImg}" onerror="this.onerror=null; this.src=fallbackImg;" class="z-10 object-cover w-auto drop-shadow-xl">
+                    </div>
+                    <div class="bg-black z-20 text-center py-1 border-t border-blue-900/50"><h4 class="font-bold text-[11px] text-blue-300 font-fc truncate px-1 uppercase">${g.nome}</h4></div>
+                </div>
+            </div>
+        `;
+
+        const buildTotwPitch = (totw) => {
+            let pors = totw.filter(g=>g.por);
+            let difs = totw.filter(g=>g.ruolo==='DIF');
+            let cens = totw.filter(g=>g.ruolo==='CEN');
+            let atts = totw.filter(g=>g.ruolo==='ATT');
+            totw.forEach(g => { if(!g.por && !['DIF','CEN','ATT'].includes(g.ruolo)) difs.push(g); });
+            
+            let rows = [atts, cens, difs, pors]; // Top to bottom for a single team facing forward
+            
+            return rows.map(row => {
+                if(row.length === 0) return '';
+                return `<div class="flex justify-center items-center w-full my-1">` + row.map(g => renderMiniTotwCard(g)).join('') + `</div>`;
+            }).join('');
         }
 
         function renderAlboTotw() {
-            // TOTW (Miglior Portiere + 4 Movimento)
             let portieri = DB.giocatori.filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
             let movimento = DB.giocatori.filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
-            let totw = [portieri[0], ...movimento.slice(0,4)].filter(Boolean); // Prende chi c'è
+            let totw = [portieri[0], ...movimento.slice(0,4)].filter(Boolean);
             
-            document.getElementById('totw-container').innerHTML = totw.map(g => `
-                <div class="fc-card totw-card hover-scale scale-90 md:scale-100 origin-top">
-                    <div class="fc-card-top flex justify-center items-end pt-2"><span class="absolute top-1 left-1 text-xl font-bold font-fc text-blue-300">${getOverall(g)}</span><img src="${g.foto}" class="h-[90%] z-10"></div>
-                    <div class="bg-black z-20 text-center pb-1"><h4 class="font-bold text-xs text-blue-300 font-fc truncate">${g.nome}</h4></div>
-                </div>
-            `).join('');
+            const totwCont = document.getElementById('totw-container');
+            if(totwCont) {
+                let imgPitch = getImgCampo('Default'); // user can't pick field for TOTW, use generic
+                totwCont.innerHTML = `
+                    <div class="w-full relative overflow-hidden bg-cover bg-center rounded-xl p-4 flex flex-col justify-around min-h-[500px]" style="background-image: url('${imgPitch}');">
+                        <div class="absolute inset-0 bg-black/50"></div>
+                        <div class="absolute inset-0 border-2 border-white/20 m-4 rounded"></div>
+                        <div class="relative z-10 flex flex-col justify-between h-full py-4 gap-4">
+                            ${buildTotwPitch(totw)}
+                        </div>
+                    </div>
+                `;
+            }
 
-            // Albo d'Oro
-            const getBest = (arr, stat) => arr.sort((a,b)=>b[stat]-a[stat])[0];
-            const maxVittorie = getBest([...DB.giocatori], 'vinte');
-            const maxSconfitte = getBest([...DB.giocatori], 'perse');
-            const maxGol = getBest([...DB.giocatori], 'gol');
-            const maxAssist = getBest([...DB.giocatori], 'assist');
-            const maxRigori = getBest([...DB.giocatori], 'rigoriParati');
+            // Calcolo Miglior Coppia
+            let coppie = {};
+            DB.storico.forEach(match => {
+                const addC = (sq, haVinto) => {
+                    if(!haVinto) return;
+                    for(let i=0; i<sq.length; i++){
+                        for(let j=i+1; j<sq.length; j++){
+                            let k = sq[i].id < sq[j].id ? `${sq[i].id}-${sq[j].id}` : `${sq[j].id}-${sq[i].id}`;
+                            coppie[k] = (coppie[k]||0) + 1;
+                        }
+                    }
+                };
+                addC(match.sqA, match.golA > match.golB);
+                addC(match.sqB, match.golB > match.golA);
+            });
+            let maxVittorie = 0, bestCoppiaKey = null;
+            for(let k in coppie) { if(coppie[k] > maxVittorie) { maxVittorie = coppie[k]; bestCoppiaKey = k; } }
+            
+            let htmlCoppia = '';
+            if(bestCoppiaKey) {
+                let ids = bestCoppiaKey.split('-');
+                let g1 = DB.giocatori.find(x=>x.id==ids[0]); let g2 = DB.giocatori.find(x=>x.id==ids[1]);
+                if(g1 && g2) {
+                    htmlCoppia = `
+                    <div class="bg-gray-800 p-4 rounded-xl border border-pink-600/50 flex items-center gap-4 shadow-lg md:col-span-2 lg:col-span-1">
+                        <div class="flex -space-x-4">
+                            <img src="${g1.foto||fallbackImg}" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-10">
+                            <img src="${g2.foto||fallbackImg}" class="w-12 h-12 rounded-full border-2 border-pink-500 object-cover z-0">
+                        </div>
+                        <div>
+                            <h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Miglior Coppia 👯‍♂️</h4>
+                            <p class="text-sm font-bold text-white leading-tight">${g1.nome} & ${g2.nome}</p>
+                            <p class="text-xs font-sport text-pink-400 mt-0.5">${maxVittorie} Vittorie Insieme</p>
+                        </div>
+                    </div>`;
+                }
+            }
 
-            const cardAlbo = (titolo, g, statStr) => g ? `
-                <div class="bg-gray-800 p-4 rounded-xl border border-yellow-600/50 flex items-center gap-4 shadow-lg">
-                    <img src="${g.foto}" class="w-12 h-12 rounded-full border-2 border-yellow-500 object-cover">
-                    <div><h4 class="text-xs text-gray-400 font-bold uppercase">${titolo}</h4><p class="text-lg font-bold text-white leading-tight">${g.nome}</p><p class="text-sm font-sport text-yellow-400">${statStr}</p></div>
-                </div>` : '';
+            const getBest = (arr, stat) => [...arr].sort((a,b)=>b[stat]-a[stat])[0];
+            const mxV = getBest(DB.giocatori, 'vinte'); const mxS = getBest(DB.giocatori, 'perse');
+            const mxG = getBest(DB.giocatori, 'gol'); const mxA = getBest(DB.giocatori, 'assist');
+            
+            const cAlbo = (titolo, g, sStr) => g ? `<div class="bg-gray-800 p-4 rounded-xl border border-yellow-600/50 flex items-center gap-4 shadow-lg"><img src="${g.foto||fallbackImg}" class="w-12 h-12 rounded-full border-2 border-yellow-500 object-cover"><div class="flex-1 min-w-0"><h4 class="text-[10px] text-gray-400 font-bold uppercase tracking-wider truncate">${titolo}</h4><p class="text-base font-bold text-white leading-tight truncate">${g.nome}</p><p class="text-xs font-sport text-yellow-400 mt-0.5">${sStr}</p></div></div>` : '';
 
-            document.getElementById('albo-container').innerHTML = 
-                cardAlbo('Più Vittorie 🏆', maxVittorie, maxVittorie?.vinte + ' Vinte') +
-                cardAlbo('Più Gol ⚽', maxGol, maxGol?.gol + ' Gol') +
-                cardAlbo('Più Assist 👟', maxAssist, maxAssist?.assist + ' Assist') +
-                cardAlbo('Miglior Para-Rigori 🧤', maxRigori, maxRigori?.rigoriParati + ' Parati') +
-                cardAlbo('Maglia Nera (Sconfitte) 💀', maxSconfitte, maxSconfitte?.perse + ' Perse');
+            const alC = document.getElementById('albo-container');
+            if(alC) alC.innerHTML = cAlbo('Leader Vittorie 🏆', mxV, mxV?.vinte + ' Vinte') + cAlbo('Capocannoniere ⚽', mxG, mxG?.gol + ' Gol') + cAlbo('Uomo Assist 👟', mxA, mxA?.assist + ' Assist') + htmlCoppia + cAlbo('Cucchiaio Legno 💀', mxS, mxS?.perse + ' Sconfitte');
         }
-        
-        function renderClassifiche() { /* Omesso per brevità, stessa logica precedente con i .sort() */ }
 
-        // --- ADMIN AREA AVANZATA ---
-        function openAdmin() { document.getElementById('admin-modal').classList.remove('hidden'); }
-        function closeAdmin() { 
-            document.getElementById('admin-modal').classList.add('hidden'); 
-            document.getElementById('admin-dashboard').classList.add('hidden');
-            document.getElementById('admin-login').classList.remove('hidden');
+        function renderClassifiche() {
+            const rGol = document.getElementById('rank-gol'); const rAss = document.getElementById('rank-assist'); const rMvp = document.getElementById('rank-mvp');
+            if(!rGol || !rAss || !rMvp) return;
+            const r = (arr, stat, col, sym) => [...arr].sort((a,b)=>b[stat]-a[stat]||getOverall(b)-getOverall(a)).slice(0,10).map((g,i)=>`<div class="flex justify-between items-center bg-gray-800/50 p-2 rounded-xl border border-gray-700/40"><div class="flex items-center gap-2"><span class="font-bold text-xs text-gray-500 w-4">${i+1}.</span><span class="font-bold text-sm text-white">${g.nome}</span></div><span class="font-bold text-sm text-${col}-400 font-mono">${g[stat]} ${sym}</span></div>`).join('') || '<p class="text-gray-500 text-xs">Dati assenti.</p>';
+            rGol.innerHTML = r(DB.giocatori, 'gol', 'yellow', 'G');
+            rAss.innerHTML = r(DB.giocatori, 'assist', 'blue', 'A');
+            rMvp.innerHTML = r(DB.giocatori, 'mvp', 'purple', '⭐');
         }
 
-        function verificaAdmin() {
-            if(document.getElementById('admin-pass').value === 'Calcetto_2026') {
-                document.getElementById('admin-login').classList.add('hidden');
-                document.getElementById('admin-dashboard').classList.remove('hidden');
-                popolaAdminArea(); showToast("Accesso Autorizzato");
-            } else { showToast("Password Errata!", "error"); }
-        }
+        // --- ADMIN AREA COMPLETA ---
+        window.openAdmin = () => document.getElementById('admin-modal').classList.remove('hidden');
+        window.closeAdmin = () => { document.getElementById('admin-modal').classList.add('hidden'); document.getElementById('admin-dashboard').classList.add('hidden'); document.getElementById('admin-login').classList.remove('hidden'); document.getElementById('admin-pass').value = ''; }
+        window.verificaAdmin = () => { if(document.getElementById('admin-pass').value === 'Calcetto_2026') { document.getElementById('admin-login').classList.add('hidden'); document.getElementById('admin-dashboard').classList.remove('hidden'); popolaAdminArea(); showToast("Accesso Autorizzato"); } else showToast("Password Errata", "error"); }
 
         function popolaAdminArea() {
-            // Liste Aggiungi/Modifica
-            document.getElementById('admin-lista-del-giocatori').innerHTML = DB.giocatori.map(g => `
-                <div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700">
-                    <span class="text-xs text-white">${g.nome}</span>
-                    <div>
-                        <button onclick="preparaModificaGiocatore(${g.id})" class="text-blue-400 mx-2">✏️</button>
-                        <button onclick="adminEliminaGiocatore(${g.id})" class="text-red-500">🗑️</button>
-                    </div>
-                </div>`).join('');
+            const cg = document.getElementById('admin-check-giocatori');
+            if (cg) cg.innerHTML = [...DB.giocatori].sort((a,b)=>a.nome.localeCompare(b.nome)).map(g=>`<label class="flex items-center gap-1.5 text-xs text-gray-300 bg-gray-900/60 p-1 rounded border border-gray-700 select-none cursor-pointer"><input type="checkbox" name="convocati" value="${g.id}" class="w-3.5 h-3.5 accent-green-500"><span class="truncate">${g.nome} (${g.ruolo})</span></label>`).join('');
             
-            document.getElementById('admin-lista-del-campi').innerHTML = DB.campi.map(c => `
-                <div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700">
-                    <span class="text-xs text-white">${c.nome}</span>
-                    <div>
-                        <button onclick="preparaModificaCampo('${c.nome}')" class="text-blue-400 mx-2">✏️</button>
-                        <button onclick="adminEliminaCampo('${c.nome}')" class="text-red-500">🗑️</button>
-                    </div>
-                </div>`).join('');
+            const sc = document.getElementById('admin-org-campo');
+            if (sc) sc.innerHTML = DB.campi.map(c => `<option value="${c.nome}">${c.nome}</option>`).join('');
 
-            // Storico Modificabile
-            document.getElementById('admin-lista-storico').innerHTML = DB.storico.map((s, idx) => `
-                <div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700">
-                    <span class="text-xs text-white w-2/3 truncate">${s.data} - ${s.nomeA} vs ${s.nomeB}</span>
-                    <div>
-                        <button onclick="caricaMatchInTabellino(${idx})" class="bg-blue-600 hover:bg-blue-500 text-white text-[10px] px-2 py-1 rounded">Modifica</button>
-                    </div>
-                </div>`).join('');
+            document.getElementById('admin-lista-del-giocatori').innerHTML = DB.giocatori.map(g=>`<div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700"><span class="text-xs text-white">${g.nome} (${g.ruolo})</span><div><button onclick="preparaModificaGiocatore(${g.id})" class="text-blue-400 mx-2">✏️</button><button onclick="adminEliminaGiocatore(${g.id})" class="text-red-500">🗑️</button></div></div>`).join('');
+            document.getElementById('admin-lista-del-campi').innerHTML = DB.campi.map(c=>`<div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700"><span class="text-xs text-white truncate w-24">${c.nome}</span><div><button onclick="preparaModificaCampo('${c.nome}')" class="text-blue-400 mx-2">✏️</button><button onclick="adminEliminaCampo('${c.nome}')" class="text-red-500">🗑️</button></div></div>`).join('');
+            
+            document.getElementById('admin-lista-storico').innerHTML = DB.storico.map((s, i)=>`<div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700"><span class="text-xs text-white w-2/3 truncate">${s.data} - ${s.nomeA} vs ${s.nomeB}</span><button onclick="caricaMatchInTabellino(${i})" class="bg-blue-600 hover:bg-blue-500 text-white text-[10px] px-2 py-1 rounded">Edita</button></div>`).join('');
 
-            // Tabellino (Crea input avanzati)
-            const box = document.getElementById('admin-tabellino-container');
+            const qes = document.getElementById('quick-edit-select');
+            if(qes) {
+                qes.innerHTML = `<option value="">-- Seleziona Giocatore --</option>` + [...DB.giocatori].sort((a,b)=>a.nome.localeCompare(b.nome)).map(g=>`<option value="${g.id}">${g.nome}</option>`).join('');
+            }
+
+            renderTabellino();
+        }
+
+        window.caricaModificaRapida = function() {
+            const id = document.getElementById('quick-edit-select').value;
+            const p = document.getElementById('quick-edit-panel');
+            if(!id) { p.classList.add('hidden'); return; }
+            const g = DB.giocatori.find(x => x.id == id);
+            document.getElementById('qe-gol').value = g.gol; document.getElementById('qe-assist').value = g.assist;
+            document.getElementById('qe-autogol').value = g.autogol; document.getElementById('qe-rigori').value = g.rigoriParati;
+            document.getElementById('qe-vinte').value = g.vinte; document.getElementById('qe-perse').value = g.perse;
+            document.getElementById('qe-pari').value = g.pareggiate; document.getElementById('qe-mvp').value = g.mvp;
+            p.classList.remove('hidden');
+        }
+
+        window.salvaModificaRapida = function() {
+            const id = document.getElementById('quick-edit-select').value;
+            const g = DB.giocatori.find(x => x.id == id);
+            if(!g) return;
+            g.gol = parseInt(document.getElementById('qe-gol').value)||0; g.assist = parseInt(document.getElementById('qe-assist').value)||0;
+            g.autogol = parseInt(document.getElementById('qe-autogol').value)||0; g.rigoriParati = parseInt(document.getElementById('qe-rigori').value)||0;
+            g.vinte = parseInt(document.getElementById('qe-vinte').value)||0; g.perse = parseInt(document.getElementById('qe-perse').value)||0;
+            g.pareggiate = parseInt(document.getElementById('qe-pari').value)||0; g.mvp = parseInt(document.getElementById('qe-mvp').value)||0;
+            salvaDB(); aggiornaUI(); showToast("Statistiche modificate!");
+        }
+
+        // --- DRAFT BUILDER E GENERAZIONE OVR ---
+        window.avviaBuilderMatch = function() {
+            let ids = Array.from(document.querySelectorAll('input[name="convocati"]:checked')).map(cb => parseInt(cb.value));
+            if(ids.length < 2) return showToast("Minimo 2 giocatori convocati!", "error");
+            
+            const data = document.getElementById('admin-org-ora').value;
+            const campo = document.getElementById('admin-org-campo').value;
+            if(!data) return showToast("Inserisci Data/Ora!", "error");
+
+            let sqA = [], sqB = [];
+            let convocati = DB.giocatori.filter(g => ids.includes(g.id));
+            
+            // Inizializza mettendo metà a sx e metà a dx a caso/indice
+            convocati.forEach((g,i)=>{ if(i%2===0) sqA.push(g); else sqB.push(g); });
+
+            draftMatch = { 
+                data, campo, 
+                nomeA: document.getElementById('admin-nome-a').value || "Squadra Blu", 
+                nomeB: document.getElementById('admin-nome-b').value || "Squadra Rossa",
+                sqA, sqB 
+            };
+            
+            document.getElementById('admin-match-builder').classList.remove('hidden');
+            renderDraft();
+        }
+
+        window.generaSquadreOVR = function() {
+            if(!draftMatch) return;
+            let all = [...draftMatch.sqA, ...draftMatch.sqB];
+            all.sort((a,b)=>getOverall(b)-getOverall(a));
+            let sqA = [], sqB = [];
+            let pors = all.filter(g=>g.por); let movs = all.filter(g=>!g.por);
+            pors.forEach((p,i)=>{ if(i%2===0) sqA.push(p); else sqB.push(p); });
+            movs.forEach(m => {
+                let oA = sqA.reduce((sum,g)=>sum+getOverall(g),0); let oB = sqB.reduce((sum,g)=>sum+getOverall(g),0);
+                if(oA<=oB) sqA.push(m); else sqB.push(m);
+            });
+            draftMatch.sqA = sqA; draftMatch.sqB = sqB; renderDraft();
+            showToast("Squadre bilanciate per OVR!");
+        }
+
+        function renderDraft() {
+            if(!draftMatch) return;
+            const dA = document.getElementById('draft-sq-a'); const dB = document.getElementById('draft-sq-b');
+            const row = (g, f, d) => `<div class="flex justify-between items-center bg-gray-900 p-1 mb-1 rounded border border-gray-700 text-[10px] text-white"><span>${g.nome} <span class="text-yellow-500">(${getOverall(g)})</span></span> <button onclick="spostaGiocatoreDraft(${g.id},'${f}')" class="bg-gray-700 px-2 rounded">${d}</button></div>`;
+            dA.innerHTML = `<h5 class="font-bold text-blue-400 mb-1">${draftMatch.nomeA}</h5>` + draftMatch.sqA.map(g=>row(g,'A','&rarr;')).join('');
+            dB.innerHTML = `<h5 class="font-bold text-red-400 mb-1">${draftMatch.nomeB}</h5>` + draftMatch.sqB.map(g=>row(g,'B','&larr;')).join('');
+        }
+
+        window.spostaGiocatoreDraft = function(id, from) {
+            let src = from==='A' ? draftMatch.sqA : draftMatch.sqB;
+            let dest = from==='A' ? draftMatch.sqB : draftMatch.sqA;
+            let idx = src.findIndex(g=>g.id===id);
+            if(idx>-1) dest.push(src.splice(idx, 1)[0]);
+            renderDraft();
+        }
+
+        window.salvaPartitaDraft = function() {
+            DB.matchAttivo = { ...draftMatch, golA: 0, golB: 0, mvpId: null, dettA: {}, dettB: {} };
+            draftMatch = null; document.getElementById('admin-match-builder').classList.add('hidden');
+            salvaDB(); aggiornaUI(); showToast("Formazioni live aggiornate e pubblicate!");
+        }
+
+        window.adminCreaSondaggio = function() {
+            const str = document.getElementById('admin-sond-orari').value; if(!str) return showToast("Inserisci orari!", "error");
+            DB.sondaggioOrari = str.split(',').map(s=>s.trim()).filter(Boolean); DB.votiOrari = {}; DB.votiCampo = {};
+            localStorage.removeItem('voto_orari_fatto'); localStorage.removeItem('voto_campi_fatto');
+            salvaDB(); aggiornaUI(); showToast("Sondaggio Orari creato!");
+        }
+
+        // --- GESTIONE TABELLINO (INCLUSO FIX MODIFICA PASSATI) ---
+        window.caricaMatchInTabellino = function(idx) {
+            editStoricoIndex = idx; popolaAdminArea();
+            setTimeout(() => { document.getElementById('admin-tabellino-container').scrollIntoView({behavior:'smooth', block:'center'}); }, 100);
+            showToast("Modalità Edita Storico attivata", "success");
+        }
+        window.annullaModificaStorico = function() { editStoricoIndex = -1; popolaAdminArea(); }
+
+        function renderTabellino() {
+            const b = document.getElementById('admin-tabellino-container');
             let m = editStoricoIndex > -1 ? DB.storico[editStoricoIndex] : DB.matchAttivo;
+            if(!m) { b.innerHTML = '<p class="text-sm text-gray-500 italic py-2">Genera una partita o seleziona un match dall\'archivio storico per attivare il tabellino.</p>'; return; }
             
-            if(!m) { box.innerHTML = '<p class="text-sm text-gray-500">Genera o seleziona un match per compilare il tabellino.</p>'; return; }
-            
-            const rigaGiocatore = (g, dettOld) => {
-                const d = dettOld ? (dettOld[g.id] || {}) : {};
-                return `
-                <div class="bg-gray-900 p-1.5 md:p-2 rounded flex flex-col gap-1 text-black border border-gray-700 mb-1">
-                    <div class="text-[10px] md:text-xs text-white font-bold truncate">${g.nome}</div>
-                    <div class="grid grid-cols-5 gap-1">
-                        <input type="number" id="gol_${g.id}" value="${d.gol||''}" placeholder="Gol" class="w-full p-1 text-[10px] rounded" min="0">
-                        <input type="number" id="ass_${g.id}" value="${d.assist||''}" placeholder="Ass" class="w-full p-1 text-[10px] rounded" min="0">
-                        <input type="number" id="aut_${g.id}" value="${d.autogol||''}" placeholder="Aut" class="w-full p-1 text-[10px] rounded" min="0" title="Autogol">
-                        <input type="number" id="gs_${g.id}" value="${d.golSubiti||''}" placeholder="GS" class="w-full p-1 text-[10px] rounded" min="0" title="Gol Subiti (Por)">
-                        <input type="number" id="rp_${g.id}" value="${d.rigoriParati||''}" placeholder="RP" class="w-full p-1 text-[10px] rounded" min="0" title="Rigori Parati">
-                    </div>
-                </div>`;
+            const rG = (g, dett) => {
+                const d = dett ? (dett[g.id] || {}) : {};
+                return `<div class="bg-gray-900 p-1.5 rounded flex flex-col gap-1 text-black border border-gray-700 mb-1"><div class="text-[11px] text-white font-bold truncate">${g.nome}</div><div class="grid grid-cols-4 gap-1"><input type="number" id="gol_${g.id}" value="${d.gol||''}" placeholder="Gol" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="ass_${g.id}" value="${d.assist||''}" placeholder="Ass" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="aut_${g.id}" value="${d.autogol||''}" placeholder="Aut" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Autogol"><input type="number" id="rp_${g.id}" value="${d.rigoriParati||''}" placeholder="RP" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Rigori Parati"></div></div>`;
             };
 
-            box.innerHTML = `
-                ${editStoricoIndex > -1 ? `<div class="bg-blue-900/50 p-2 rounded text-xs text-white mb-2 text-center">Stai modificando il match del ${m.data} <button onclick="annullaModificaStorico()" class="ml-2 text-red-400 font-bold underline">Annulla</button></div>` : ''}
-                <div class="grid grid-cols-2 gap-2 text-sm text-black mb-2">
-                    <div><label class="text-xs text-white block">Gol ${m.nomeA}</label><input type="number" id="tab-gol-a" value="${m.golA||0}" class="w-full p-2 rounded text-center"></div>
-                    <div><label class="text-xs text-white block">Gol ${m.nomeB}</label><input type="number" id="tab-gol-b" value="${m.golB||0}" class="w-full p-2 rounded text-center"></div>
+            b.innerHTML = `
+                ${editStoricoIndex > -1 ? `<div class="bg-blue-900/50 p-2 rounded text-xs text-white mb-2 text-center border border-blue-500">Stai modificando il match archiviato del ${m.data} <button onclick="annullaModificaStorico()" class="ml-2 bg-red-600 px-2 rounded font-bold">ANNULLA</button></div>` : ''}
+                <div class="grid grid-cols-2 gap-2 text-sm text-black mb-2"><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeA}</label><input type="number" id="tab-gol-a" value="${m.golA||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeB}</label><input type="number" id="tab-gol-b" value="${m.golB||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[300px] overflow-y-auto pr-1">
+                    <div><h5 class="text-xs font-bold text-blue-400 mb-1 truncate">${m.nomeA}</h5>${m.sqA.map(g => rG(g, m.dettA)).join('')}</div>
+                    <div><h5 class="text-xs font-bold text-red-400 mb-1 truncate">${m.nomeB}</h5>${m.sqB.map(g => rG(g, m.dettB)).join('')}</div>
                 </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div><h5 class="text-xs font-bold text-blue-400 mb-1">${m.nomeA}</h5>${m.sqA.map(g => rigaGiocatore(g, m.dettA)).join('')}</div>
-                    <div><h5 class="text-xs font-bold text-red-400 mb-1">${m.nomeB}</h5>${m.sqB.map(g => rigaGiocatore(g, m.dettB)).join('')}</div>
-                </div>
-                <select id="tab-mvp-id" class="w-full p-2 rounded text-sm mt-3 mb-2">
-                    <option value="">-- MVP --</option>
-                    ${[...m.sqA, ...m.sqB].map(g => `<option value="${g.id}" ${m.mvpId==g.id?'selected':''}>${g.nome}</option>`).join('')}
-                </select>
-                <button onclick="adminSalvaTabellino()" class="w-full ${editStoricoIndex > -1 ? 'bg-blue-600' : 'bg-yellow-600'} text-white font-bold py-3 rounded-lg shadow">
-                    ${editStoricoIndex > -1 ? 'AGGIORNA MATCH E RICALCOLA STATISTICHE' : 'ARCHIVIA RISULTATO'}
-                </button>
+                <label class="text-[11px] text-white block font-bold mt-3 mb-0.5">MVP Incontro:</label>
+                <select id="tab-mvp-id" class="w-full p-2 rounded text-sm text-black outline-none font-bold"><option value="">-- Seleziona --</option>${[...m.sqA, ...m.sqB].map(g => `<option value="${g.id}" ${m.mvpId==g.id?'selected':''}>${g.nome}</option>`).join('')}</select>
+                <button onclick="adminSalvaTabellino()" class="w-full mt-3 ${editStoricoIndex > -1 ? 'bg-blue-600 hover:bg-blue-500' : 'bg-yellow-600 hover:bg-yellow-500'} text-white font-bold py-3 rounded-lg shadow transition">${editStoricoIndex > -1 ? 'AGGIORNA INCONTRO E RICALCOLA' : 'ARCHIVIA RISULTATO'}</button>
             `;
         }
 
-        // --- GESTIONE GIOCATORI ---
-        window.preparaModificaGiocatore = function(id) {
-            const g = DB.giocatori.find(x => x.id === id);
-            document.getElementById('edit-gioc-id').value = g.id;
-            document.getElementById('add-gioc-nome').value = g.nome;
-            document.getElementById('add-gioc-ruolo').value = g.ruolo;
-            document.getElementById('add-gioc-foto').value = g.foto;
-            document.getElementById('add-gioc-por').checked = g.por;
-            document.getElementById('lbl-add-edit-giocatore').innerText = `Modifica: ${g.nome}`;
-            document.getElementById('btn-salva-giocatore').classList.replace('bg-purple-600', 'bg-blue-600');
-            document.getElementById('btn-salva-giocatore').innerText = 'Aggiorna Giocatore';
-            document.getElementById('btn-annulla-gioc').classList.remove('hidden');
-        }
-        window.annullaModificaGiocatore = function() {
-            document.getElementById('edit-gioc-id').value = '';
-            document.getElementById('add-gioc-nome').value = '';
-            document.getElementById('add-gioc-foto').value = '';
-            document.getElementById('lbl-add-edit-giocatore').innerText = `Aggiungi Nuovo Giocatore`;
-            document.getElementById('btn-salva-giocatore').classList.replace('bg-blue-600', 'bg-purple-600');
-            document.getElementById('btn-salva-giocatore').innerText = 'Crea Giocatore';
-            document.getElementById('btn-annulla-gioc').classList.add('hidden');
-        }
-        window.adminSalvaGiocatore = function() {
-            const id = document.getElementById('edit-gioc-id').value;
-            const nome = document.getElementById('add-gioc-nome').value;
-            const ruolo = document.getElementById('add-gioc-ruolo').value;
-            const foto = document.getElementById('add-gioc-foto').value || fallbackImg;
-            const por = document.getElementById('add-gioc-por').checked;
-            if(!nome) return showToast("Inserisci il nome!", "error");
+        window.adminSalvaTabellino = function() {
+            let m = editStoricoIndex > -1 ? DB.storico[editStoricoIndex] : DB.matchAttivo; if(!m) return;
+            const mvp = document.getElementById('tab-mvp-id').value; if(!mvp) return showToast("Seleziona MVP!", "error");
+            m.golA = parseInt(document.getElementById('tab-gol-a').value)||0; m.golB = parseInt(document.getElementById('tab-gol-b').value)||0; m.mvpId = parseInt(mvp);
             
-            if(id) {
-                let g = DB.giocatori.find(x => x.id == id);
-                g.nome = nome; g.ruolo = ruolo; g.foto = foto; g.por = por;
-                showToast("Giocatore aggiornato!");
-            } else {
-                const nuovoId = DB.giocatori.length > 0 ? Math.max(...DB.giocatori.map(g=>g.id)) + 1 : 1;
-                DB.giocatori.push({ id: nuovoId, nome, ruolo, foto, por, gol:0, assist:0, autogol:0, golSubiti:0, rigoriParati:0, mvp:0, vinte:0, pareggiate:0, perse:0 });
-                showToast("Giocatore creato!");
-            }
-            salvaDB(); aggiornaUI(); annullaModificaGiocatore();
+            const lD = (sq) => {
+                let d = {}; sq.forEach(g => { d[g.id] = { gol: parseInt(document.getElementById('gol_'+g.id).value)||0, assist: parseInt(document.getElementById('ass_'+g.id).value)||0, autogol: parseInt(document.getElementById('aut_'+g.id).value)||0, rigoriParati: parseInt(document.getElementById('rp_'+g.id).value)||0 }; }); return d;
+            };
+            m.dettA = lD(m.sqA); m.dettB = lD(m.sqB);
+
+            if(editStoricoIndex === -1) { DB.storico.unshift(m); DB.matchAttivo = null; DB.votiMVP = {}; localStorage.removeItem('voto_mvp_fatto'); }
+            ricalcolaStatisticheGlobali(); editStoricoIndex = -1; salvaDB(); aggiornaUI(); closeAdmin(); showToast("Tabellino salvato con successo!");
         }
 
-        // --- RICALCOLO GLOBALE STATISTICHE (Core logic per Edit Storico) ---
         function ricalcolaStatisticheGlobali() {
-            // 1. Azzera tutto
-            DB.giocatori.forEach(g => {
-                g.gol=0; g.assist=0; g.autogol=0; g.golSubiti=0; g.rigoriParati=0; 
-                g.vinte=0; g.pareggiate=0; g.perse=0; g.mvp=0;
-            });
-            
-            // 2. Somma dallo storico
-            DB.storico.forEach(match => {
-                const aVince = match.golA > match.golB; const pari = match.golA === match.golB;
-                
-                const processaTeam = (sq, dett, haVinto, haPareggiato) => {
+            DB.giocatori.forEach(g => { g.gol=0; g.assist=0; g.autogol=0; g.rigoriParati=0; g.vinte=0; g.pareggiate=0; g.perse=0; g.mvp=0; });
+            DB.storico.forEach(m => {
+                const aV = m.golA > m.golB; const p = m.golA === m.golB;
+                const proc = (sq, dett, v, pari) => {
                     sq.forEach(g => {
-                        let pg = DB.giocatori.find(x => x.id == g.id);
-                        if(!pg) return;
-                        const d = dett[g.id] || {};
-                        pg.gol += parseInt(d.gol||0);
-                        pg.assist += parseInt(d.assist||0);
-                        pg.autogol += parseInt(d.autogol||0);
-                        pg.golSubiti += parseInt(d.golSubiti||0);
-                        pg.rigoriParati += parseInt(d.rigoriParati||0);
-                        
-                        if(haVinto) pg.vinte++; else if(haPareggiato) pg.pareggiate++; else pg.perse++;
-                        if(match.mvpId == pg.id) pg.mvp++;
+                        let pg = DB.giocatori.find(x=>x.id==g.id); if(!pg) return;
+                        let d = (dett && dett[g.id]) ? dett[g.id] : {};
+                        pg.gol += (d.gol||0); pg.assist += (d.assist||0); pg.autogol += (d.autogol||0); pg.rigoriParati += (d.rigoriParati||0);
+                        if(v) pg.vinte++; else if(pari) pg.pareggiate++; else pg.perse++;
+                        if(m.mvpId == pg.id) pg.mvp++;
                     });
                 };
-                processaTeam(match.sqA, match.dettA, aVince, pari);
-                processaTeam(match.sqB, match.dettB, !aVince && !pari, pari);
+                proc(m.sqA, m.dettA, aV, p); proc(m.sqB, m.dettB, !aV && !p, p);
             });
         }
 
-        // --- SALVATAGGIO TABELLINO ---
-        window.caricaMatchInTabellino = function(idx) {
-            editStoricoIndex = idx;
-            popolaAdminArea();
-        }
-        window.annullaModificaStorico = function() {
-            editStoricoIndex = -1; popolaAdminArea();
-        }
+        // --- GESTIONE ANAGRAFICA E CAMPI (MINIFICATI PER SPAZIO) ---
+        window.preparaModificaGiocatore=id=>{const g=DB.giocatori.find(x=>x.id===id);document.getElementById('edit-gioc-id').value=g.id;document.getElementById('add-gioc-nome').value=g.nome;document.getElementById('add-gioc-ruolo').value=g.ruolo;document.getElementById('add-gioc-foto').value=g.foto||'';document.getElementById('add-gioc-por').checked=g.por;document.getElementById('lbl-add-edit-giocatore').innerText=`Modifica: ${g.nome}`;document.getElementById('btn-salva-giocatore').innerText='Aggiorna';document.getElementById('btn-annulla-gioc').classList.remove('hidden');}
+        window.annullaModificaGiocatore=()=>{document.getElementById('edit-gioc-id').value='';document.getElementById('add-gioc-nome').value='';document.getElementById('add-gioc-foto').value='';document.getElementById('add-gioc-por').checked=false;document.getElementById('lbl-add-edit-giocatore').innerText=`Aggiungi Giocatore`;document.getElementById('btn-salva-giocatore').innerText='Crea';document.getElementById('btn-annulla-gioc').classList.add('hidden');}
+        window.adminSalvaGiocatore=()=>{const id=document.getElementById('edit-gioc-id').value,nome=document.getElementById('add-gioc-nome').value.trim(),ruolo=document.getElementById('add-gioc-ruolo').value,foto=document.getElementById('add-gioc-foto').value.trim(),por=document.getElementById('add-gioc-por').checked;if(!nome)return showToast("Inserisci nome!","error");if(id){let g=DB.giocatori.find(x=>x.id==id);g.nome=nome;g.ruolo=ruolo;g.foto=foto;g.por=por;}else{let nId=DB.giocatori.length?Math.max(...DB.giocatori.map(g=>g.id))+1:1;DB.giocatori.push({id:nId,nome,ruolo,foto,por,gol:0,assist:0,autogol:0,rigoriParati:0,mvp:0,vinte:0,pareggiate:0,perse:0});}salvaDB();aggiornaUI();annullaModificaGiocatore();showToast("Giocatore salvato!");}
+        window.adminEliminaGiocatore=id=>{if(!confirm("Sicuro di radiarlo?"))return;DB.giocatori=DB.giocatori.filter(g=>g.id!=id);salvaDB();aggiornaUI();showToast("Giocatore rimosso.");}
+        window.preparaModificaCampo=nome=>{const c=DB.campi.find(x=>x.nome===nome);if(!c)return;document.getElementById('edit-campo-old-name').value=c.nome;document.getElementById('add-campo-nome').value=c.nome;document.getElementById('add-campo-foto').value=c.img||'';document.getElementById('btn-salva-campo').innerText='Aggiorna';}
+        window.adminSalvaCampo=()=>{const old=document.getElementById('edit-campo-old-name').value,nome=document.getElementById('add-campo-nome').value.trim(),img=document.getElementById('add-campo-foto').value.trim();if(!nome)return showToast("Nome campo!","error");if(old){let c=DB.campi.find(x=>x.nome===old);if(c){c.nome=nome;c.img=img;}document.getElementById('edit-campo-old-name').value='';document.getElementById('btn-salva-campo').innerText='Salva Campo';}else DB.campi.push({nome,img});document.getElementById('add-campo-nome').value='';document.getElementById('add-campo-foto').value='';salvaDB();aggiornaUI();showToast("Campo salvato!");}
+        window.adminEliminaCampo=nome=>{if(!confirm(`Vuoi rimuovere ${nome}?`))return;DB.campi=DB.campi.filter(c=>c.nome!==nome);salvaDB();aggiornaUI();}
 
-        window.adminSalvaTabellino = function() {
-            let m = editStoricoIndex > -1 ? DB.storico[editStoricoIndex] : DB.matchAttivo;
-            if(!m) return;
-            
-            m.golA = parseInt(document.getElementById('tab-gol-a').value) || 0;
-            m.golB = parseInt(document.getElementById('tab-gol-b').value) || 0;
-            m.mvpId = parseInt(document.getElementById('tab-mvp-id').value);
-            
-            const leggiDettagli = (sq) => {
-                let dett = {};
-                sq.forEach(g => {
-                    dett[g.id] = {
-                        gol: parseInt(document.getElementById('gol_'+g.id).value) || 0,
-                        assist: parseInt(document.getElementById('ass_'+g.id).value) || 0,
-                        autogol: parseInt(document.getElementById('aut_'+g.id).value) || 0,
-                        golSubiti: parseInt(document.getElementById('gs_'+g.id).value) || 0,
-                        rigoriParati: parseInt(document.getElementById('rp_'+g.id).value) || 0,
-                    };
-                });
-                return dett;
-            };
+        // --- RETE E INIZIALIZZAZIONE ---
+        function caricaDatiDaGoogle() { fetch(SCRIPT_URL).then(r=>r.json()).then(d=>{if(d&&d.giocatori){DB=d;sanificaDatabase();localStorage.setItem('fantaHubV8',JSON.stringify(DB));aggiornaUI();console.log("Cloud sync ok");}}).catch(e=>{console.error("Cloud fallito",e);aggiornaUI();}); }
+        function salvaDatiSuGoogle() { fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(DB)}).then(()=>console.log("Backup inviato!")).catch(e=>console.error("Errore backup cloud",e)); }
+        function salvaDB() { localStorage.setItem('fantaHubV8', JSON.stringify(DB)); salvaDatiSuGoogle(); }
 
-            m.dettA = leggiDettagli(m.sqA);
-            m.dettB = leggiDettagli(m.sqB);
-
-            if(editStoricoIndex === -1) {
-                // Nuovo Match
-                DB.storico.unshift(m);
-                DB.matchAttivo = null; DB.votiMVP = {};
-                localStorage.removeItem('voto_mvp_fatto');
-            }
-
-            ricalcolaStatisticheGlobali();
-            editStoricoIndex = -1;
-            salvaDB(); aggiornaUI(); closeAdmin();
-            showToast("Tabellino salvato e statistiche ricalcolate!");
-        }
-        
-        // --- COLLEGAMENTO CON GOOGLE SHEETS ---
-
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRx9e6YyT8Sp0OQ3-49Jg1z6FTi4gFbGILOweC1s1jkpQsknqBsq1MLYiXgVsGz70ubw/exec";
-
-function caricaDatiDaGoogle() {
-    fetch(SCRIPT_URL)
-    .then(response => response.json())
-    .then(dati => {
-        DB = dati; 
-        localStorage.setItem('fantaHubV7', JSON.stringify(DB)); 
-        aggiornaUI(); 
-        console.log("Dati scaricati con successo da Google Sheets!");
-    })
-    .catch(err => console.error("Errore nel caricamento dati da Google:", err));
-}
-
-function salvaDatiSuGoogle() {
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors', 
-        body: JSON.stringify(DB)
-    })
-    .then(() => console.log("Modifiche salvate su Google Sheets!"))
-    .catch(err => console.error("Errore di connessione durante il salvataggio", err));
-}
-
-function salvaDB() {
-    localStorage.setItem('fantaHubV7', JSON.stringify(DB)); 
-    salvaDatiSuGoogle(); 
-}
-
-window.onload = function() {
-    caricaDatiDaGoogle(); 
-};
+        window.onload = caricaDatiDaGoogle;
     </script>
 </body>
 </html>
