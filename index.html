@@ -13,10 +13,9 @@
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade { animation: fadeIn 0.4s ease-out forwards; }
-        .hover-scale { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .hover-scale { transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
         .hover-scale:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.4); }
 
-        /* Stile Carte FC 26 */
         .fc-card {
             background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
             border: 2px solid #d4af37;
@@ -44,7 +43,6 @@
 
         .fc-card-top { position: relative; height: 140px; border-bottom: 1px solid rgba(212, 175, 55, 0.3); overflow: hidden; }
         
-        /* Modifiche per Carte nel TOTW su Campetto */
         .mini-card-container { width: 110px; flex-shrink: 0; }
         .mini-card-container .fc-card-top { height: 100px; }
         .mini-card-container img { height: 90px; }
@@ -70,7 +68,7 @@
         <p class="text-xs text-gray-400 mt-2 uppercase tracking-widest font-bold">Portale Ufficiale</p>
     </header>
 
-    <nav class="max-w-6xl mx-auto mb-8 bg-gray-900/90 border border-yellow-700/50 p-2 rounded-2xl flex justify-around sticky top-4 z-40 backdrop-blur-md shadow-xl animate-fade overflow-x-auto" style="animation-delay: 0.1s;">
+    <nav class="max-w-6xl mx-auto mb-8 bg-gray-900/90 border border-yellow-700/50 p-2 rounded-2xl flex justify-around sticky top-4 z-40 backdrop-blur-md shadow-xl animate-fade overflow-x-auto">
         <button onclick="switchTab('sondaggi')" id="btn-sondaggi" class="tab-btn px-3 md:px-4 py-2.5 rounded-xl font-bold text-[10px] md:text-sm text-yellow-400 bg-gray-800 transition whitespace-nowrap">Sondaggi</button>
         <button onclick="switchTab('partite')" id="btn-partite" class="tab-btn px-3 md:px-4 py-2.5 rounded-xl font-bold text-[10px] md:text-sm text-gray-400 hover:text-white transition whitespace-nowrap">Partite</button>
         <button onclick="switchTab('giocatori')" id="btn-giocatori" class="tab-btn px-3 md:px-4 py-2.5 rounded-xl font-bold text-[10px] md:text-sm text-gray-400 hover:text-white transition whitespace-nowrap">Giocatori</button>
@@ -81,7 +79,6 @@
 
     <main class="max-w-6xl mx-auto">
         
-        <!-- SEZIONE SONDAGGI -->
         <section id="tab-sondaggi" class="tab-content space-y-6">
             <h2 class="text-2xl font-bold text-white font-sport border-b border-gray-800 pb-2">🗳️ SONDAGGI LIVE</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="container-sondaggi"></div>
@@ -94,7 +91,6 @@
             </div>
         </section>
 
-        <!-- SEZIONE PARTITE -->
         <section id="tab-partite" class="tab-content hidden space-y-8">
             <div>
                 <h2 class="text-2xl font-bold text-green-400 font-sport border-b border-gray-800 pb-2 mb-4">🔜 FORMAZIONI UFFICIALI (LIVE)</h2>
@@ -112,13 +108,11 @@
             </div>
         </section>
 
-        <!-- SEZIONE GIOCATORI -->
         <section id="tab-giocatori" class="tab-content hidden">
             <h2 class="text-2xl font-bold text-white font-sport border-b border-gray-800 pb-2 mb-6">🎴 DATABASE GIOCATORI</h2>
             <div id="cards-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6"></div>
         </section>
 
-        <!-- SEZIONE ALBO D'ORO & TOTW -->
         <section id="tab-albo" class="tab-content hidden space-y-8">
             <div>
                 <h2 class="text-2xl font-bold text-blue-400 font-sport border-b border-gray-800 pb-2 mb-4">🔥 SQUADRA DELLA SETTIMANA (TOTW)</h2>
@@ -130,7 +124,6 @@
             </div>
         </section>
 
-        <!-- SEZIONE CLASSIFICHE -->
         <section id="tab-classifiche" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="bg-gray-900 p-5 rounded-2xl border border-gray-800"><h3 class="text-lg font-bold text-yellow-400 font-sport mb-3">⚽ TOP MARCATORI</h3><div id="rank-gol" class="space-y-2"></div></div>
             <div class="bg-gray-900 p-5 rounded-2xl border border-gray-800"><h3 class="text-lg font-bold text-blue-400 font-sport mb-3">👟 TOP ASSIST</h3><div id="rank-assist" class="space-y-2"></div></div>
@@ -138,7 +131,6 @@
         </section>
     </main>
 
-    <!-- MODALE DETTAGLI MATCH -->
     <div id="match-detail-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
         <div class="bg-gray-900 border border-yellow-700/50 rounded-2xl max-w-3xl w-full p-4 md:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeMatchDetail()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">&times;</button>
@@ -147,7 +139,15 @@
         </div>
     </div>
 
-    <!-- MODALE ADMIN -->
+    <div id="player-detail-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-gray-900 border border-yellow-700/50 rounded-2xl max-w-4xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closePlayerDetail()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold text-white font-sport text-center mb-6 border-b border-gray-800 pb-2">STATISTICHE DETTAGLIATE</h3>
+            <div id="player-modal-content" class="flex flex-col md:flex-row gap-8 items-center md:items-start justify-center">
+                </div>
+        </div>
+    </div>
+
     <div id="admin-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center hidden p-2 md:p-4">
         <div class="bg-gray-900 border border-gray-700 rounded-2xl max-w-4xl w-full p-4 md:p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto">
             <button onclick="closeAdmin()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-3xl font-bold z-50">&times;</button>
@@ -180,10 +180,9 @@
                             <div id="admin-check-giocatori" class="grid grid-cols-2 gap-1 mb-2 max-h-32 overflow-y-auto pr-1 bg-gray-900 p-2 rounded border border-gray-700"></div>
                             <button onclick="avviaBuilderMatch()" class="w-full bg-yellow-600 hover:bg-yellow-500 text-white text-xs font-bold px-4 py-3 rounded-lg mb-2">Avvia Composizione Formazioni</button>
                             
-                            <!-- SEZIONE DRAFT HIDDEN INIZIALMENTE -->
                             <div id="admin-match-builder" class="hidden mt-3 p-3 bg-gray-900 rounded border border-yellow-600/50">
-                                <p class="text-xs text-gray-300 font-bold mb-2 text-center">COMPONI LE SQUADRE (Scambia o Genera in base all'OVR)</p>
-                                <button onclick="generaSquadreOVR()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold py-2 rounded mb-2">Genera Automaticamente in base all'Overall</button>
+                                <p class="text-xs text-gray-300 font-bold mb-2 text-center">COMPONI LE SQUADRE</p>
+                                <button onclick="generaSquadreOVR()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold py-2 rounded mb-2">Bilancia per OVR e Ruolo</button>
                                 <div class="grid grid-cols-2 gap-2 text-xs">
                                     <div class="bg-gray-800 p-2 rounded border border-blue-500/50 min-h-[100px]" id="draft-sq-a"></div>
                                     <div class="bg-gray-800 p-2 rounded border border-red-500/50 min-h-[100px]" id="draft-sq-b"></div>
@@ -215,7 +214,14 @@
                                 </select>
                             </div>
                             <input type="text" id="add-gioc-foto" placeholder="URL Foto Giocatore" class="w-full p-2 rounded text-sm text-black border mb-2 outline-none">
-                            <label class="flex items-center text-sm text-white mb-3 gap-2 cursor-pointer"><input type="checkbox" id="add-gioc-por" class="w-4 h-4"> È un Portiere Principale?</label>
+                            <label class="flex items-center text-sm text-white mb-2 gap-2 cursor-pointer"><input type="checkbox" id="add-gioc-por" class="w-4 h-4"> È un Portiere Principale?</label>
+                            
+                            <div class="mb-3 border-t border-gray-700 pt-2">
+                                <label class="text-[10px] text-gray-400 uppercase font-bold block mb-1">Seleziona Playstyles:</label>
+                                <div id="playstyles-checkboxes" class="grid grid-cols-3 gap-1 text-[10px] text-white">
+                                    </div>
+                            </div>
+
                             <button onclick="adminSalvaGiocatore()" id="btn-salva-giocatore" class="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-3 rounded-lg">Crea Giocatore</button>
                             <button onclick="annullaModificaGiocatore()" id="btn-annulla-gioc" class="w-full bg-gray-600 hover:bg-gray-500 text-white text-xs font-bold py-2 mt-2 rounded-lg hidden">Annulla Modifica</button>
                         </div>
@@ -235,13 +241,12 @@
                         </div>
 
                         <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                            <p class="text-sm text-red-400 mb-1 font-bold border-b border-gray-700 pb-2">6. RETRO-MODIFICA ARCHIVIO (STORICO)</p>
-                            <div id="admin-lista-storico" class="space-y-2 max-h-24 overflow-y-auto pr-2 mt-2"></div>
+                            <p class="text-sm text-red-400 mb-1 font-bold border-b border-gray-700 pb-2">6. GESTIONE ARCHIVIO (STORICO)</p>
+                            <div id="admin-lista-storico" class="space-y-2 max-h-32 overflow-y-auto pr-2 mt-2"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SEZIONE MODIFICHE RAPIDE -->
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                     <h4 class="font-bold text-orange-400 mb-4 border-b border-gray-700 pb-2">7. MODIFICA RAPIDA STATISTICHE GLOBALI</h4>
                     <div class="flex gap-2 mb-4">
@@ -249,7 +254,7 @@
                             <option value="">-- Seleziona Giocatore per Sovrascrivere --</option>
                         </select>
                     </div>
-                    <div id="quick-edit-panel" class="hidden grid grid-cols-3 md:grid-cols-6 gap-2 bg-gray-900 p-3 rounded border border-gray-700">
+                    <div id="quick-edit-panel" class="hidden grid grid-cols-3 md:grid-cols-9 gap-2 bg-gray-900 p-3 rounded border border-gray-700">
                         <div><label class="text-[10px] text-gray-400 block">Gol</label><input type="number" id="qe-gol" class="w-full p-1 rounded text-black text-sm text-center"></div>
                         <div><label class="text-[10px] text-gray-400 block">Assist</label><input type="number" id="qe-assist" class="w-full p-1 rounded text-black text-sm text-center"></div>
                         <div><label class="text-[10px] text-gray-400 block">Autogol</label><input type="number" id="qe-autogol" class="w-full p-1 rounded text-black text-sm text-center"></div>
@@ -258,8 +263,9 @@
                         <div><label class="text-[10px] text-gray-400 block">Perse</label><input type="number" id="qe-perse" class="w-full p-1 rounded text-black text-sm text-center"></div>
                         <div><label class="text-[10px] text-gray-400 block">Pari</label><input type="number" id="qe-pari" class="w-full p-1 rounded text-black text-sm text-center"></div>
                         <div><label class="text-[10px] text-gray-400 block">MVP</label><input type="number" id="qe-mvp" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        <div><label class="text-[10px] text-blue-400 font-bold block">TOTW</label><input type="number" id="qe-totw" class="w-full p-1 rounded text-black text-sm text-center border-2 border-blue-500"></div>
                         
-                        <div class="col-span-3 md:col-span-6 mt-2">
+                        <div class="col-span-3 md:col-span-9 mt-2">
                             <button onclick="salvaModificaRapida()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold py-2 rounded text-xs shadow-lg">SOVRASCRIVI STATISTICHE</button>
                         </div>
                     </div>
@@ -276,6 +282,13 @@
         let editStoricoIndex = -1;
         let draftMatch = null;
 
+        // DIZIONARIO PLAYSTYLES
+        const PLAYSTYLES_MAP = {
+            'Bomber': '🚀', 'Cecchino': '🎯', 'Regista': '👁️', 'Maestro': '🎩',
+            'Muro': '🧱', 'Stacanovista': '🏃‍♂️', 'Torre': '🗼', 'Rapinatore': '🦊',
+            'Saracinesca': '🧤', 'Leader': '👑', 'Insuperabile': '🛡️'
+        };
+
         // Configurazione URL Google Apps Script
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRx9e6YyT8Sp0OQ3-49Jg1z6FTi4gFbGILOweC1s1jkpQsknqBsq1MLYiXgVsGz70ubw/exec";
 
@@ -289,10 +302,7 @@
         }
 
         const initData = {
-            giocatori: [
-                { id: 1, nome: "Bonetti", ruolo: "DIF", gol: 4, assist: 2, autogol: 0, rigoriParati: 0, mvp: 1, vinte: 2, pareggiate: 0, perse: 1, foto: "", por: false },
-                { id: 2, nome: "Schivonsky", ruolo: "POR", gol: 0, assist: 1, autogol: 0, rigoriParati: 2, mvp: 2, vinte: 3, pareggiate: 0, perse: 0, foto: "", por: true }
-            ],
+            giocatori: [],
             campi: [
                 { nome: "Ponte Rumito", img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=600" }
             ],
@@ -303,22 +313,14 @@
 
         let DB = JSON.parse(localStorage.getItem('fantaHubV8')) || initData;
 
-        // SANIFICAZIONE: Rimuoviamo "golSubiti" definitivamente da tutto il DB
         function sanificaDatabase() {
             DB.giocatori.forEach(g => {
                 if(g.autogol === undefined) g.autogol = 0;
                 if(g.rigoriParati === undefined) g.rigoriParati = 0;
                 if(g.por === undefined) g.por = (g.ruolo === "POR");
-                delete g.golSubiti;
+                if(g.playstyles === undefined) g.playstyles = [];
+                if(g.totw === undefined) g.totw = 0;
             });
-            DB.storico.forEach(match => {
-                if(match.dettA) Object.values(match.dettA).forEach(d => delete d.golSubiti);
-                if(match.dettB) Object.values(match.dettB).forEach(d => delete d.golSubiti);
-            });
-            if(DB.matchAttivo) {
-                if(DB.matchAttivo.dettA) Object.values(DB.matchAttivo.dettA).forEach(d => delete d.golSubiti);
-                if(DB.matchAttivo.dettB) Object.values(DB.matchAttivo.dettB).forEach(d => delete d.golSubiti);
-            }
             if(!DB.votiOrari) DB.votiOrari = {};
             if(!DB.votiCampo) DB.votiCampo = {};
             if(!DB.votiMVP) DB.votiMVP = {};
@@ -331,7 +333,6 @@
             return c && c.img ? c.img : "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=600"; 
         }
 
-        // --- CALCOLO OVERALL E PLAYSTYLES AGGIORNATI ---
         function getOverall(g) {
             let base = 65 + (g.vinte * 1.5) + (g.mvp * 2) - (g.perse * 0.5) - (g.autogol * 1);
             if (g.por) { 
@@ -343,20 +344,8 @@
         }
 
         function getPlayStyles(g) {
-            let icons = [];
-            if(g.gol >= 20 && !g.por) icons.push('<span title="Bomber Implacabile">🚀</span>');
-            else if(g.gol >= 10 && !g.por) icons.push('<span title="Cecchino">🎯</span>');
-            
-            if(g.assist >= 10) icons.push('<span title="Maestro degli Assist">🎩</span>');
-            else if(g.assist >= 5) icons.push('<span title="Regista Visionario">👁️</span>');
-            
-            if(g.por && g.rigoriParati >= 2) icons.push('<span title="Saracinesca">🧤</span>');
-            if(g.autogol >= 2) icons.push('<span title="Sfortuna Cronica">🤡</span>');
-            if(g.mvp >= 3) icons.push('<span title="Trascinatore Carismatico">👑</span>');
-            
-            if(g.vinte >= 10 && g.ruolo === 'DIF') icons.push('<span title="Muro Invalicabile">🧱</span>');
-            if(g.perse >= 5) icons.push('<span title="Cuore Impavido (Molte sconfitte)">❤️‍🩹</span>');
-            return icons.join(' ');
+            if(!g.playstyles || g.playstyles.length === 0) return '';
+            return g.playstyles.map(ps => `<span title="${ps}">${PLAYSTYLES_MAP[ps]||'⭐'}</span>`).join(' ');
         }
 
         window.switchTab = function(id) {
@@ -424,10 +413,10 @@
             DB.votiMVP[id] = (DB.votiMVP[id] || 0) + 1; localStorage.setItem('voto_mvp_fatto', 'si'); salvaDB(); aggiornaUI(); showToast('Voto MVP memorizzato!');
         }
 
-        // --- SISTEMA RENDERING CAMPO "ONEFOOTBALL" (PALLINI) ---
+        // --- SISTEMA RENDERING CAMPO ---
         const renderPlayerDot = (g, color) => `
             <div class="flex flex-col items-center z-10 mx-1 w-16">
-                <div class="relative group cursor-pointer hover-scale">
+                <div class="relative group cursor-pointer hover-scale" onclick="apriDettaglioGiocatore(${g.id})">
                     <img src="${g.foto || fallbackImg}" class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-${color}-500 bg-gray-800 object-cover shadow-lg">
                     <span class="absolute -bottom-1 -right-2 bg-${color}-600 text-white text-[10px] font-bold px-1 rounded shadow-md font-mono">${getOverall(g)}</span>
                 </div>
@@ -441,7 +430,6 @@
             let cens = team.filter(g=>g.ruolo==='CEN');
             let atts = team.filter(g=>g.ruolo==='ATT');
             
-            // Fallback x ruoli anomali
             team.forEach(g => { if(!g.por && !['DIF','CEN','ATT'].includes(g.ruolo)) difs.push(g); });
             let rows = isTopHalf ? [pors, difs, cens, atts] : [atts, cens, difs, pors];
             
@@ -510,7 +498,6 @@
 
         window.apriDettaglioPartita = function(idx) {
             const m = DB.storico[idx];
-            // Fix x match storici senza dettagli
             const dA = m.dettA || {}; const dB = m.dettB || {};
 
             const riga = (sq, dett, colore) => sq.map(g => {
@@ -533,11 +520,11 @@
         }
         window.closeMatchDetail = () => document.getElementById('match-detail-modal').classList.add('hidden');
 
-        // --- RENDER CARTE ---
+        // --- RENDER CARTE GIOCATORI ---
         function renderCarteFC() {
             const grid = document.getElementById('cards-grid'); if(!grid) return;
             grid.innerHTML = [...DB.giocatori].sort((a,b)=>getOverall(b)-getOverall(a)).map(g => `
-                <div class="fc-card hover-scale relative">
+                <div class="fc-card hover-scale relative" onclick="apriDettaglioGiocatore(${g.id})">
                     <div class="absolute top-1 right-2 text-sm z-30 font-mono">${getPlayStyles(g)}</div>
                     <div class="fc-card-top flex justify-center items-end pt-3">
                         <div class="absolute top-2 left-3 text-center z-20 flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold font-fc text-yellow-500 drop-shadow-md leading-none">${getOverall(g)}</span><span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest drop-shadow">${g.ruolo}</span></div>
@@ -545,23 +532,135 @@
                     </div>
                     <div class="px-2 pb-3 bg-gradient-to-b from-[#1a1a1a] to-black z-20 flex-1 flex flex-col justify-end">
                         <h4 class="text-center font-bold text-sm md:text-base text-yellow-500 uppercase font-fc border-b border-yellow-700/50 pb-1 truncate">${g.nome}</h4>
-                        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] font-fc text-gray-300 px-1 mt-1">
-                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">GOL</span><span class="text-white font-bold">${g.gol}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">VINTE</span><span class="text-white font-bold">${g.vinte}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">ASSIST</span><span class="text-white font-bold">${g.assist}</span></div>
-                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">PARI</span><span class="text-white font-bold">${g.pareggiate}</span></div>
-                            ${g.por ? `<div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">RIG.PAR</span><span class="text-white font-bold">${g.rigoriParati}</span></div>` : `<div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">AUTOGOL</span><span class="text-white font-bold">${g.autogol}</span></div>`}
-                            <div class="flex justify-between items-center"><span class="text-gray-500 text-[10px]">PERSE</span><span class="text-white font-bold">${g.perse}</span></div>
+                        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] font-fc text-gray-300 px-1 mt-1 text-center">
+                            <span>GOL <span class="text-white font-bold">${g.gol}</span></span>
+                            <span>VINTE <span class="text-white font-bold">${g.vinte}</span></span>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // --- RENDER TOTW SU CAMPO E ALBO CON COPPIA ---
+        // --- DETTAGLIO GIOCATORE CON ULTIME 5 PARTITE ---
+        window.apriDettaglioGiocatore = function(id) {
+            const g = DB.giocatori.find(x => x.id == id); if(!g) return;
+            const presenze = (g.vinte||0) + (g.pareggiate||0) + (g.perse||0);
+            const winRate = presenze > 0 ? Math.round((g.vinte / presenze) * 100) : 0;
+            
+            let psHtml = getPlayStyles(g) ? g.playstyles.map(ps => `<span class="bg-gray-800 px-2 py-1 rounded text-xs border border-gray-700">${PLAYSTYLES_MAP[ps]} ${ps}</span>`).join('') : '<span class="text-gray-500 text-xs italic">Nessun Playstyle</span>';
+
+            let ultimePartite = [];
+            if (DB.storico && DB.storico.length > 0) {
+                for (let m of DB.storico) {
+                    let inSqA = m.sqA.find(x => x.id == id);
+                    let inSqB = m.sqB.find(x => x.id == id);
+                    
+                    if (inSqA || inSqB) {
+                        let dett = inSqA ? (m.dettA[id] || {}) : (m.dettB[id] || {});
+                        
+                        let golFatti = inSqA ? m.golA : m.golB;
+                        let golSubiti = inSqA ? m.golB : m.golA;
+                        let esitoStr = '';
+                        if (golFatti > golSubiti) esitoStr = '<span class="text-green-500 font-bold bg-green-900/30 px-1.5 py-0.5 rounded">V</span>';
+                        else if (golFatti < golSubiti) esitoStr = '<span class="text-red-500 font-bold bg-red-900/30 px-1.5 py-0.5 rounded">S</span>';
+                        else esitoStr = '<span class="text-gray-400 font-bold bg-gray-700 px-1.5 py-0.5 rounded">P</span>';
+
+                        ultimePartite.push({
+                            data: m.data.substring(0, 10),
+                            esito: esitoStr,
+                            gol: dett.gol || 0,
+                            assist: dett.assist || 0,
+                            mvp: m.mvpId == id ? '⭐' : '-'
+                        });
+                        
+                        if (ultimePartite.length === 5) break; 
+                    }
+                }
+            }
+
+            let htmlUltimePartite = '<p class="text-xs text-gray-500 italic">Nessuna partita recente in archivio.</p>';
+            if (ultimePartite.length > 0) {
+                htmlUltimePartite = `
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-[10px] text-left text-gray-400">
+                            <thead class="text-[9px] uppercase bg-gray-900 border-b border-gray-700 text-gray-500">
+                                <tr>
+                                    <th class="p-1.5 rounded-tl-lg">Data</th>
+                                    <th class="p-1.5 text-center">Esito</th>
+                                    <th class="p-1.5 text-center">Gol</th>
+                                    <th class="p-1.5 text-center">Assist</th>
+                                    <th class="p-1.5 text-center rounded-tr-lg">MVP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${ultimePartite.map(p => `
+                                    <tr class="border-b border-gray-800 hover:bg-gray-800/50 transition">
+                                        <td class="p-1.5 truncate max-w-[70px] text-gray-300 font-mono">${p.data}</td>
+                                        <td class="p-1.5 text-center">${p.esito}</td>
+                                        <td class="p-1.5 text-center text-white font-bold">${p.gol > 0 ? `<span class="text-yellow-400">${p.gol}</span>` : '0'}</td>
+                                        <td class="p-1.5 text-center text-white font-bold">${p.assist > 0 ? `<span class="text-blue-400">${p.assist}</span>` : '0'}</td>
+                                        <td class="p-1.5 text-center">${p.mvp}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            document.getElementById('player-modal-content').innerHTML = `
+                <div class="w-48 md:w-64 flex-shrink-0">
+                    <div class="fc-card relative cursor-default scale-100 transform-none hover:transform-none">
+                        <div class="fc-card-top flex justify-center items-end pt-3 h-[200px]">
+                            <div class="absolute top-2 left-3 text-center z-20 flex flex-col items-center"><span class="text-5xl font-bold font-fc text-yellow-500">${getOverall(g)}</span><span class="text-sm font-bold text-gray-300">${g.ruolo}</span></div>
+                            <img src="${g.foto || fallbackImg}" onerror="this.onerror=null; this.src=fallbackImg;" class="h-[90%] w-auto object-cover z-10">
+                        </div>
+                        <div class="px-3 pb-4 bg-gradient-to-b from-[#1a1a1a] to-black z-20 text-center">
+                            <h4 class="font-bold text-xl text-yellow-500 uppercase font-fc border-b border-yellow-700/50 pb-1 mb-2">${g.nome}</h4>
+                            <div class="flex flex-wrap justify-center gap-1">${getPlayStyles(g)}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 w-full bg-gray-800/50 rounded-xl p-4 border border-gray-700 flex flex-col gap-4">
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="bg-gray-900 p-2 rounded-lg border border-gray-700 text-center"><span class="block text-[10px] text-gray-400 uppercase">Presenze</span><span class="text-xl font-bold text-white font-sport">${presenze}</span></div>
+                        <div class="bg-gray-900 p-2 rounded-lg border border-gray-700 text-center"><span class="block text-[10px] text-green-400 uppercase">Win Rate</span><span class="text-xl font-bold text-green-400 font-sport">${winRate}%</span></div>
+                        <div class="bg-gray-900 p-2 rounded-lg border border-gray-700 text-center"><span class="block text-[10px] text-blue-400 uppercase">TOTW</span><span class="text-xl font-bold text-blue-400 font-sport">${g.totw||0}</span></div>
+                        <div class="bg-gray-900 p-2 rounded-lg border border-gray-700 text-center"><span class="block text-[10px] text-yellow-400 uppercase">Gol</span><span class="text-xl font-bold text-white font-sport">${g.gol}</span></div>
+                        <div class="bg-gray-900 p-2 rounded-lg border border-gray-700 text-center"><span class="block text-[10px] text-blue-400 uppercase">Assist</span><span class="text-xl font-bold text-white font-sport">${g.assist}</span></div>
+                        <div class="bg-gray-900 p-2 rounded-lg border border-gray-700 text-center"><span class="block text-[10px] text-purple-400 uppercase">MVP</span><span class="text-xl font-bold text-white font-sport">${g.mvp}</span></div>
+                        <div class="bg-gray-900 p-2 rounded-lg border border-gray-700 text-center"><span class="block text-[10px] text-red-400 uppercase">Autogol</span><span class="text-xl font-bold text-red-400 font-sport">${g.autogol}</span></div>
+                        ${g.por ? `<div class="bg-gray-900 p-2 rounded-lg border border-gray-700 text-center"><span class="block text-[10px] text-orange-400 uppercase">Rigori</span><span class="text-xl font-bold text-orange-400 font-sport">${g.rigoriParati}</span></div>` : ''}
+                    </div>
+
+                    <div class="bg-gray-900 p-3 rounded-lg border border-gray-700">
+                        <span class="block text-xs font-bold text-gray-400 mb-2">Record Match (V - P - S):</span>
+                        <div class="flex h-4 rounded-full overflow-hidden text-[9px] font-bold text-white text-center leading-4 shadow-inner">
+                            ${g.vinte>0?`<div style="width: ${(g.vinte/presenze)*100}%" class="bg-green-500">${g.vinte}</div>`:''}
+                            ${g.pareggiate>0?`<div style="width: ${(g.pareggiate/presenze)*100}%" class="bg-gray-500">${g.pareggiate}</div>`:''}
+                            ${g.perse>0?`<div style="width: ${(g.perse/presenze)*100}%" class="bg-red-500">${g.perse}</div>`:''}
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 p-3 rounded-lg border border-gray-700">
+                        <span class="block text-xs font-bold text-gray-400 mb-2 flex justify-between items-center">
+                            STATO DI FORMA (Ultime 5)
+                            <span class="text-[10px] bg-gray-800 px-2 py-0.5 rounded text-gray-500 border border-gray-700">LIVE</span>
+                        </span>
+                        ${htmlUltimePartite}
+                    </div>
+
+                </div>
+            `;
+            document.getElementById('player-detail-modal').classList.remove('hidden');
+        }
+        window.closePlayerDetail = () => document.getElementById('player-detail-modal').classList.add('hidden');
+
+        // --- TOTW E ALBO D'ORO ---
         const renderMiniTotwCard = (g) => `
             <div class="mini-card-container mx-auto">
-                <div class="fc-card totw-card hover-scale shadow-2xl relative">
+                <div class="fc-card totw-card hover-scale shadow-2xl relative" onclick="apriDettaglioGiocatore(${g.id})">
                     <div class="fc-card-top flex justify-center items-end pt-2">
                         <span class="absolute top-1 left-1.5 text-xl font-bold font-fc text-blue-300">${getOverall(g)}</span>
                         <span class="absolute top-1 right-1.5 text-[10px] font-mono">${g.ruolo}</span>
@@ -579,7 +678,7 @@
             let atts = totw.filter(g=>g.ruolo==='ATT');
             totw.forEach(g => { if(!g.por && !['DIF','CEN','ATT'].includes(g.ruolo)) difs.push(g); });
             
-            let rows = [atts, cens, difs, pors]; // Top to bottom for a single team facing forward
+            let rows = [atts, cens, difs, pors];
             
             return rows.map(row => {
                 if(row.length === 0) return '';
@@ -587,24 +686,17 @@
             }).join('');
         }
 
-    
-        // --- RENDER TOTW SU CAMPO E ALBO CON COPPIA (VERSIONE BLINDATA) ---
         function renderAlboTotw() {
-            // Immagine di sicurezza nel caso non esista fallbackImg nel tuo codice
-            let defaultImg = typeof fallbackImg !== 'undefined' ? fallbackImg : 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+            let defaultImg = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
 
-            // --- PARTE 1: SQUADRA DELLA SETTIMANA (TOTW) ---
             try {
                 let portieri = DB.giocatori.filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
                 let movimento = DB.giocatori.filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
                 let totw = [portieri[0], ...movimento.slice(0,4)].filter(Boolean);
                 
                 const totwCont = document.getElementById('totw-container');
-                if(totwCont && typeof buildTotwPitch === 'function') {
-                    // Cerca l'immagine del campo, se la funzione non c'è usa uno sfondo di default
-                    let imgPitch = 'https://images.unsplash.com/photo-1518605368461-1ee7c68dc365?auto=format&fit=crop&q=80';
-                    if(typeof getImgCampo === 'function') { imgPitch = getImgCampo('Default') || imgPitch; }
-                    
+                if(totwCont) {
+                    let imgPitch = getImgCampo('Default') || 'https://images.unsplash.com/photo-1518605368461-1ee7c68dc365?auto=format&fit=crop&q=80';
                     totwCont.innerHTML = `
                         <div class="w-full relative overflow-hidden bg-cover bg-center rounded-xl p-4 flex flex-col justify-around min-h-[500px]" style="background-image: url('${imgPitch}');">
                             <div class="absolute inset-0 bg-black/50"></div>
@@ -615,13 +707,10 @@
                         </div>
                     `;
                 }
-            } catch (e) {
-                console.error("Errore nel render TOTW: ", e);
-            }
+            } catch (e) { console.error("Errore nel render TOTW: ", e); }
 
-            // --- PARTE 2: ALBO D'ORO (PREMI STORICI) ---
             try {
-                // 1. Calcolo Miglior Coppia
+                // FIX CALCOLO COPPIA
                 let coppie = {};
                 if(DB.storico) {
                     DB.storico.forEach(match => {
@@ -629,7 +718,7 @@
                             if(!haVinto || !sq) return;
                             for(let i=0; i<sq.length; i++){
                                 for(let j=i+1; j<sq.length; j++){
-                                    let k = sq[i].id < sq[j].id ? `${sq[i].id}-${sq[j].id}` : `${sq[j].id}-${sq[i].id}`;
+                                    let k = Math.min(sq[i].id, sq[j].id) + '-' + Math.max(sq[i].id, sq[j].id);
                                     coppie[k] = (coppie[k]||0) + 1;
                                 }
                             }
@@ -664,20 +753,13 @@
                     }
                 }
 
-                // 2. Calcolo Statistiche Individuali Albo d'Oro
                 const getBest = (arr, stat) => [...arr].sort((a,b)=>(b[stat]||0)-(a[stat]||0))[0];
-                
                 const mxG = getBest(DB.giocatori, 'gol'); 
                 const mxA = getBest(DB.giocatori, 'assist'); 
-                
-                const stacanovista = [...DB.giocatori].sort((a,b) => 
-                    ((b.vinte||0) + (b.perse||0) + (b.pareggiate||0)) - ((a.vinte||0) + (a.perse||0) + (a.pareggiate||0))
-                )[0];
-                const presenzeStac = stacanovista ? ((stacanovista.vinte||0) + (stacanovista.perse||0) + (stacanovista.pareggiate||0)) : 0;
-
+                const stacanovista = [...DB.giocatori].sort((a,b) => ((b.vinte||0)+(b.perse||0)+(b.pareggiate||0)) - ((a.vinte||0)+(a.perse||0)+(a.pareggiate||0)))[0];
+                const presenzeStac = stacanovista ? ((stacanovista.vinte||0)+(stacanovista.perse||0)+(stacanovista.pareggiate||0)) : 0;
                 const mxRigori = [...DB.giocatori].filter(g => g.por || (g.rigoriParati||0) > 0).sort((a,b)=>(b.rigoriParati||0)-(a.rigoriParati||0))[0];
 
-                // Card Template
                 const cAlbo = (titolo, g, sStr, tCol, bCol, imgCol) => {
                     if (!g) return '';
                     return `<div class="bg-gray-800 p-4 rounded-xl border ${bCol} flex items-center gap-4 shadow-lg hover-scale">
@@ -699,28 +781,20 @@
                         cAlbo('Il Muro 🧤', mxRigori, (mxRigori?.rigoriParati || 0) + ' Rigori Parati', 'text-red-400', 'border-red-600/50', 'border-red-500') +
                         htmlCoppia;
                 }
-            } catch (e) {
-                console.error("Errore nel render Albo d'Oro: ", e);
-            }
+            } catch (e) { console.error("Errore nel render Albo d'Oro: ", e); }
         }
 
-        // --- RENDER CLASSIFICHE TOP 10 (CORRETTO) ---
+        // --- CLASSIFICHE ---
         function renderClassifiche() {
             try {
                 const rGol = document.getElementById('rank-gol'); 
                 const rAss = document.getElementById('rank-assist'); 
                 const rMvp = document.getElementById('rank-mvp');
-                
                 if(!rGol || !rAss || !rMvp) return;
                 
-                // Funzione per generare lista (senza filtri sui dati a zero)
                 const r = (arr, stat, testColorClass, sym) => {
-                    let classifica = [...arr]
-                        .sort((a,b)=>(b[stat]||0)-(a[stat]||0) || getOverall(b)-getOverall(a))
-                        .slice(0, 10); // Prende la top 10
-                    
+                    let classifica = [...arr].sort((a,b)=>(b[stat]||0)-(a[stat]||0) || getOverall(b)-getOverall(a)).slice(0, 10);
                     if (classifica.length === 0) return '<p class="text-gray-500 text-xs italic py-2">Nessun giocatore registrato.</p>';
-
                     return classifica.map((g, i) => `
                         <div class="flex justify-between items-center bg-gray-800/50 p-2 rounded-xl border border-gray-700/40 hover-scale">
                             <div class="flex items-center gap-2">
@@ -735,16 +809,25 @@
                 rGol.innerHTML = r(DB.giocatori, 'gol', 'text-yellow-400', 'Gol');
                 rAss.innerHTML = r(DB.giocatori, 'assist', 'text-blue-400', 'Ass');
                 rMvp.innerHTML = r(DB.giocatori, 'mvp', 'text-purple-400', '⭐');
-            } catch (e) {
-                console.error("Errore nel renderClassifiche: ", e);
-            }
+            } catch (e) { console.error("Errore nel renderClassifiche: ", e); }
         }
 
-        // --- ADMIN AREA COMPLETA ---
+        // --- ADMIN LOGIN HASHATO ---
+        const hashCode = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
+        
         window.openAdmin = () => document.getElementById('admin-modal').classList.remove('hidden');
         window.closeAdmin = () => { document.getElementById('admin-modal').classList.add('hidden'); document.getElementById('admin-dashboard').classList.add('hidden'); document.getElementById('admin-login').classList.remove('hidden'); document.getElementById('admin-pass').value = ''; }
-        window.verificaAdmin = () => { if(document.getElementById('admin-pass').value === 'Calcetto_2026') { document.getElementById('admin-login').classList.add('hidden'); document.getElementById('admin-dashboard').classList.remove('hidden'); popolaAdminArea(); showToast("Accesso Autorizzato"); } else showToast("Password Errata", "error"); }
+        
+        window.verificaAdmin = () => { 
+            if(hashCode(document.getElementById('admin-pass').value) === 1917904121) { 
+                document.getElementById('admin-login').classList.add('hidden'); 
+                document.getElementById('admin-dashboard').classList.remove('hidden'); 
+                popolaAdminArea(); 
+                showToast("Accesso Autorizzato"); 
+            } else { showToast("Password Errata", "error"); } 
+        }
 
+        // --- POPOLAZIONE PANNELLO ADMIN E ELIMINAZIONE MATCH ---
         function popolaAdminArea() {
             const cg = document.getElementById('admin-check-giocatori');
             if (cg) cg.innerHTML = [...DB.giocatori].sort((a,b)=>a.nome.localeCompare(b.nome)).map(g=>`<label class="flex items-center gap-1.5 text-xs text-gray-300 bg-gray-900/60 p-1 rounded border border-gray-700 select-none cursor-pointer"><input type="checkbox" name="convocati" value="${g.id}" class="w-3.5 h-3.5 accent-green-500"><span class="truncate">${g.nome} (${g.ruolo})</span></label>`).join('');
@@ -755,40 +838,33 @@
             document.getElementById('admin-lista-del-giocatori').innerHTML = DB.giocatori.map(g=>`<div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700"><span class="text-xs text-white">${g.nome} (${g.ruolo})</span><div><button onclick="preparaModificaGiocatore(${g.id})" class="text-blue-400 mx-2">✏️</button><button onclick="adminEliminaGiocatore(${g.id})" class="text-red-500">🗑️</button></div></div>`).join('');
             document.getElementById('admin-lista-del-campi').innerHTML = DB.campi.map(c=>`<div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700"><span class="text-xs text-white truncate w-24">${c.nome}</span><div><button onclick="preparaModificaCampo('${c.nome}')" class="text-blue-400 mx-2">✏️</button><button onclick="adminEliminaCampo('${c.nome}')" class="text-red-500">🗑️</button></div></div>`).join('');
             
-            document.getElementById('admin-lista-storico').innerHTML = DB.storico.map((s, i)=>`<div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700"><span class="text-xs text-white w-2/3 truncate">${s.data} - ${s.nomeA} vs ${s.nomeB}</span><button onclick="caricaMatchInTabellino(${i})" class="bg-blue-600 hover:bg-blue-500 text-white text-[10px] px-2 py-1 rounded">Edita</button></div>`).join('');
+            // AGGIUNTO TASTO ELIMINA ALLO STORICO
+            document.getElementById('admin-lista-storico').innerHTML = DB.storico.map((s, i)=>`<div class="flex justify-between items-center bg-gray-900 p-2 rounded border border-gray-700"><span class="text-xs text-white w-2/3 truncate">${s.data} - ${s.nomeA} vs ${s.nomeB}</span><div><button onclick="caricaMatchInTabellino(${i})" class="bg-blue-600 hover:bg-blue-500 text-white text-[10px] px-2 py-1 rounded">Edita</button><button onclick="adminEliminaMatch(${i})" class="bg-red-600 hover:bg-red-500 text-white text-[10px] px-2 py-1 rounded ml-1">🗑️</button></div></div>`).join('');
 
             const qes = document.getElementById('quick-edit-select');
-            if(qes) {
-                qes.innerHTML = `<option value="">-- Seleziona Giocatore --</option>` + [...DB.giocatori].sort((a,b)=>a.nome.localeCompare(b.nome)).map(g=>`<option value="${g.id}">${g.nome}</option>`).join('');
+            if(qes) qes.innerHTML = `<option value="">-- Seleziona Giocatore --</option>` + [...DB.giocatori].sort((a,b)=>a.nome.localeCompare(b.nome)).map(g=>`<option value="${g.id}">${g.nome}</option>`).join('');
+
+            const psDiv = document.getElementById('playstyles-checkboxes');
+            if(psDiv) {
+                psDiv.innerHTML = Object.keys(PLAYSTYLES_MAP).map(ps => `
+                    <label class="flex items-center gap-1 cursor-pointer hover:text-yellow-400">
+                        <input type="checkbox" value="${ps}" class="ps-check w-3 h-3 accent-yellow-500"> ${PLAYSTYLES_MAP[ps]} ${ps}
+                    </label>
+                `).join('');
             }
 
             renderTabellino();
         }
 
-        window.caricaModificaRapida = function() {
-            const id = document.getElementById('quick-edit-select').value;
-            const p = document.getElementById('quick-edit-panel');
-            if(!id) { p.classList.add('hidden'); return; }
-            const g = DB.giocatori.find(x => x.id == id);
-            document.getElementById('qe-gol').value = g.gol; document.getElementById('qe-assist').value = g.assist;
-            document.getElementById('qe-autogol').value = g.autogol; document.getElementById('qe-rigori').value = g.rigoriParati;
-            document.getElementById('qe-vinte').value = g.vinte; document.getElementById('qe-perse').value = g.perse;
-            document.getElementById('qe-pari').value = g.pareggiate; document.getElementById('qe-mvp').value = g.mvp;
-            p.classList.remove('hidden');
+        window.adminEliminaMatch = function(idx) {
+            if(!confirm("Sicuro di voler eliminare definitivamente questa partita dall'archivio?")) return;
+            DB.storico.splice(idx, 1);
+            ricalcolaStatisticheGlobali();
+            salvaDB(); aggiornaUI();
+            showToast("Partita eliminata. Statistiche ricalcolate!");
         }
 
-        window.salvaModificaRapida = function() {
-            const id = document.getElementById('quick-edit-select').value;
-            const g = DB.giocatori.find(x => x.id == id);
-            if(!g) return;
-            g.gol = parseInt(document.getElementById('qe-gol').value)||0; g.assist = parseInt(document.getElementById('qe-assist').value)||0;
-            g.autogol = parseInt(document.getElementById('qe-autogol').value)||0; g.rigoriParati = parseInt(document.getElementById('qe-rigori').value)||0;
-            g.vinte = parseInt(document.getElementById('qe-vinte').value)||0; g.perse = parseInt(document.getElementById('qe-perse').value)||0;
-            g.pareggiate = parseInt(document.getElementById('qe-pari').value)||0; g.mvp = parseInt(document.getElementById('qe-mvp').value)||0;
-            salvaDB(); aggiornaUI(); showToast("Statistiche modificate!");
-        }
-
-        // --- DRAFT BUILDER E GENERAZIONE OVR ---
+        // --- GESTIONE DRAFT ---
         window.avviaBuilderMatch = function() {
             let ids = Array.from(document.querySelectorAll('input[name="convocati"]:checked')).map(cb => parseInt(cb.value));
             if(ids.length < 2) return showToast("Minimo 2 giocatori convocati!", "error");
@@ -799,8 +875,6 @@
 
             let sqA = [], sqB = [];
             let convocati = DB.giocatori.filter(g => ids.includes(g.id));
-            
-            // Inizializza mettendo metà a sx e metà a dx a caso/indice
             convocati.forEach((g,i)=>{ if(i%2===0) sqA.push(g); else sqB.push(g); });
 
             draftMatch = { 
@@ -816,17 +890,17 @@
 
         window.generaSquadreOVR = function() {
             if(!draftMatch) return;
-            let all = [...draftMatch.sqA, ...draftMatch.sqB];
-            all.sort((a,b)=>getOverall(b)-getOverall(a));
+            let pors = draftMatch.sqA.concat(draftMatch.sqB).filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
+            let movs = draftMatch.sqA.concat(draftMatch.sqB).filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
+            
             let sqA = [], sqB = [];
-            let pors = all.filter(g=>g.por); let movs = all.filter(g=>!g.por);
-            pors.forEach((p,i)=>{ if(i%2===0) sqA.push(p); else sqB.push(p); });
-            movs.forEach(m => {
-                let oA = sqA.reduce((sum,g)=>sum+getOverall(g),0); let oB = sqB.reduce((sum,g)=>sum+getOverall(g),0);
-                if(oA<=oB) sqA.push(m); else sqB.push(m);
-            });
+            let ovrA = 0, ovrB = 0;
+
+            pors.forEach(p => { if(ovrA <= ovrB){ sqA.push(p); ovrA+=getOverall(p); } else { sqB.push(p); ovrB+=getOverall(p); } });
+            movs.forEach(m => { if(ovrA <= ovrB){ sqA.push(m); ovrA+=getOverall(m); } else { sqB.push(m); ovrB+=getOverall(m); } });
+            
             draftMatch.sqA = sqA; draftMatch.sqB = sqB; renderDraft();
-            showToast("Squadre bilanciate per OVR!");
+            showToast("Squadre bilanciate per OVR e Ruoli!");
         }
 
         function renderDraft() {
@@ -858,7 +932,7 @@
             salvaDB(); aggiornaUI(); showToast("Sondaggio Orari creato!");
         }
 
-        // --- GESTIONE TABELLINO (INCLUSO FIX MODIFICA PASSATI) ---
+        // --- TABELLINO EVENTI E STATISTICHE GLOBALI ---
         window.caricaMatchInTabellino = function(idx) {
             editStoricoIndex = idx; popolaAdminArea();
             setTimeout(() => { document.getElementById('admin-tabellino-container').scrollIntoView({behavior:'smooth', block:'center'}); }, 100);
@@ -920,14 +994,83 @@
             });
         }
 
-        // --- GESTIONE ANAGRAFICA E CAMPI (MINIFICATI PER SPAZIO) ---
-        window.preparaModificaGiocatore=id=>{const g=DB.giocatori.find(x=>x.id===id);document.getElementById('edit-gioc-id').value=g.id;document.getElementById('add-gioc-nome').value=g.nome;document.getElementById('add-gioc-ruolo').value=g.ruolo;document.getElementById('add-gioc-foto').value=g.foto||'';document.getElementById('add-gioc-por').checked=g.por;document.getElementById('lbl-add-edit-giocatore').innerText=`Modifica: ${g.nome}`;document.getElementById('btn-salva-giocatore').innerText='Aggiorna';document.getElementById('btn-annulla-gioc').classList.remove('hidden');}
-        window.annullaModificaGiocatore=()=>{document.getElementById('edit-gioc-id').value='';document.getElementById('add-gioc-nome').value='';document.getElementById('add-gioc-foto').value='';document.getElementById('add-gioc-por').checked=false;document.getElementById('lbl-add-edit-giocatore').innerText=`Aggiungi Giocatore`;document.getElementById('btn-salva-giocatore').innerText='Crea';document.getElementById('btn-annulla-gioc').classList.add('hidden');}
-        window.adminSalvaGiocatore=()=>{const id=document.getElementById('edit-gioc-id').value,nome=document.getElementById('add-gioc-nome').value.trim(),ruolo=document.getElementById('add-gioc-ruolo').value,foto=document.getElementById('add-gioc-foto').value.trim(),por=document.getElementById('add-gioc-por').checked;if(!nome)return showToast("Inserisci nome!","error");if(id){let g=DB.giocatori.find(x=>x.id==id);g.nome=nome;g.ruolo=ruolo;g.foto=foto;g.por=por;}else{let nId=DB.giocatori.length?Math.max(...DB.giocatori.map(g=>g.id))+1:1;DB.giocatori.push({id:nId,nome,ruolo,foto,por,gol:0,assist:0,autogol:0,rigoriParati:0,mvp:0,vinte:0,pareggiate:0,perse:0});}salvaDB();aggiornaUI();annullaModificaGiocatore();showToast("Giocatore salvato!");}
-        window.adminEliminaGiocatore=id=>{if(!confirm("Sicuro di radiarlo?"))return;DB.giocatori=DB.giocatori.filter(g=>g.id!=id);salvaDB();aggiornaUI();showToast("Giocatore rimosso.");}
-        window.preparaModificaCampo=nome=>{const c=DB.campi.find(x=>x.nome===nome);if(!c)return;document.getElementById('edit-campo-old-name').value=c.nome;document.getElementById('add-campo-nome').value=c.nome;document.getElementById('add-campo-foto').value=c.img||'';document.getElementById('btn-salva-campo').innerText='Aggiorna';}
-        window.adminSalvaCampo=()=>{const old=document.getElementById('edit-campo-old-name').value,nome=document.getElementById('add-campo-nome').value.trim(),img=document.getElementById('add-campo-foto').value.trim();if(!nome)return showToast("Nome campo!","error");if(old){let c=DB.campi.find(x=>x.nome===old);if(c){c.nome=nome;c.img=img;}document.getElementById('edit-campo-old-name').value='';document.getElementById('btn-salva-campo').innerText='Salva Campo';}else DB.campi.push({nome,img});document.getElementById('add-campo-nome').value='';document.getElementById('add-campo-foto').value='';salvaDB();aggiornaUI();showToast("Campo salvato!");}
-        window.adminEliminaCampo=nome=>{if(!confirm(`Vuoi rimuovere ${nome}?`))return;DB.campi=DB.campi.filter(c=>c.nome!==nome);salvaDB();aggiornaUI();}
+        // --- GESTIONE GIOCATORI E CAMPI ---
+        window.preparaModificaGiocatore = id => {
+            const g = DB.giocatori.find(x=>x.id===id);
+            document.getElementById('edit-gioc-id').value = g.id;
+            document.getElementById('add-gioc-nome').value = g.nome;
+            document.getElementById('add-gioc-ruolo').value = g.ruolo;
+            document.getElementById('add-gioc-foto').value = g.foto || '';
+            document.getElementById('add-gioc-por').checked = g.por;
+            document.querySelectorAll('.ps-check').forEach(cb => cb.checked = g.playstyles.includes(cb.value));
+            document.getElementById('lbl-add-edit-giocatore').innerText = `Modifica: ${g.nome}`;
+            document.getElementById('btn-salva-giocatore').innerText = 'Aggiorna';
+            document.getElementById('btn-annulla-gioc').classList.remove('hidden');
+        }
+
+        window.annullaModificaGiocatore = () => {
+            document.getElementById('edit-gioc-id').value = '';
+            document.getElementById('add-gioc-nome').value = '';
+            document.getElementById('add-gioc-foto').value = '';
+            document.getElementById('add-gioc-por').checked = false;
+            document.querySelectorAll('.ps-check').forEach(cb => cb.checked = false);
+            document.getElementById('lbl-add-edit-giocatore').innerText = `Aggiungi Giocatore`;
+            document.getElementById('btn-salva-giocatore').innerText = 'Crea';
+            document.getElementById('btn-annulla-gioc').classList.add('hidden');
+        }
+
+        window.adminSalvaGiocatore = () => {
+            const id = document.getElementById('edit-gioc-id').value;
+            const nome = document.getElementById('add-gioc-nome').value.trim();
+            const ruolo = document.getElementById('add-gioc-ruolo').value;
+            const foto = document.getElementById('add-gioc-foto').value.trim();
+            const por = document.getElementById('add-gioc-por').checked;
+            
+            let ps = [];
+            document.querySelectorAll('.ps-check:checked').forEach(cb => ps.push(cb.value));
+
+            if(!nome) return showToast("Inserisci nome!", "error");
+            
+            if(id){
+                let g = DB.giocatori.find(x=>x.id==id);
+                g.nome = nome; g.ruolo = ruolo; g.foto = foto; g.por = por; g.playstyles = ps;
+            } else {
+                let nId = DB.giocatori.length ? Math.max(...DB.giocatori.map(g=>g.id))+1 : 1;
+                DB.giocatori.push({id: nId, nome, ruolo, foto, por, playstyles: ps, totw: 0, gol:0, assist:0, autogol:0, rigoriParati:0, mvp:0, vinte:0, pareggiate:0, perse:0});
+            }
+            salvaDB(); aggiornaUI(); annullaModificaGiocatore(); showToast("Giocatore salvato!");
+        }
+
+        window.adminEliminaGiocatore = id => { if(!confirm("Sicuro di radiarlo?")) return; DB.giocatori = DB.giocatori.filter(g=>g.id!=id); salvaDB(); aggiornaUI(); showToast("Giocatore rimosso."); }
+        
+        window.preparaModificaCampo = nome => { const c=DB.campi.find(x=>x.nome===nome); if(!c) return; document.getElementById('edit-campo-old-name').value=c.nome; document.getElementById('add-campo-nome').value=c.nome; document.getElementById('add-campo-foto').value=c.img||''; document.getElementById('btn-salva-campo').innerText='Aggiorna'; }
+        window.adminSalvaCampo = () => { const old=document.getElementById('edit-campo-old-name').value, nome=document.getElementById('add-campo-nome').value.trim(), img=document.getElementById('add-campo-foto').value.trim(); if(!nome) return showToast("Nome campo!", "error"); if(old){ let c=DB.campi.find(x=>x.nome===old); if(c){ c.nome=nome; c.img=img; } document.getElementById('edit-campo-old-name').value=''; document.getElementById('btn-salva-campo').innerText='Salva Campo'; } else DB.campi.push({nome,img}); document.getElementById('add-campo-nome').value=''; document.getElementById('add-campo-foto').value=''; salvaDB(); aggiornaUI(); showToast("Campo salvato!"); }
+        window.adminEliminaCampo = nome => { if(!confirm(`Vuoi rimuovere ${nome}?`)) return; DB.campi = DB.campi.filter(c=>c.nome!==nome); salvaDB(); aggiornaUI(); }
+
+        window.caricaModificaRapida = function() {
+            const id = document.getElementById('quick-edit-select').value;
+            const p = document.getElementById('quick-edit-panel');
+            if(!id) { p.classList.add('hidden'); return; }
+            const g = DB.giocatori.find(x => x.id == id);
+            document.getElementById('qe-gol').value = g.gol; document.getElementById('qe-assist').value = g.assist;
+            document.getElementById('qe-autogol').value = g.autogol; document.getElementById('qe-rigori').value = g.rigoriParati;
+            document.getElementById('qe-vinte').value = g.vinte; document.getElementById('qe-perse').value = g.perse;
+            document.getElementById('qe-pari').value = g.pareggiate; document.getElementById('qe-mvp').value = g.mvp;
+            document.getElementById('qe-totw').value = g.totw || 0;
+            p.classList.remove('hidden');
+        }
+
+        window.salvaModificaRapida = function() {
+            const id = document.getElementById('quick-edit-select').value;
+            const g = DB.giocatori.find(x => x.id == id);
+            if(!g) return;
+            g.gol = parseInt(document.getElementById('qe-gol').value)||0; g.assist = parseInt(document.getElementById('qe-assist').value)||0;
+            g.autogol = parseInt(document.getElementById('qe-autogol').value)||0; g.rigoriParati = parseInt(document.getElementById('qe-rigori').value)||0;
+            g.vinte = parseInt(document.getElementById('qe-vinte').value)||0; g.perse = parseInt(document.getElementById('qe-perse').value)||0;
+            g.pareggiate = parseInt(document.getElementById('qe-pari').value)||0; g.mvp = parseInt(document.getElementById('qe-mvp').value)||0;
+            g.totw = parseInt(document.getElementById('qe-totw').value)||0;
+            salvaDB(); aggiornaUI(); showToast("Statistiche modificate!");
+        }
 
         // --- RETE E INIZIALIZZAZIONE ---
         function caricaDatiDaGoogle() { fetch(SCRIPT_URL).then(r=>r.json()).then(d=>{if(d&&d.giocatori){DB=d;sanificaDatabase();localStorage.setItem('fantaHubV8',JSON.stringify(DB));aggiornaUI();console.log("Cloud sync ok");}}).catch(e=>{console.error("Cloud fallito",e);aggiornaUI();}); }
