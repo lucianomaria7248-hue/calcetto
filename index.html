@@ -812,20 +812,24 @@
             } catch (e) { console.error("Errore nel renderClassifiche: ", e); }
         }
 
-        // --- ADMIN LOGIN HASHATO ---
-        const hashCode = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
-        
-        window.openAdmin = () => document.getElementById('admin-modal').classList.remove('hidden');
-        window.closeAdmin = () => { document.getElementById('admin-modal').classList.add('hidden'); document.getElementById('admin-dashboard').classList.add('hidden'); document.getElementById('admin-login').classList.remove('hidden'); document.getElementById('admin-pass').value = ''; }
-        
-        window.verificaAdmin = () => { 
-            if(hashCode(document.getElementById('admin-pass').value) === 1917904121) { 
-                document.getElementById('admin-login').classList.add('hidden'); 
-                document.getElementById('admin-dashboard').classList.remove('hidden'); 
-                popolaAdminArea(); 
-                showToast("Accesso Autorizzato"); 
-            } else { showToast("Password Errata", "error"); } 
-        }
+        // La funzione hashCode non serve più, puoi cancellarla del tutto.
+
+window.openAdmin = () => document.getElementById('admin-modal').classList.remove('hidden');
+window.closeAdmin = () => { document.getElementById('admin-modal').classList.add('hidden'); document.getElementById('admin-dashboard').classList.add('hidden'); document.getElementById('admin-login').classList.remove('hidden'); document.getElementById('admin-pass').value = ''; }
+
+window.verificaAdmin = () => { 
+    // Sostituisci "Calcetto_2026" con la password che desideri
+    const passwordInserita = document.getElementById('admin-pass').value;
+    
+    if(passwordInserita === "Calcetto_2026") { 
+        document.getElementById('admin-login').classList.add('hidden'); 
+        document.getElementById('admin-dashboard').classList.remove('hidden'); 
+        popolaAdminArea(); 
+        showToast("Accesso Autorizzato"); 
+    } else { 
+        showToast("Password Errata", "error"); 
+    } 
+}
 
         // --- POPOLAZIONE PANNELLO ADMIN E ELIMINAZIONE MATCH ---
         function popolaAdminArea() {
