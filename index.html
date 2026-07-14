@@ -521,26 +521,30 @@
         window.closeMatchDetail = () => document.getElementById('match-detail-modal').classList.add('hidden');
 
         // --- RENDER CARTE GIOCATORI ---
-        function renderCarteFC() {
-            const grid = document.getElementById('cards-grid'); if(!grid) return;
-            grid.innerHTML = [...DB.giocatori].sort((a,b)=>getOverall(b)-getOverall(a)).map(g => `
-                <div class="fc-card hover-scale relative" onclick="apriDettaglioGiocatore(${g.id})">
-                    <div class="absolute top-1 right-2 text-sm z-30 font-mono">${getPlayStyles(g)}</div>
-                    <div class="fc-card-top flex justify-center items-end pt-3">
-                        <div class="absolute top-2 left-3 text-center z-20 flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold font-fc text-yellow-500 drop-shadow-md leading-none">${getOverall(g)}</span><span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest drop-shadow">${g.ruolo}</span></div>
-                        <img src="${g.foto || fallbackImg}" onerror="this.onerror=null; this.src=fallbackImg;" class="h-[90%] w-auto object-cover z-10">
-                    </div>
-                    <div class="px-2 pb-3 bg-gradient-to-b from-[#1a1a1a] to-black z-20 flex-1 flex flex-col justify-end">
-                        <h4 class="text-center font-bold text-sm md:text-base text-yellow-500 uppercase font-fc border-b border-yellow-700/50 pb-1 truncate">${g.nome}</h4>
-                        <div class="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px] font-fc text-gray-300 px-1 mt-1 text-center">
-                            <span>GOL <span class="text-white font-bold">${g.gol}</span></span>
-                            <span>VINTE <span class="text-white font-bold">${g.vinte}</span></span>
-                        </div>
-                    </div>
+       function renderCarteFC() {
+    const grid = document.getElementById('cards-grid'); if(!grid) return;
+    grid.innerHTML = [...DB.giocatori].sort((a,b)=>getOverall(b)-getOverall(a)).map(g => `
+        <div class="fc-card hover-scale relative" onclick="apriDettaglioGiocatore(${g.id})">
+            <div class="absolute top-1 right-2 text-sm z-30 font-mono">${getPlayStyles(g)}</div>
+            <div class="fc-card-top flex justify-center items-end pt-3">
+                <div class="absolute top-2 left-3 text-center z-20 flex flex-col items-center"><span class="text-3xl md:text-4xl font-bold font-fc text-yellow-500 drop-shadow-md leading-none">${getOverall(g)}</span><span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest drop-shadow">${g.ruolo}</span></div>
+                <img src="${g.foto || fallbackImg}" onerror="this.onerror=null; this.src=fallbackImg;" class="h-[90%] w-auto object-cover z-10">
+            </div>
+            <div class="px-2 pb-3 bg-gradient-to-b from-[#1a1a1a] to-black z-20 flex-1 flex flex-col justify-end">
+                <h4 class="text-center font-bold text-sm md:text-base text-yellow-500 uppercase font-fc border-b border-yellow-700/50 pb-1 truncate">${g.nome}</h4>
+                
+                <div class="grid grid-cols-3 gap-1 text-[9px] font-fc text-gray-300 px-1 mt-2 text-center">
+                    <div>⚽<br><span class="text-white font-bold">${g.gol}</span></div>
+                    <div>🎯<br><span class="text-white font-bold">${g.assist}</span></div>
+                    <div>⛔<br><span class="text-white font-bold">${g.autogol}</span></div>
+                    <div class="text-green-400">V<br><span class="text-white font-bold">${g.vinte}</span></div>
+                    <div class="text-yellow-400">P<br><span class="text-white font-bold">${g.pareggiate}</span></div>
+                    <div class="text-red-400">S<br><span class="text-white font-bold">${g.perse}</span></div>
                 </div>
-            `).join('');
-        }
-
+                </div>
+        </div>
+    `).join('');
+}
         // --- DETTAGLIO GIOCATORE CON ULTIME 5 PARTITE ---
         window.apriDettaglioGiocatore = function(id) {
             const g = DB.giocatori.find(x => x.id == id); if(!g) return;
