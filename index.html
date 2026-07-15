@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#d4af37">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FantaCalcetto Hub - App Ufficiale</title>
@@ -1091,6 +1093,11 @@ window.verificaAdmin = () => {
         function salvaDB() { localStorage.setItem('fantaHubV8', JSON.stringify(DB)); salvaDatiSuGoogle(); }
 
         window.onload = caricaDatiDaGoogle;
+        if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js');
+    });
+}
     </script>
 </body>
 </html>
