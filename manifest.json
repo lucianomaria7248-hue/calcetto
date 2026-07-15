@@ -1,7 +1,7 @@
 {
   "name": "FantaCalcetto Hub Ufficiale",
   "short_name": "FantaHub",
-  "start_url": "./INDEX.html", 
+  "start_url": "./index.html", 
   "display": "standalone",
   "background_color": "#080b10",
   "theme_color": "#d4af37",
