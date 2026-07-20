@@ -336,14 +336,16 @@
         }
 
         function getOverall(g) {
-            let base = 65 + (g.vinte * 1.5) + (g.mvp * 2) - (g.perse * 0.5) - (g.autogol * 1);
-            if (g.por) { 
-                base += (g.rigoriParati * 2.5) + (g.assist * 1.5) + (g.gol * 3); 
-            } else { 
-                base += (g.gol * 0.8) + (g.assist * 0.6); 
-            }
-            return Math.min(Math.max(Math.round(base), 65), 99);
-        }
+    let base = 65;
+    // Moltiplicatori molto più bassi di prima
+    let bonus = (g.gol||0)*0.10 + (g.assist||0)*0.10 + (g.vinte||0)*0.20 + (g.mvp||0)*0.5;
+    let malus = (g.perse||0)*0.10 + (g.autogol||0)*0.25 + (g.rigoriSbagliati||0)*0.50; // Aggiunto malus per RS
+
+    let finale = base + bonus - malus;
+    if(g.por) finale += (g.rigoriParati||0)*0.30;
+
+    return Math.min(99, Math.max(40, Math.floor(finale)));
+}
 
         function getPlayStyles(g) {
             if(!g.playstyles || g.playstyles.length === 0) return '';
@@ -701,9 +703,50 @@
             let defaultImg = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
 
             try {
-                let portieri = DB.giocatori.filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
-                let movimento = DB.giocatori.filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
-                let totw = [portieri[0], ...movimento.slice(0,4)].filter(Boolean);
+                let totw = [];
+                // Controllo se ci sono partite archiviate
+                if (DB.storico && DB.storico.length > 0) {
+                    let ultimaPartita = DB.storico[0]; // Prende l'ultimo match archiviato
+                    let votiGiornata = [];
+                    
+                    // Funzione interna per calcolare il "voto" del singolo match
+                    const calcolaVotoMatch = (gId, dett, isWin, mvpId, isPor) => {
+                        let d = dett[gId] || {};
+                        let voto = 6.0; // Voto base
+                        voto += (d.gol || 0) * (isPor ? 3 : 2); // Gol valgono di più per il portiere
+                        voto += (d.assist || 0) * 1;
+                        voto += (d.rigoriParati || 0) * 3;
+                        voto -= (d.autogol || 0) * 2;
+                        voto -= (d.rigoriSbagliati || 0) * 2.5; // Penalità rigore
+                        if (gId == mvpId) voto += 2;
+                        if (isWin) voto += 0.5;
+                        return voto;
+                    };
+
+                    let haVintoA = ultimaPartita.golA > ultimaPartita.golB;
+                    let haVintoB = ultimaPartita.golB > ultimaPartita.golA;
+
+                    // Unisce e valuta tutti i giocatori in campo
+                    [...ultimaPartita.sqA].forEach(g => {
+                        let playerDb = DB.giocatori.find(x => x.id == g.id);
+                        if (playerDb) votiGiornata.push({ ...playerDb, votoMatch: calcolaVotoMatch(g.id, ultimaPartita.dettA, haVintoA, ultimaPartita.mvpId, playerDb.por) });
+                    });
+                    [...ultimaPartita.sqB].forEach(g => {
+                        let playerDb = DB.giocatori.find(x => x.id == g.id);
+                        if (playerDb) votiGiornata.push({ ...playerDb, votoMatch: calcolaVotoMatch(g.id, ultimaPartita.dettB, haVintoB, ultimaPartita.mvpId, playerDb.por) });
+                    });
+
+                    // Seleziona il miglior portiere e i 4 migliori di movimento di QUESTO MATCH
+                    let portieriMatch = votiGiornata.filter(g => g.por).sort((a,b) => b.votoMatch - a.votoMatch);
+                    let movMatch = votiGiornata.filter(g => !g.por).sort((a,b) => b.votoMatch - a.votoMatch);
+                    totw = [portieriMatch[0], ...movMatch.slice(0,4)].filter(Boolean);
+
+                } else {
+                    // Fallback se il database storico è vuoto: usa l'overall globale
+                    let portieri = DB.giocatori.filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
+                    let movimento = DB.giocatori.filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
+                    totw = [portieri[0], ...movimento.slice(0,4)].filter(Boolean);
+                }
                 
                 const totwCont = document.getElementById('totw-container');
                 if(totwCont) {
