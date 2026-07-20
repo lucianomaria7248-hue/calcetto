@@ -261,6 +261,7 @@
                         <div><label class="text-[10px] text-gray-400 block">Assist</label><input type="number" id="qe-assist" class="w-full p-1 rounded text-black text-sm text-center"></div>
                         <div><label class="text-[10px] text-gray-400 block">Autogol</label><input type="number" id="qe-autogol" class="w-full p-1 rounded text-black text-sm text-center"></div>
                         <div><label class="text-[10px] text-gray-400 block">Rig. Parati</label><input type="number" id="qe-rigori" class="w-full p-1 rounded text-black text-sm text-center"></div>
+                        <div><label class="text-[10px] text-white block mb-0.5 font-bold">RSbagliati</label><input type="number" id="qe-rs" class="w-full p-1.5 rounded text-center font-bold outline-none" min="0"></div>
                         <div><label class="text-[10px] text-gray-400 block">Vinte</label><input type="number" id="qe-vinte" class="w-full p-1 rounded text-black text-sm text-center"></div>
                         <div><label class="text-[10px] text-gray-400 block">Perse</label><input type="number" id="qe-perse" class="w-full p-1 rounded text-black text-sm text-center"></div>
                         <div><label class="text-[10px] text-gray-400 block">Pari</label><input type="number" id="qe-pari" class="w-full p-1 rounded text-black text-sm text-center"></div>
@@ -546,13 +547,11 @@
                     <div class="flex justify-between"><span>Gol:</span> <span>${g.gol}</span></div>
                     <div class="flex justify-between"><span>Assist:</span> <span>${g.assist}</span></div>
                     <div class="flex justify-between"><span>Autogol:</span> <span>${g.autogol}</span></div>
+                    <div class="flex justify-between"><span>Rigori Sbagliati:</span> <span>${g.rigoriSbagliati}</span></div>
                     <div class="flex justify-between text-green-400"><span>Vinte:</span> <span>${g.vinte}</span></div>
                     <div class="flex justify-between text-yellow-400"><span>Pari:</span> <span>${g.pareggiate}</span></div>
                     <div class="flex justify-between text-red-400"><span>Perse:</span> <span>${g.perse}</span></div>
                     <div class="flex justify-between border-b border-gray-700 pb-1">
-    <span class="text-gray-400">Rigori Sbagliati:</span>
-    <span class="font-bold text-red-500">${g.rigoriSbagliati || 0}</span>
-</div>
                 </div>
                 </div>
         </div>
@@ -1074,13 +1073,17 @@ window.verificaAdmin = () => {
         }
 
         // --- GESTIONE GIOCATORI E CAMPI ---
-        window.preparaModificaGiocatore = id => {
+       window.preparaModificaGiocatore = id => {
             const g = DB.giocatori.find(x=>x.id===id);
             document.getElementById('edit-gioc-id').value = g.id;
             document.getElementById('add-gioc-nome').value = g.nome;
             document.getElementById('add-gioc-ruolo').value = g.ruolo;
             document.getElementById('add-gioc-foto').value = g.foto || '';
             document.getElementById('add-gioc-por').checked = g.por;
+            // Aggiunto caricamento RS
+            let inputRs = document.getElementById('add-gioc-rs');
+            if(inputRs) inputRs.value = g.rigoriSbagliati || 0; 
+            
             document.querySelectorAll('.ps-check').forEach(cb => cb.checked = g.playstyles.includes(cb.value));
             document.getElementById('lbl-add-edit-giocatore').innerText = `Modifica: ${g.nome}`;
             document.getElementById('btn-salva-giocatore').innerText = 'Aggiorna';
@@ -1092,6 +1095,10 @@ window.verificaAdmin = () => {
             document.getElementById('add-gioc-nome').value = '';
             document.getElementById('add-gioc-foto').value = '';
             document.getElementById('add-gioc-por').checked = false;
+            // Azzeramento RS
+            let inputRs = document.getElementById('add-gioc-rs');
+            if(inputRs) inputRs.value = 0;
+
             document.querySelectorAll('.ps-check').forEach(cb => cb.checked = false);
             document.getElementById('lbl-add-edit-giocatore').innerText = `Aggiungi Giocatore`;
             document.getElementById('btn-salva-giocatore').innerText = 'Crea';
@@ -1105,6 +1112,10 @@ window.verificaAdmin = () => {
             const foto = document.getElementById('add-gioc-foto').value.trim();
             const por = document.getElementById('add-gioc-por').checked;
             
+            // Lettura input RS (con sicurezza se non esiste l'elemento)
+            let elRs = document.getElementById('add-gioc-rs');
+            const rs = elRs ? (parseInt(elRs.value) || 0) : 0;
+            
             let ps = [];
             document.querySelectorAll('.ps-check:checked').forEach(cb => ps.push(cb.value));
 
@@ -1112,10 +1123,12 @@ window.verificaAdmin = () => {
             
             if(id){
                 let g = DB.giocatori.find(x=>x.id==id);
-                g.nome = nome; g.ruolo = ruolo; g.foto = foto; g.por = por; g.playstyles = ps;
+                // Salvataggio RS nel giocatore esistente
+                g.nome = nome; g.ruolo = ruolo; g.foto = foto; g.por = por; g.playstyles = ps; g.rigoriSbagliati = rs;
             } else {
                 let nId = DB.giocatori.length ? Math.max(...DB.giocatori.map(g=>g.id))+1 : 1;
-                DB.giocatori.push({id: nId, nome, ruolo, foto, por, playstyles: ps, totw: 0, gol:0, assist:0, autogol:0, rigoriParati:0, mvp:0, vinte:0, pareggiate:0, perse:0});
+                // Aggiunta RS nella creazione nuovo giocatore
+                DB.giocatori.push({id: nId, nome, ruolo, foto, por, playstyles: ps, totw: 0, gol:0, assist:0, autogol:0, rigoriParati:0, rigoriSbagliati: rs, mvp:0, vinte:0, pareggiate:0, perse:0});
             }
             salvaDB(); aggiornaUI(); annullaModificaGiocatore(); showToast("Giocatore salvato!");
         }
@@ -1133,6 +1146,11 @@ window.verificaAdmin = () => {
             const g = DB.giocatori.find(x => x.id == id);
             document.getElementById('qe-gol').value = g.gol; document.getElementById('qe-assist').value = g.assist;
             document.getElementById('qe-autogol').value = g.autogol; document.getElementById('qe-rigori').value = g.rigoriParati;
+            
+            // Aggiunto caricamento RS Modifica Rapida
+            let qeRs = document.getElementById('qe-rs');
+            if(qeRs) qeRs.value = g.rigoriSbagliati || 0;
+
             document.getElementById('qe-vinte').value = g.vinte; document.getElementById('qe-perse').value = g.perse;
             document.getElementById('qe-pari').value = g.pareggiate; document.getElementById('qe-mvp').value = g.mvp;
             document.getElementById('qe-totw').value = g.totw || 0;
@@ -1145,6 +1163,11 @@ window.verificaAdmin = () => {
             if(!g) return;
             g.gol = parseInt(document.getElementById('qe-gol').value)||0; g.assist = parseInt(document.getElementById('qe-assist').value)||0;
             g.autogol = parseInt(document.getElementById('qe-autogol').value)||0; g.rigoriParati = parseInt(document.getElementById('qe-rigori').value)||0;
+            
+            // Aggiunto salvataggio RS Modifica Rapida
+            let qeRs = document.getElementById('qe-rs');
+            if(qeRs) g.rigoriSbagliati = parseInt(qeRs.value) || 0;
+
             g.vinte = parseInt(document.getElementById('qe-vinte').value)||0; g.perse = parseInt(document.getElementById('qe-perse').value)||0;
             g.pareggiate = parseInt(document.getElementById('qe-pari').value)||0; g.mvp = parseInt(document.getElementById('qe-mvp').value)||0;
             g.totw = parseInt(document.getElementById('qe-totw').value)||0;
