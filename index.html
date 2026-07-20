@@ -1002,41 +1002,30 @@ window.verificaAdmin = () => {
         window.annullaModificaStorico = function() { editStoricoIndex = -1; popolaAdminArea(); }
 
         function renderTabellino() {
-            const b = document.getElementById('admin-tabellino-container');
-            let m = editStoricoIndex > -1 ? DB.storico[editStoricoIndex] : DB.matchAttivo;
-            if(!m) { b.innerHTML = '<p class="text-sm text-gray-500 italic py-2">Genera una partita o seleziona un match dall\'archivio storico per attivare il tabellino.</p>'; return; }
-            
-            const rG = (g, dett) => {
-                const d = dett ? (dett[g.id] || {}) : {};
-                // Modificato grid-cols-5 e aggiunto l'input per i rigori sbagliati (rs)
-                return `<div class="bg-gray-900 p-1.5 rounded flex flex-col gap-1 text-black border border-gray-700 mb-1"><div class="text-[11px] text-white font-bold truncate">${g.nome}</div><div class="grid grid-cols-5 gap-1"><input type="number" id="gol_${g.id}" value="${d.gol||''}" placeholder="Gol" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="ass_${g.id}" value="${d.assist||''}" placeholder="Ass" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="aut_${g.id}" value="${d.autogol||''}" placeholder="Aut" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Autogol"><input type="number" id="rp_${g.id}" value="${d.rigoriParati||''}" placeholder="RP" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Rigori Parati"><input type="number" id="rs_${g.id}" value="${d.rigoriSbagliati||''}" placeholder="RS" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Rigori Sbagliati"></div></div>`;
-            };
+    const b = document.getElementById('admin-tabellino-container');
+    let m = editStoricoIndex > -1 ? DB.storico[editStoricoIndex] : DB.matchAttivo;
+    if(!m) { 
+        b.innerHTML = '<p class="text-sm text-gray-500 italic py-2">Genera una partita o seleziona un match dall\'archivio storico per attivare il tabellino.</p>'; 
+        return; 
+    }
+    
+    const rG = (g, dett) => {
+        const d = dett ? (dett[g.id] || {}) : {};
+        return `<div class="bg-gray-900 p-1.5 rounded flex flex-col gap-1 text-black border border-gray-700 mb-1"><div class="text-[11px] text-white font-bold truncate">${g.nome}</div><div class="grid grid-cols-5 gap-1"><input type="number" id="gol_${g.id}" value="${d.gol||''}" placeholder="Gol" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="ass_${g.id}" value="${d.assist||''}" placeholder="Ass" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="aut_${g.id}" value="${d.autogol||''}" placeholder="Aut" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Autogol"><input type="number" id="rp_${g.id}" value="${d.rigoriParati||''}" placeholder="RP" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Rigori Parati"><input type="number" id="rs_${g.id}" value="${d.rigoriSbagliati||''}" placeholder="RS" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Rigori Sbagliati"></div></div>`;
+    };
 
-            b.innerHTML = `
-                ${editStoricoIndex > -1 ? `<div class="bg-blue-900/50 p-2 rounded text-xs text-white mb-2 text-center border border-blue-500">Stai modificando il match archiviato del ${m.data} <button onclick="annullaModificaStorico()" class="ml-2 bg-red-600 px-2 rounded font-bold">ANNULLA</button></div>` : ''}
-                <div class="grid grid-cols-2 gap-2 text-sm text-black mb-2"><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeA}</label><input type="number" id="tab-gol-a" value="${m.golA||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeB}</label><input type="number" id="tab-gol-b" value="${m.golB||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[300px] overflow-y-auto pr-1">
-                    <div><h5 class="text-xs font-bold text-blue-400 mb-1 truncate">${m.nomeA}</h5>${m.sqA.map(g => rG(g, m.dettA)).join('')}</div>
-                    <div><h5 class="text-xs font-bold text-red-400 mb-1 truncate">${m.nomeB}</h5>${m.sqB.map(g => rG(g, m.dettB)).join('')}</div>
-                </div>
-                <label class="text-[11px] text-white block font-bold mt-3 mb-0.5">MVP Incontro:</label>
-                <select id="tab-mvp-id" class="w-full p-2 rounded text-sm text-black outline-none font-bold"><option value="">-- Seleziona --</option>${[...m.sqA, ...m.sqB].map(g => `<option value="${g.id}" ${m.mvpId==g.id?'selected':''}>${g.nome}</option>`).join('')}</select>
-                <button onclick="adminSalvaTabellino()" class="w-full mt-3 ${editStoricoIndex > -1 ? 'bg-blue-600 hover:bg-blue-500' : 'bg-yellow-600 hover:bg-yellow-500'} text-white font-bold py-3 rounded-lg shadow transition">${editStoricoIndex > -1 ? 'AGGIORNA INCONTRO E RICALCOLA' : 'ARCHIVIA RISULTATO'}</button>
-            `;
-        }
-
-            b.innerHTML = `
-                ${editStoricoIndex > -1 ? `<div class="bg-blue-900/50 p-2 rounded text-xs text-white mb-2 text-center border border-blue-500">Stai modificando il match archiviato del ${m.data} <button onclick="annullaModificaStorico()" class="ml-2 bg-red-600 px-2 rounded font-bold">ANNULLA</button></div>` : ''}
-                <div class="grid grid-cols-2 gap-2 text-sm text-black mb-2"><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeA}</label><input type="number" id="tab-gol-a" value="${m.golA||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeB}</label><input type="number" id="tab-gol-b" value="${m.golB||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div></div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[300px] overflow-y-auto pr-1">
-                    <div><h5 class="text-xs font-bold text-blue-400 mb-1 truncate">${m.nomeA}</h5>${m.sqA.map(g => rG(g, m.dettA)).join('')}</div>
-                    <div><h5 class="text-xs font-bold text-red-400 mb-1 truncate">${m.nomeB}</h5>${m.sqB.map(g => rG(g, m.dettB)).join('')}</div>
-                </div>
-                <label class="text-[11px] text-white block font-bold mt-3 mb-0.5">MVP Incontro:</label>
-                <select id="tab-mvp-id" class="w-full p-2 rounded text-sm text-black outline-none font-bold"><option value="">-- Seleziona --</option>${[...m.sqA, ...m.sqB].map(g => `<option value="${g.id}" ${m.mvpId==g.id?'selected':''}>${g.nome}</option>`).join('')}</select>
-                <button onclick="adminSalvaTabellino()" class="w-full mt-3 ${editStoricoIndex > -1 ? 'bg-blue-600 hover:bg-blue-500' : 'bg-yellow-600 hover:bg-yellow-500'} text-white font-bold py-3 rounded-lg shadow transition">${editStoricoIndex > -1 ? 'AGGIORNA INCONTRO E RICALCOLA' : 'ARCHIVIA RISULTATO'}</button>
-            `;
-        }
+    b.innerHTML = `
+        ${editStoricoIndex > -1 ? `<div class="bg-blue-900/50 p-2 rounded text-xs text-white mb-2 text-center border border-blue-500">Stai modificando il match archiviato del ${m.data} <button onclick="annullaModificaStorico()" class="ml-2 bg-red-600 px-2 rounded font-bold">ANNULLA</button></div>` : ''}
+        <div class="grid grid-cols-2 gap-2 text-sm text-black mb-2"><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeA}</label><input type="number" id="tab-gol-a" value="${m.golA||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeB}</label><input type="number" id="tab-gol-b" value="${m.golB||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[300px] overflow-y-auto pr-1">
+            <div><h5 class="text-xs font-bold text-blue-400 mb-1 truncate">${m.nomeA}</h5>${m.sqA.map(g => rG(g, m.dettA)).join('')}</div>
+            <div><h5 class="text-xs font-bold text-red-400 mb-1 truncate">${m.nomeB}</h5>${m.sqB.map(g => rG(g, m.dettB)).join('')}</div>
+        </div>
+        <label class="text-[11px] text-white block font-bold mt-3 mb-0.5">MVP Incontro:</label>
+        <select id="tab-mvp-id" class="w-full p-2 rounded text-sm text-black outline-none font-bold"><option value="">-- Seleziona --</option>${[...m.sqA, ...m.sqB].map(g => `<option value="${g.id}" ${m.mvpId==g.id?'selected':''}>${g.nome}</option>`).join('')}</select>
+        <button onclick="adminSalvaTabellino()" class="w-full mt-3 ${editStoricoIndex > -1 ? 'bg-blue-600 hover:bg-blue-500' : 'bg-yellow-600 hover:bg-yellow-500'} text-white font-bold py-3 rounded-lg shadow transition">${editStoricoIndex > -1 ? 'AGGIORNA INCONTRO E RICALCOLA' : 'ARCHIVIA RISULTATO'}</button>
+    `;
+}
 
         window.adminSalvaTabellino = function() {
             let m = editStoricoIndex > -1 ? DB.storico[editStoricoIndex] : DB.matchAttivo; if(!m) return;
