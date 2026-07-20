@@ -335,15 +335,17 @@
             return c && c.img ? c.img : "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=600"; 
         }
 
-        function getOverall(g) {
-            let base = 65 + (g.vinte * 1.5) + (g.mvp * 2) - (g.perse * 0.5) - (g.autogol * 1);
-            if (g.por) { 
-                base += (g.rigoriParati * 2.5) + (g.assist * 1.5) + (g.gol * 3); 
-            } else { 
-                base += (g.gol * 0.8) + (g.assist * 0.6); 
-            }
-            return Math.min(Math.max(Math.round(base), 65), 99);
-        }
+       function getOverall(g) {
+    let base = 65;
+    // Moltiplicatori molto più bassi di prima
+    let bonus = (g.gol||0)*0.10 + (g.assist||0)*0.10 + (g.vinte||0)*0.20 + (g.mvp||0)*0.5;
+    let malus = (g.perse||0)*0.10 + (g.autogol||0)*0.25 + (g.rigoriSbagliati||0)*0.50; // Aggiunto malus per RS
+
+    let finale = base + bonus - malus;
+    if(g.por) finale += (g.rigoriParati||0)*0.30;
+
+    return Math.min(99, Math.max(40, Math.floor(finale)));
+}
 
         function getPlayStyles(g) {
             if(!g.playstyles || g.playstyles.length === 0) return '';
@@ -547,6 +549,10 @@
                     <div class="flex justify-between text-green-400"><span>Vinte:</span> <span>${g.vinte}</span></div>
                     <div class="flex justify-between text-yellow-400"><span>Pari:</span> <span>${g.pareggiate}</span></div>
                     <div class="flex justify-between text-red-400"><span>Perse:</span> <span>${g.perse}</span></div>
+                    <div class="flex justify-between border-b border-gray-700 pb-1">
+    <span class="text-gray-400">Rigori Sbagliati:</span>
+    <span class="font-bold text-red-500">${g.rigoriSbagliati || 0}</span>
+</div>
                 </div>
                 </div>
         </div>
@@ -701,9 +707,50 @@
             let defaultImg = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
 
             try {
-                let portieri = DB.giocatori.filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
-                let movimento = DB.giocatori.filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
-                let totw = [portieri[0], ...movimento.slice(0,4)].filter(Boolean);
+                let totw = [];
+                // Controllo se ci sono partite archiviate
+                if (DB.storico && DB.storico.length > 0) {
+                    let ultimaPartita = DB.storico[0]; // Prende l'ultimo match archiviato
+                    let votiGiornata = [];
+                    
+                    // Funzione interna per calcolare il "voto" del singolo match
+                    const calcolaVotoMatch = (gId, dett, isWin, mvpId, isPor) => {
+                        let d = dett[gId] || {};
+                        let voto = 6.0; // Voto base
+                        voto += (d.gol || 0) * (isPor ? 3 : 2); // Gol valgono di più per il portiere
+                        voto += (d.assist || 0) * 1;
+                        voto += (d.rigoriParati || 0) * 3;
+                        voto -= (d.autogol || 0) * 2;
+                        voto -= (d.rigoriSbagliati || 0) * 2.5; // Penalità rigore
+                        if (gId == mvpId) voto += 2;
+                        if (isWin) voto += 0.5;
+                        return voto;
+                    };
+
+                    let haVintoA = ultimaPartita.golA > ultimaPartita.golB;
+                    let haVintoB = ultimaPartita.golB > ultimaPartita.golA;
+
+                    // Unisce e valuta tutti i giocatori in campo
+                    [...ultimaPartita.sqA].forEach(g => {
+                        let playerDb = DB.giocatori.find(x => x.id == g.id);
+                        if (playerDb) votiGiornata.push({ ...playerDb, votoMatch: calcolaVotoMatch(g.id, ultimaPartita.dettA, haVintoA, ultimaPartita.mvpId, playerDb.por) });
+                    });
+                    [...ultimaPartita.sqB].forEach(g => {
+                        let playerDb = DB.giocatori.find(x => x.id == g.id);
+                        if (playerDb) votiGiornata.push({ ...playerDb, votoMatch: calcolaVotoMatch(g.id, ultimaPartita.dettB, haVintoB, ultimaPartita.mvpId, playerDb.por) });
+                    });
+
+                    // Seleziona il miglior portiere e i 4 migliori di movimento di QUESTO MATCH
+                    let portieriMatch = votiGiornata.filter(g => g.por).sort((a,b) => b.votoMatch - a.votoMatch);
+                    let movMatch = votiGiornata.filter(g => !g.por).sort((a,b) => b.votoMatch - a.votoMatch);
+                    totw = [portieriMatch[0], ...movMatch.slice(0,4)].filter(Boolean);
+
+                } else {
+                    // Fallback se il database storico è vuoto: usa l'overall globale
+                    let portieri = DB.giocatori.filter(g=>g.por).sort((a,b)=>getOverall(b)-getOverall(a));
+                    let movimento = DB.giocatori.filter(g=>!g.por).sort((a,b)=>getOverall(b)-getOverall(a));
+                    totw = [portieri[0], ...movimento.slice(0,4)].filter(Boolean);
+                }
                 
                 const totwCont = document.getElementById('totw-container');
                 if(totwCont) {
@@ -962,8 +1009,22 @@ window.verificaAdmin = () => {
             
             const rG = (g, dett) => {
                 const d = dett ? (dett[g.id] || {}) : {};
-                return `<div class="bg-gray-900 p-1.5 rounded flex flex-col gap-1 text-black border border-gray-700 mb-1"><div class="text-[11px] text-white font-bold truncate">${g.nome}</div><div class="grid grid-cols-4 gap-1"><input type="number" id="gol_${g.id}" value="${d.gol||''}" placeholder="Gol" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="ass_${g.id}" value="${d.assist||''}" placeholder="Ass" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="aut_${g.id}" value="${d.autogol||''}" placeholder="Aut" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Autogol"><input type="number" id="rp_${g.id}" value="${d.rigoriParati||''}" placeholder="RP" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Rigori Parati"></div></div>`;
+                // Modificato grid-cols-5 e aggiunto l'input per i rigori sbagliati (rs)
+                return `<div class="bg-gray-900 p-1.5 rounded flex flex-col gap-1 text-black border border-gray-700 mb-1"><div class="text-[11px] text-white font-bold truncate">${g.nome}</div><div class="grid grid-cols-5 gap-1"><input type="number" id="gol_${g.id}" value="${d.gol||''}" placeholder="Gol" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="ass_${g.id}" value="${d.assist||''}" placeholder="Ass" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0"><input type="number" id="aut_${g.id}" value="${d.autogol||''}" placeholder="Aut" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Autogol"><input type="number" id="rp_${g.id}" value="${d.rigoriParati||''}" placeholder="RP" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Rigori Parati"><input type="number" id="rs_${g.id}" value="${d.rigoriSbagliati||''}" placeholder="RS" class="w-full p-1 text-[10px] rounded text-center font-bold" min="0" title="Rigori Sbagliati"></div></div>`;
             };
+
+            b.innerHTML = `
+                ${editStoricoIndex > -1 ? `<div class="bg-blue-900/50 p-2 rounded text-xs text-white mb-2 text-center border border-blue-500">Stai modificando il match archiviato del ${m.data} <button onclick="annullaModificaStorico()" class="ml-2 bg-red-600 px-2 rounded font-bold">ANNULLA</button></div>` : ''}
+                <div class="grid grid-cols-2 gap-2 text-sm text-black mb-2"><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeA}</label><input type="number" id="tab-gol-a" value="${m.golA||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div><div><label class="text-[11px] text-white block font-bold mb-0.5">Gol ${m.nomeB}</label><input type="number" id="tab-gol-b" value="${m.golB||0}" class="w-full p-1.5 rounded text-center font-bold outline-none"></div></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[300px] overflow-y-auto pr-1">
+                    <div><h5 class="text-xs font-bold text-blue-400 mb-1 truncate">${m.nomeA}</h5>${m.sqA.map(g => rG(g, m.dettA)).join('')}</div>
+                    <div><h5 class="text-xs font-bold text-red-400 mb-1 truncate">${m.nomeB}</h5>${m.sqB.map(g => rG(g, m.dettB)).join('')}</div>
+                </div>
+                <label class="text-[11px] text-white block font-bold mt-3 mb-0.5">MVP Incontro:</label>
+                <select id="tab-mvp-id" class="w-full p-2 rounded text-sm text-black outline-none font-bold"><option value="">-- Seleziona --</option>${[...m.sqA, ...m.sqB].map(g => `<option value="${g.id}" ${m.mvpId==g.id?'selected':''}>${g.nome}</option>`).join('')}</select>
+                <button onclick="adminSalvaTabellino()" class="w-full mt-3 ${editStoricoIndex > -1 ? 'bg-blue-600 hover:bg-blue-500' : 'bg-yellow-600 hover:bg-yellow-500'} text-white font-bold py-3 rounded-lg shadow transition">${editStoricoIndex > -1 ? 'AGGIORNA INCONTRO E RICALCOLA' : 'ARCHIVIA RISULTATO'}</button>
+            `;
+        }
 
             b.innerHTML = `
                 ${editStoricoIndex > -1 ? `<div class="bg-blue-900/50 p-2 rounded text-xs text-white mb-2 text-center border border-blue-500">Stai modificando il match archiviato del ${m.data} <button onclick="annullaModificaStorico()" class="ml-2 bg-red-600 px-2 rounded font-bold">ANNULLA</button></div>` : ''}
@@ -984,7 +1045,8 @@ window.verificaAdmin = () => {
             m.golA = parseInt(document.getElementById('tab-gol-a').value)||0; m.golB = parseInt(document.getElementById('tab-gol-b').value)||0; m.mvpId = parseInt(mvp);
             
             const lD = (sq) => {
-                let d = {}; sq.forEach(g => { d[g.id] = { gol: parseInt(document.getElementById('gol_'+g.id).value)||0, assist: parseInt(document.getElementById('ass_'+g.id).value)||0, autogol: parseInt(document.getElementById('aut_'+g.id).value)||0, rigoriParati: parseInt(document.getElementById('rp_'+g.id).value)||0 }; }); return d;
+                // Aggiunto recupero rigoriSbagliati
+                let d = {}; sq.forEach(g => { d[g.id] = { gol: parseInt(document.getElementById('gol_'+g.id).value)||0, assist: parseInt(document.getElementById('ass_'+g.id).value)||0, autogol: parseInt(document.getElementById('aut_'+g.id).value)||0, rigoriParati: parseInt(document.getElementById('rp_'+g.id).value)||0, rigoriSbagliati: parseInt(document.getElementById('rs_'+g.id).value)||0 }; }); return d;
             };
             m.dettA = lD(m.sqA); m.dettB = lD(m.sqB);
 
@@ -993,14 +1055,16 @@ window.verificaAdmin = () => {
         }
 
         function ricalcolaStatisticheGlobali() {
-            DB.giocatori.forEach(g => { g.gol=0; g.assist=0; g.autogol=0; g.rigoriParati=0; g.vinte=0; g.pareggiate=0; g.perse=0; g.mvp=0; });
+            // Aggiunto azzeramento rigoriSbagliati
+            DB.giocatori.forEach(g => { g.gol=0; g.assist=0; g.autogol=0; g.rigoriParati=0; g.rigoriSbagliati=0; g.vinte=0; g.pareggiate=0; g.perse=0; g.mvp=0; });
             DB.storico.forEach(m => {
                 const aV = m.golA > m.golB; const p = m.golA === m.golB;
                 const proc = (sq, dett, v, pari) => {
                     sq.forEach(g => {
                         let pg = DB.giocatori.find(x=>x.id==g.id); if(!pg) return;
                         let d = (dett && dett[g.id]) ? dett[g.id] : {};
-                        pg.gol += (d.gol||0); pg.assist += (d.assist||0); pg.autogol += (d.autogol||0); pg.rigoriParati += (d.rigoriParati||0);
+                        // Aggiunto conteggio rigoriSbagliati
+                        pg.gol += (d.gol||0); pg.assist += (d.assist||0); pg.autogol += (d.autogol||0); pg.rigoriParati += (d.rigoriParati||0); pg.rigoriSbagliati += (d.rigoriSbagliati||0);
                         if(v) pg.vinte++; else if(pari) pg.pareggiate++; else pg.perse++;
                         if(m.mvpId == pg.id) pg.mvp++;
                     });
