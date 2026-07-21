@@ -338,8 +338,8 @@
         function getOverall(g) {
     let base = 65;
     // Moltiplicatori molto più bassi di prima
-    let bonus = (g.gol||0)*0.70 + (g.assist||0)*0.30 + (g.vinte||0)*0.40 + (g.mvp||0)*1.0;
-    let malus = (g.perse||0)*0.20 + (g.autogol||0)*0.5 + (g.rigoriSbagliati||0)*0.50; // Aggiunto malus per RS
+    let bonus = (g.gol||0)*0.65 + (g.assist||0)*0.25 + (g.vinte||0)*0.30 + (g.mvp||0)*1.0;
+    let malus = (g.perse||0)*0.15 + (g.autogol||0)*0.5 + (g.rigoriSbagliati||0)*0.50; // Aggiunto malus per RS
 
     let finale = base + bonus - malus;
     if(g.por) finale += (g.rigoriParati||0)*0.60;
