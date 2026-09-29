@@ -2414,7 +2414,7 @@
             const foto = document.getElementById('add-campo-foto').value.trim();
             if (!nome) return showToast("Inserisci il nome del campo!", "error");
 
-            let existing = DB.campilet existing = DB.campi.find(c => c.nome.toLowerCase() === nome.toLowerCase());
+            let existing = DB.campi.find(c => c.nome.toLowerCase() === nome.toLowerCase());
             if (existing) {
                 existing.img = foto || existing.img;
             } else {
