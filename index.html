@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#d4af37">
-    <title>FantaCalcetto Hub - Luxury E-Sports Edition</title>
+    <title>FantaCalcetto Hub - FC 27 Elite Edition</title>
     <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,9 +13,9 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #05070a;
+            background-color: #04060a;
             color: #f1f5f9;
-            background-image: radial-gradient(circle at 50% 0%, #151c28 0%, #05070a 75%);
+            background-image: radial-gradient(circle at 50% 0%, #111827 0%, #04060a 75%);
             background-attachment: fixed;
         }
         .font-sport { font-family: 'Orbitron', sans-serif; }
@@ -24,21 +24,21 @@
         .font-bebas { font-family: 'Bebas Neue', sans-serif; }
 
         @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(52, 211, 153, 0.4), inset 0 0 15px rgba(52, 211, 153, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(52, 211, 153, 0.8), inset 0 0 20px rgba(52, 211, 153, 0.4); }
+            0%, 100% { box-shadow: 0 0 15px rgba(52, 211, 153, 0.35), inset 0 0 12px rgba(52, 211, 153, 0.15); }
+            50% { box-shadow: 0 0 25px rgba(52, 211, 153, 0.7), inset 0 0 20px rgba(52, 211, 153, 0.35); }
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade { animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-fade { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         /* Glassmorphism Luxury */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.75);
+            background: rgba(13, 18, 30, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .glass-panel-gold {
             background: rgba(18, 20, 29, 0.85);
@@ -46,65 +46,81 @@
             border: 1px solid rgba(212, 175, 55, 0.35);
         }
 
-        /* Player Card System */
-        .fc-card-luxury {
+        /* FC 27 CARDS SYSTEM */
+        .fc27-card {
             position: relative;
-            border-radius: 12px 12px 32px 12px;
+            border-radius: 10px 10px 28px 10px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: linear-gradient(160deg, #18202c 0%, #0a0e17 100%);
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
         }
-        .fc-card-luxury:hover {
+        .fc27-card:hover {
             transform: translateY(-5px) scale(1.02);
             z-index: 30;
         }
 
-        /* Dynamic Rarities */
-        .rarity-silver {
+        /* Tier Silver */
+        .fc27-silver {
+            background: linear-gradient(155deg, #2a3441 0%, #151d26 50%, #0a0f14 100%);
             border: 2px solid #94a3b8;
-            box-shadow: inset 0 0 14px rgba(148, 163, 184, 0.2), 0 8px 18px rgba(0, 0, 0, 0.7);
-        }
-        .rarity-gold {
-            border: 2px solid #f59e0b;
-            box-shadow: inset 0 0 16px rgba(245, 158, 11, 0.25), 0 10px 22px rgba(0, 0, 0, 0.8);
-        }
-        .rarity-neon {
-            border: 2px solid #10b981;
-            animation: pulseGlow 2.5s infinite;
-        }
-        .rarity-totw {
-            border: 2px solid #38bdf8;
-            background: linear-gradient(160deg, #0f1f38 0%, #030712 100%);
-            box-shadow: inset 0 0 18px rgba(56, 189, 248, 0.35), 0 10px 24px rgba(0, 0, 0, 0.85);
+            box-shadow: inset 0 0 14px rgba(148, 163, 184, 0.15), 0 8px 20px rgba(0, 0, 0, 0.7);
         }
 
-        .fc-card-luxury::before {
+        /* Tier Gold (75-84) */
+        .fc27-gold {
+            background: linear-gradient(155deg, #3d2f0a 0%, #1e1704 40%, #0a0802 100%);
+            border: 2px solid #eab308;
+            box-shadow: inset 0 0 18px rgba(234, 179, 8, 0.25), 0 10px 24px rgba(0, 0, 0, 0.85);
+        }
+
+        /* Tier Elite Neon (85+) */
+        .fc27-elite {
+            background: linear-gradient(155deg, #063428 0%, #051a15 45%, #020b08 100%);
+            border: 2px solid #10b981;
+            animation: pulseGlow 3s infinite;
+        }
+
+        /* Tier TOTW Celestial Midnight */
+        .fc27-totw {
+            background: linear-gradient(155deg, #0b1f3a 0%, #040a14 55%, #010408 100%);
+            border: 2px solid #38bdf8;
+            box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.3), 0 10px 26px rgba(0, 0, 0, 0.9);
+        }
+
+        .fc27-card::before {
             content: '';
             position: absolute;
             top: 0; left: -140%;
             width: 70%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.18), transparent);
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
             transform: skewX(-25deg);
             transition: 0.6s ease;
             pointer-events: none;
             z-index: 25;
         }
-        .fc-card-luxury:hover::before { left: 180%; }
+        .fc27-card:hover::before { left: 180%; }
 
-        .tactical-slot {
-            transition: all 0.2s ease;
+        /* Tactical Board Player Dots */
+        .tactical-dot {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
         }
-        .tactical-slot.selected-swap {
-            outline: 3px solid #38bdf8;
-            transform: scale(1.08);
-            box-shadow: 0 0 20px #38bdf8;
+        .tactical-dot.editable {
+            cursor: pointer;
+        }
+        .tactical-dot.editable:hover {
+            transform: scale(1.1);
+        }
+        .tactical-dot.selected {
+            transform: scale(1.18);
+            filter: drop-shadow(0 0 12px #38bdf8);
         }
 
         /* Scrollbars */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0b0f17; }
+        ::-webkit-scrollbar-track { background: #080c14; }
         ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 9999px; }
 
         /* Toasts */
@@ -140,11 +156,11 @@
 </head>
 <body class="p-2 sm:p-4 md:p-6 min-h-screen pb-28 text-slate-200">
 
-    <!-- TOP HEADER -->
+    <!-- HEADER PRINCIPALE -->
     <header class="max-w-6xl mx-auto my-4 text-center animate-fade">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-amber-500/30 text-[10px] md:text-xs font-mono font-bold text-amber-400 mb-2">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            LIVE E-SPORTS ENGINE V10 • ZERO LOSS SYNC
+            FC 27 TACTICAL ENGINE • ZERO LATENCY
         </div>
         <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-500 font-sport tracking-wider drop-shadow-md">
             FANTACALCETTO HUB
@@ -154,7 +170,7 @@
         </p>
     </header>
 
-    <!-- NAVIGATION TABS (TESTI PULITI SENZA EMOJI) -->
+    <!-- NAVIGATION BAR (TESTI PULITI SENZA EMOJI) -->
     <nav class="max-w-6xl mx-auto mb-6 glass-panel-gold p-1.5 md:p-2 rounded-2xl flex justify-between gap-1 sticky top-3 z-40 shadow-2xl animate-fade overflow-x-auto">
         <button onclick="switchTab('matchday')" id="btn-matchday" class="tab-btn flex-1 min-w-[75px] md:min-w-[90px] py-2.5 rounded-xl font-bold text-[11px] md:text-xs transition text-amber-400 bg-slate-800/90 shadow">
             Match Hub
@@ -196,17 +212,19 @@
             <div id="storico-partite" class="space-y-3"></div>
         </section>
 
-        <!-- TAB: SONDAGGI -->
+        <!-- TAB: SONDAGGI 2.0 (DATA/ORA E PRESENZE CON SCADENZE) -->
         <section id="tab-sondaggi" class="tab-content hidden space-y-6">
             <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                <h2 class="text-xl md:text-2xl font-bold text-white font-sport">SONDAGGI & DISPONIBILITÀ</h2>
-                <span class="text-xs text-amber-400 font-mono">1 Voto per dispositivo</span>
+                <h2 class="text-xl md:text-2xl font-bold text-white font-sport">SONDAGGI UFFICIALI</h2>
+                <span class="text-xs text-amber-400 font-mono">Scelte multiple consentite</span>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="container-sondaggi"></div>
 
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="container-sondaggi-2"></div>
+
+            <!-- VOTO MVP PARTITA -->
             <div class="glass-panel p-6 rounded-2xl border border-amber-500/30">
                 <h3 class="text-lg font-bold text-amber-400 font-sport mb-2">VOTA MVP DELL'ULTIMA GIORNATA</h3>
-                <p class="text-xs text-slate-400 mb-4">Esprimi la tua preferenza sul migliore in campo dell'ultimo match disputato.</p>
+                <p class="text-xs text-slate-400 mb-4">Esprimi la tua preferenza sul migliore in campo dell'ultimo incontro disputato.</p>
                 <div class="flex flex-col sm:flex-row gap-3 max-w-xl">
                     <select id="voto-mvp-user" class="flex-1 bg-slate-900 text-white p-3 rounded-xl border border-slate-700 font-semibold focus:outline-none focus:border-amber-400 text-sm"></select>
                     <button onclick="inviaVotoMVP()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold px-6 py-3 rounded-xl shadow-lg transition text-sm">
@@ -316,11 +334,22 @@
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <!-- SONDAGGIO ORARI -->
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                        <h4 class="font-bold text-amber-400 mb-2 text-sm">1. SONDAGGIO ORARI</h4>
-                        <input type="text" id="admin-sond-orari" placeholder="Es: Lunedì 20:30, Giovedì 21:00" class="w-full bg-slate-950 p-2.5 text-xs rounded-lg border border-slate-700 mb-2 text-white outline-none">
-                        <button onclick="adminCreaSondaggio()" class="w-full bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold py-2.5 rounded-lg">Crea Nuovo Sondaggio</button>
+                    <!-- SONDAGGI 2.0 ADMIN -->
+                    <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-3">
+                        <h4 class="font-bold text-amber-400 text-sm">1. GESTIONE SONDAGGI MULTIPLI</h4>
+                        <div>
+                            <label class="text-[11px] text-slate-400 block mb-1">Opzioni Data/Ora (Una per riga):</label>
+                            <textarea id="admin-sond-orari-multiline" rows="3" placeholder="Lunedì 20:30&#10;Giovedì 21:00&#10;Venerdì 20:00" class="w-full bg-slate-950 p-2 text-xs rounded-lg border border-slate-700 text-white outline-none"></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[10px] text-slate-400 block mb-0.5">Scadenza Sondaggio:</label>
+                                <input type="datetime-local" id="admin-sond-scadenza" class="w-full bg-slate-950 p-1.5 text-xs rounded border border-slate-700 text-white">
+                            </div>
+                            <div class="flex items-end">
+                                <button onclick="adminCreaSondaggio2()" class="w-full bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold py-2 rounded-lg">Pubblica Sondaggio</button>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- SMART DRAFT (SNAKE ALGORITHM) -->
@@ -351,7 +380,7 @@
                     <div id="admin-tabellino-container"></div>
                 </div>
 
-                <!-- ANAGRAFICA GIOCATORI & CONFIGURAZIONI -->
+                <!-- ANAGRAFICA GIOCATORI & CONFIGURAZIONI (NO PLAYSTYLES MANUALI) -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
                         <h4 class="font-bold text-purple-400 mb-3 border-b border-slate-700 pb-2 text-sm">4. ANAGRAFICA SQUADRA</h4>
@@ -365,15 +394,14 @@
                                 <option value="POR">Portiere (POR)</option>
                             </select>
                         </div>
-                        <input type="text" id="add-gioc-foto" placeholder="URL o nome file foto (es. bonetti.webp)" class="w-full p-2 bg-slate-950 text-white rounded text-xs border border-slate-700 mb-2">
-                        <label class="flex items-center text-xs text-slate-300 mb-2 gap-2 cursor-pointer">
+                        <div class="grid grid-cols-2 gap-2 mb-2">
+                            <input type="text" id="add-gioc-foto" placeholder="Asset Foto (es. bonetti.webp)" class="p-2 bg-slate-950 text-white rounded text-xs border border-slate-700">
+                            <input type="text" id="add-gioc-paese" placeholder="Paese di provenienza" class="p-2 bg-slate-950 text-white rounded text-xs border border-slate-700">
+                        </div>
+                        <label class="flex items-center text-xs text-slate-300 mb-3 gap-2 cursor-pointer">
                             <input type="checkbox" id="add-gioc-por" class="w-4 h-4 accent-amber-500"> È un Portiere di Ruolo?
                         </label>
-
-                        <div class="mb-3 border-t border-slate-800 pt-2">
-                            <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Playstyles Assegnati:</label>
-                            <div id="playstyles-checkboxes" class="grid grid-cols-3 gap-1 text-[10px] text-white"></div>
-                        </div>
+                        <p class="text-[10px] text-slate-400 italic mb-3">Nota: i PlayStyles vengono assegnati automaticamente al 100% in base al rendimento reale sul campo.</p>
 
                         <div class="flex gap-2">
                             <button onclick="adminSalvaGiocatore()" id="btn-salva-giocatore" class="flex-1 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-2.5 rounded-lg">Salva Giocatore</button>
@@ -438,12 +466,26 @@
         const fallbackImg = "https://placehold.co/200x200/1e293b/ffffff?text=FOTO";
         let editStoricoIndex = -1;
         let selectedSwapPlayer = null;
+        let isMatchHubEditMode = false;
         let currentRoleFilter = 'ALL';
 
-        const PLAYSTYLES_MAP = {
-            'Bomber': '🚀', 'Cecchino': '🎯', 'Regista': '👁️', 'Maestro': '🎩',
-            'Muro': '🧱', 'Instancabile': '🏃‍♂️', 'Torre': '🗼', 'Frociazzo': '🏳️‍🌈',
-            'Rapinatore': '🦊', 'Saracinesca': '🧤', 'Leader': '👑', 'Insuperabile': '🛡️'
+        // MODULI TATTICI DISPONIBILI
+        const MODULI_TATTICI = {
+            4: [
+                { nome: '1-2-1', righe: [1, 2, 1] },
+                { nome: '2-1-1', righe: [1, 2, 1] },
+                { nome: '1-1-2', righe: [1, 1, 2] }
+            ],
+            5: [
+                { nome: '1-2-2', righe: [1, 2, 2] },
+                { nome: '1-3-1', righe: [1, 3, 1] },
+                { nome: '1-1-2-1', righe: [1, 1, 2, 1] }
+            ],
+            6: [
+                { nome: '1-3-2', righe: [1, 3, 2] },
+                { nome: '1-2-2-1', righe: [1, 2, 2, 1] },
+                { nome: '1-2-3', righe: [1, 2, 3] }
+            ]
         };
 
         const SVG_ICONS = {
@@ -463,29 +505,109 @@
             setTimeout(() => toast.remove(), 3000);
         };
 
+        // ==========================================
+        // ESAGONI PLAYSTYLES VETTORIALI FC 27 (SENZA EMOJI)
+        // ==========================================
+        const HEX_PLAYSTYLES = {
+            'Bomber': {
+                nome: 'Tiro Potente',
+                desc: 'Conclusione devastante dalla media-lunga distanza',
+                svg: `<path d="M4 14l8-8 4 4-8 8-4-4zm11-7l2-2 3 3-2 2-3-3zM3 21l3-1-2-2-1 3z" fill="currentColor"/>`
+            },
+            'Cecchino': {
+                nome: 'Tiro di Precisione',
+                desc: 'Precisione chirurgica e zero errori dal dischetto',
+                svg: `<circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4" stroke="currentColor" stroke-width="2"/>`
+            },
+            'Regista': {
+                nome: 'Visione di Gioco',
+                desc: 'Traiettorie millimetriche e passaggi chiave',
+                svg: `<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7zm10 4a4 4 0 100-8 4 4 0 000 8z" fill="currentColor"/>`
+            },
+            'Muro': {
+                nome: 'Intercettazione Rocciosa',
+                desc: 'Respinge conclusioni e blocca le ripartenze',
+                svg: `<path d="M12 2L4 6v6c0 5.5 3.5 10.7 8 12 4.5-1.3 8-6.5 8-12V6l-8-4z" fill="currentColor"/>`
+            },
+            'Saracinesca': {
+                nome: 'Riflesso Fulmineo',
+                desc: 'Specialista nel neutralizzare conclusioni ravvicinate',
+                svg: `<path d="M18 11V6a2 2 0 00-4 0v5m-4-6a2 2 0 00-4 0v8m-4-4a2 2 0 00-4 0v7a8 8 0 0016 0V11a2 2 0 00-4 0" fill="none" stroke="currentColor" stroke-width="2"/>`
+            },
+            'Instancabile': {
+                nome: 'Pressing Continuo',
+                desc: 'Recupero atletico continuo durante tutto il match',
+                svg: `<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/>`
+            },
+            'MrEfficienza': {
+                nome: 'Freddezza Decisiva',
+                desc: 'Alta incisività e titoli MVP con minutaggio compatto',
+                svg: `<path d="M12 2l3 7h7l-5.5 4.5 2 7.5-6.5-5-6.5 5 2-7.5L2 9h7l3-7z" fill="currentColor"/>`
+            },
+            'Calamita': {
+                nome: 'Deviazione Critica',
+                desc: 'Propensione sfortunata a toccare palloni nella propria porta',
+                svg: `<path d="M12 3L2 21h20L12 3zm0 5v6m0 2v2" fill="none" stroke="currentColor" stroke-width="2"/>`
+            }
+        };
+
+        function renderHexPlaystyleBadge(key, isPlus = false) {
+            let data = HEX_PLAYSTYLES[key];
+            if (!data) return '';
+            let strokeColor = isPlus ? '#fbbf24' : '#94a3b8';
+            let fillColor = isPlus ? '#1c1503' : '#0b1120';
+            let iconColor = isPlus ? '#fef08a' : '#f1f5f9';
+            let glow = isPlus ? 'filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.7));' : '';
+
+            return `
+                <div title="${data.nome}${isPlus ? ' +' : ''}: ${data.desc}" class="relative w-6 h-7 flex items-center justify-center cursor-pointer transition-transform hover:scale-125" style="${glow}">
+                    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 24 28">
+                        <polygon points="12,1 23,7 23,21 12,27 1,21 1,7" fill="${fillColor}" stroke="${strokeColor}" stroke-width="${isPlus ? '2.2' : '1.5'}"/>
+                    </svg>
+                    <div class="relative z-10 w-3.5 h-3.5 flex items-center justify-center" style="color: ${iconColor};">
+                        <svg class="w-full h-full" viewBox="0 0 24 24">${data.svg}</svg>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // DATABASE INIZIALE & RECUPERO INTEGRALE
+        // ==========================================
         const initData = {
             ultimoAggiornamento: Date.now(),
             giocatori: [
-                { id: 1, nome: "Bonetti", ruolo: "DIF", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "bonetti.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 2, nome: "Franco", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "franco.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 3, nome: "Jack", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "jack.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 4, nome: "Davidone", ruolo: "DIF", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "davidone.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 5, nome: "Cristofer", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "cristofer.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 6, nome: "Schivonsky", ruolo: "POR", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "schivonsky.webp", por: true, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 7, nome: "Carbone", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "carbone.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 8, nome: "Armandosky", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 9, nome: "Checco", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "checco.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 10, nome: "Edoardo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "edoardo.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 11, nome: "Gerardo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "gerrywebp.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 12, nome: "Peppo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "peppo.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] }
+                { id: 1, nome: "Bonetti", ruolo: "DIF", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "bonetti.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 2, nome: "Franco", ruolo: "ATT", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "franco.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 3, nome: "Jack", ruolo: "ATT", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "jack.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 4, nome: "Davidone", ruolo: "DIF", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "davidone.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 5, nome: "Cristofer", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "cristofer.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 6, nome: "Schivonsky", ruolo: "POR", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "schivonsky.webp", por: true, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 7, nome: "Carbone", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "carbone.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 8, nome: "Armandosky", ruolo: "ATT", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 9, nome: "Checco", ruolo: "ATT", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "checco.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 10, nome: "Edoardo", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "edoardo.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 11, nome: "Gerardo", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "gerrywebp.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 12, nome: "Peppo", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "peppo.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] }
             ],
             campi: [
                 { nome: "Ponte Romito", img: "campopr.webp" },
                 { nome: "Castelfranci", img: "campoc.jfif" }
             ],
-            sondaggioOrari: ["Lunedì 20:30", "Giovedì 21:00"],
-            votiCampo: { "Ponte Romito": 0, "Castelfranci": 0 },
-            votiOrari: {},
+            sondaggi: {
+                orari: {
+                    titolo: "Disponibilità Giorno & Orario",
+                    opzioni: ["Lunedì 20:30", "Giovedì 21:00", "Venerdì 20:00"],
+                    scadenza: "",
+                    voti: {}
+                },
+                presenze: {
+                    titolo: "Convocazioni & Presenze Partita",
+                    opzioni: ["Presente 100%", "In dubbio", "Assente"],
+                    scadenza: "",
+                    voti: {}
+                }
+            },
             votiMVP: {},
             matchAttivo: null,
             storico: []
@@ -544,9 +666,9 @@
                 if (g.perse === undefined) g.perse = 0;
                 if (g.mvp === undefined) g.mvp = 0;
                 if (g.por === undefined) g.por = (g.ruolo === "POR");
-                if (g.playstyles === undefined || !Array.isArray(g.playstyles)) g.playstyles = [];
                 if (g.totw === undefined) g.totw = 0;
                 if (g.presenzeTOTW === undefined) g.presenzeTOTW = g.totw || 0;
+                if (!g.paese) g.paese = "Italia";
                 if (!Array.isArray(g.voti)) g.voti = [];
             });
 
@@ -558,25 +680,23 @@
                 }
             });
 
-            if (!DB.votiOrari) DB.votiOrari = {};
-            if (!DB.votiCampo) DB.votiCampo = {};
+            if (!DB.sondaggi) DB.sondaggi = initData.sondaggi;
             if (!DB.votiMVP) DB.votiMVP = {};
-            if (!DB.sondaggioOrari) DB.sondaggioOrari = initData.sondaggioOrari;
             if (!DB.storico) DB.storico = [];
         }
 
         // ==========================================
-        // CALCOLO VOTI REALISTICI PER IL CAMPETTO
+        // CALCOLO VOTI REALISTICI (TARATURA 8.8)
         // ==========================================
-        function calcolaVotoRealistico(d, won, mvp, isPor) {
+        function calcolaVotoArbitrale(d, won, mvp) {
             let base = 6.0;
-            base += (d.gol || 0) * 0.35;
+            base += (d.gol || 0) * 0.30;
             base += (d.assist || 0) * 0.20;
-            base += (d.rigoriParati || 0) * 0.80;
-            base -= (d.autogol || 0) * 0.60;
-            base -= (d.rigoriSbagliati || 0) * 0.50;
-            if (mvp) base += 0.50;
-            if (won) base += 0.25;
+            base += (d.rigoriParati || 0) * 0.70;
+            base += won ? 0.30 : 0.0;
+            base += mvp ? 0.50 : 0.0;
+            base -= (d.rigoriSbagliati || 0) * 0.40;
+            base -= (d.autogol || 0) * 0.50;
             return parseFloat(Math.min(10.0, Math.max(4.0, base)).toFixed(1));
         }
 
@@ -602,9 +722,8 @@
                     sq.forEach(p => {
                         if (!dett[p.id]) dett[p.id] = { gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0 };
                         let d = dett[p.id];
-                        let pg = DB.giocatori.find(x => x.id === p.id) || p;
                         if (d.voto === undefined || d.voto === null || isNaN(d.voto)) {
-                            d.voto = calcolaVotoRealistico(d, won, m.mvpId === p.id, pg.por);
+                            d.voto = calcolaVotoArbitrale(d, won, m.mvpId === p.id);
                         }
                     });
                 };
@@ -615,7 +734,7 @@
         }
 
         // ==========================================
-        // RICALCOLO STATISTICHE GLOBALI & TOTW
+        // RICALCOLO STATISTICHE & TOTW AUTOMATICO
         // ==========================================
         function ricalcolaStatisticheGlobali() {
             DB.giocatori.forEach(g => {
@@ -663,7 +782,7 @@
                 processaTeam(match.sqA, match.dettA, winA, pareggio);
                 processaTeam(match.sqB, match.dettB, !winA && !pareggio, pareggio);
 
-                // Calcolo automatico presenze TOTW per ogni match storico
+                // Calcolo TOTW per questo match
                 let candidati = [];
                 const addCandidati = (sq, dett, won) => {
                     sq.forEach(p => {
@@ -700,7 +819,7 @@
         }
 
         // ==========================================
-        // FORMULA OVERALL ORIGINALE RESTAURATA
+        // FORMULA OVERALL & REGOLARIZZAZIONE MEDIA VOTI
         // ==========================================
         function calcolaOverall(g) {
             let base = 65;
@@ -715,8 +834,9 @@
             let finale = base + bonus - malus;
             if (g.por) finale += (g.rigoriParati || 0) * 0.60;
 
+            // Correttore media voti bayesiano
             if (g.voti && g.voti.length > 0) {
-                let media = g.voti.reduce((acc, v) => acc + v, 0) / g.voti.length;
+                let media = getMediaVotiPonderata(g);
                 finale += (media - 6.0) * 1.0;
             }
 
@@ -724,43 +844,86 @@
         }
 
         function getCardRarityClass(ovr) {
-            if (ovr >= 85) return 'rarity-neon';
-            if (ovr >= 75) return 'rarity-gold';
-            return 'rarity-silver';
+            if (ovr >= 85) return 'fc27-elite';
+            if (ovr >= 75) return 'fc27-gold';
+            return 'fc27-silver';
+        }
+
+        // REGOLARIZZAZIONE BAYESIANA MEDIA VOTO
+        function getMediaVotiPonderata(g) {
+            if (!g.voti || g.voti.length === 0) return 0.0;
+            let n = g.voti.length;
+            let somma = g.voti.reduce((acc, v) => acc + v, 0);
+            if (n >= 4) return somma / n;
+            // Smussamento per chi ha 1-3 partite (peso 3 voti a 6.0)
+            return ((3 * 6.0) + somma) / (3 + n);
         }
 
         function getMediaVotiStr(g) {
             if (!g.voti || g.voti.length === 0) return "0.0";
-            let somma = g.voti.reduce((acc, v) => acc + v, 0);
-            return (somma / g.voti.length).toFixed(2);
+            return getMediaVotiPonderata(g).toFixed(2);
         }
 
-        function getTuttiPlaystyles(g) {
+        // ==========================================
+        // MOTORE PLAYSTYLES 100% DINAMICI & VETTORIALI
+        // ==========================================
+        function calcolaPlaystylesDinamici(g) {
             let res = [];
-            if (g.playstyles && Array.isArray(g.playstyles)) {
-                g.playstyles.forEach(ps => {
-                    res.push({ nome: ps, icon: PLAYSTYLES_MAP[ps] || '⭐', desc: 'Assegnato dall\'anagrafica' });
-                });
-            }
-
             let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
-            if (g.ruolo === 'DIF' && presenze > 0 && ((g.gol || 0) / presenze) >= 0.4) {
-                if (!res.some(x => x.nome.includes('Muro'))) res.push({ nome: 'Il Muro Goleador', icon: '🧱', desc: 'Difensore goleador' });
+
+            if ((g.gol || 0) >= 3 && (g.rigoriSbagliati || 0) === 0) {
+                let isPlus = (g.gol || 0) >= 6;
+                res.push({ key: 'Cecchino', isPlus });
             }
-            if ((g.ruolo === 'ATT' || g.ruolo === 'CEN') && presenze > 0 && ((g.assist || 0) / presenze) >= 0.5) {
-                if (!res.some(x => x.nome.includes('Regista'))) res.push({ nome: 'Regista Offensivo', icon: '👁️', desc: 'Fornitore costante di assist' });
+            if ((g.ruolo === 'ATT' || g.ruolo === 'CEN') && presenze >= 2 && ((g.gol || 0) / presenze) >= 0.8) {
+                let isPlus = ((g.gol || 0) / presenze) >= 1.4;
+                res.push({ key: 'Bomber', isPlus });
+            }
+            if ((g.ruolo === 'ATT' || g.ruolo === 'CEN') && presenze >= 2 && ((g.assist || 0) / presenze) >= 0.5) {
+                let isPlus = ((g.assist || 0) / presenze) >= 0.9;
+                res.push({ key: 'Regista', isPlus });
+            }
+            if (g.ruolo === 'DIF' && presenze >= 2 && ((g.gol || 0) / presenze) >= 0.35) {
+                let isPlus = ((g.gol || 0) / presenze) >= 0.6;
+                res.push({ key: 'Muro', isPlus });
             }
             if ((g.por || g.ruolo === 'POR') && (g.rigoriParati || 0) >= 2) {
-                if (!res.some(x => x.nome.includes('Saracinesca'))) res.push({ nome: 'Saracinesca', icon: '🧤', desc: 'Specialista pararigori' });
+                let isPlus = (g.rigoriParati || 0) >= 4;
+                res.push({ key: 'Saracinesca', isPlus });
             }
-            if ((g.gol || 0) >= 3 && (g.rigoriSbagliati || 0) === 0) {
-                if (!res.some(x => x.nome.includes('Cecchino'))) res.push({ nome: 'Cecchino', icon: '🎯', desc: 'Infallibile dagli undici metri' });
+            if (presenze >= 4) {
+                let totalePartite = DB.storico.length || 1;
+                if ((presenze / totalePartite) >= 0.75) {
+                    res.push({ key: 'Instancabile', isPlus: (presenze / totalePartite) >= 0.9 });
+                }
+            }
+            let avgPresenze = DB.giocatori.reduce((acc, cur) => acc + (cur.vinte + cur.pareggiate + cur.perse), 0) / (DB.giocatori.length || 1);
+            if ((g.mvp || 0) >= 2 && presenze <= avgPresenze) {
+                res.push({ key: 'MrEfficienza', isPlus: (g.mvp >= 3) });
             }
             if ((g.autogol || 0) >= 2) {
-                if (!res.some(x => x.nome.includes('Calamita'))) res.push({ nome: 'Calamita (Malus)', icon: '🛑', desc: 'Deviazioni sfortunate' });
+                res.push({ key: 'Calamita', isPlus: false });
             }
 
             return res;
+        }
+
+        // ==========================================
+        // CALCOLO OVERALL PER REPARTI
+        // ==========================================
+        function calcolaRepartiOVR(squadra) {
+            const media = (arr) => arr.length > 0 ? Math.round(arr.reduce((s, p) => s + calcolaOverall(p), 0) / arr.length) : 65;
+            let por = squadra.filter(p => p.por || p.ruolo === 'POR');
+            let dif = squadra.filter(p => !p.por && p.ruolo === 'DIF');
+            let cen = squadra.filter(p => !p.por && p.ruolo === 'CEN');
+            let att = squadra.filter(p => !p.por && p.ruolo === 'ATT');
+
+            return {
+                por: media(por),
+                dif: media(dif.length > 0 ? dif : por),
+                cen: media(cen),
+                att: media(att)
+            };
         }
 
         // ==========================================
@@ -809,6 +972,8 @@
                 });
             });
 
+            let defModulo = sqA.length === 4 ? '1-2-1' : (sqA.length === 6 ? '1-3-2' : '1-2-2');
+
             DB.matchAttivo = {
                 data,
                 campo,
@@ -816,6 +981,8 @@
                 nomeB,
                 sqA,
                 sqB,
+                moduloA: defModulo,
+                moduloB: defModulo,
                 golA: 0,
                 golB: 0,
                 mvpId: null,
@@ -827,35 +994,64 @@
             aggiornaUI();
             closeAdmin();
             switchTab('matchday');
-            showToast("Smart Snake Draft completato! Match caricato nel Match Hub.");
+            showToast("Smart Snake Draft completato con successo!");
         };
 
         // ==========================================
-        // MATCH HUB & RESET PARTITA ATTIVA
+        // MATCH HUB: INTERAZIONE TATTICA & BLOCCO
         // ==========================================
         window.annullaMatchAttivo = function() {
-            if (!confirm("Sei sicuro di voler annullare e resettare la partita attualmente attiva nel Match Hub?")) return;
+            if (!confirm("Sei sicuro di voler annullare e cancellare la partita attiva nel Match Hub?")) return;
             DB.matchAttivo = null;
+            isMatchHubEditMode = false;
             salvaDB();
             aggiornaUI();
-            showToast("Partita attiva annullata. Match Hub pronto per una nuova convocazione.");
+            showToast("Partita attiva annullata. Match Hub pronto per una nuova sfida.");
+        };
+
+        window.sbloccaModificaTattica = function() {
+            const pass = prompt("Inserisci la password di amministrazione per modificare le formazioni:");
+            if (pass === "Calcetto_2026") {
+                isMatchHubEditMode = true;
+                selectedSwapPlayer = null;
+                renderMatchHub();
+                showToast("Modalità Modifica Tattica sbloccata!");
+            } else if (pass !== null) {
+                showToast("Password errata!", "error");
+            }
+        };
+
+        window.salvaModificaTattica = function() {
+            isMatchHubEditMode = false;
+            selectedSwapPlayer = null;
+            salvaDB();
+            renderMatchHub();
+            showToast("Formazioni e moduli salvati con successo!");
+        };
+
+        window.cambiaModuloTattico = function(team, nuovoModulo) {
+            if (!DB.matchAttivo) return;
+            if (team === 'A') DB.matchAttivo.moduloA = nuovoModulo;
+            else DB.matchAttivo.moduloB = nuovoModulo;
+            renderMatchHub();
+            showToast(`Modulo Squadra ${team === 'A' ? DB.matchAttivo.nomeA : DB.matchAttivo.nomeB} aggiornato a ${nuovoModulo}`);
         };
 
         function calcolaChemistry(squadra) {
             if (!squadra || squadra.length < 2) return 50;
-            let vittorieCoppia = 0;
+            let punteggioCoppie = 0;
             let coppieTotali = 0;
 
             for (let i = 0; i < squadra.length; i++) {
                 for (let j = i + 1; j < squadra.length; j++) {
-                    let id1 = squadra[i].id;
-                    let id2 = squadra[j].id;
+                    let p1 = squadra[i];
+                    let p2 = squadra[j];
                     let matchInsieme = 0;
                     let vinteInsieme = 0;
 
                     DB.storico.forEach(m => {
-                        let inA = m.sqA.some(x => x.id === id1) && m.sqA.some(x => x.id === id2);
-                        let inB = m.sqB.some(x => x.id === id1) && m.sqB.some(x => x.id === id2);
+                        let inA = m.sqA.some(x => x.id === p1.id) && m.sqA.some(x => x.id === p2.id);
+                        let inB = m.sqB.some(x => x.id === p1.id) && m.sqB.some(x => x.id === p2.id);
                         if (inA) {
                             matchInsieme++;
                             if (m.golA > m.golB) vinteInsieme++;
@@ -865,16 +1061,47 @@
                         }
                     });
 
-                    if (matchInsieme > 0) {
-                        vittorieCoppia += (vinteInsieme / matchInsieme);
-                        coppieTotali++;
+                    let winRateCoppia = matchInsieme > 0 ? (vinteInsieme / matchInsieme) : 0.50;
+                    // Bonus nazionalità / provenienza
+                    if (p1.paese && p2.paese && p1.paese.toLowerCase() === p2.paese.toLowerCase()) {
+                        winRateCoppia += 0.15;
                     }
+
+                    punteggioCoppie += Math.min(1.0, winRateCoppia);
+                    coppieTotali++;
                 }
             }
 
             if (coppieTotali === 0) return 65;
-            let chemRate = Math.round((vittorieCoppia / coppieTotali) * 100);
+            let chemRate = Math.round((punteggioCoppie / coppieTotali) * 100);
             return Math.min(99, Math.max(30, chemRate));
+        }
+
+        // ==========================================
+        // LAYOUT CAMPO TATTICO DINAMICO & LINEE INTESA
+        // ==========================================
+        function generaDisposizioneCampo(squadra, moduloNome, isTop) {
+            let n = squadra.length;
+            let confModuli = MODULI_TATTICI[n] || MODULI_TATTICI[5];
+            let modulo = confModuli.find(m => m.nome === moduloNome) || confModuli[0];
+            let righe = [...modulo.righe];
+            if (!isTop) righe.reverse();
+
+            let playerIndex = 0;
+            let res = [];
+
+            righe.forEach((conteggio, rIndex) => {
+                let rigaGiocatori = [];
+                for (let i = 0; i < conteggio; i++) {
+                    if (playerIndex < squadra.length) {
+                        rigaGiocatori.push(squadra[playerIndex]);
+                        playerIndex++;
+                    }
+                }
+                res.push(rigaGiocatori);
+            });
+
+            return res;
         }
 
         function renderMatchHub() {
@@ -886,7 +1113,7 @@
                     <div class="glass-panel text-center p-12 rounded-3xl border border-slate-800">
                         <div class="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center mx-auto mb-4 text-2xl">⏳</div>
                         <h3 class="text-xl md:text-2xl font-bold font-sport text-slate-300 mb-2">NESSUN MATCH ATTIVO</h3>
-                        <p class="text-xs text-slate-500 max-w-md mx-auto mb-6">Non ci sono partite in corso. Apri il pannello Admin per comporre una nuova sfida con lo Smart Draft.</p>
+                        <p class="text-xs text-slate-500 max-w-md mx-auto mb-6">Non ci sono sfide in corso. Apri il pannello Admin per selezionare i convocati e generare le formazioni con lo Smart Draft.</p>
                         <button onclick="openAdmin()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs shadow-lg transition">Apri Pannello Admin</button>
                     </div>
                 `;
@@ -903,97 +1130,208 @@
             let chemA = calcolaChemistry(m.sqA);
             let chemB = calcolaChemistry(m.sqB);
 
+            let repA = calcolaRepartiOVR(m.sqA);
+            let repB = calcolaRepartiOVR(m.sqB);
+
             let totOvr = ovrA + ovrB;
             let pctA = totOvr > 0 ? Math.round((ovrA / totOvr) * 100) : 50;
             let pctB = 100 - pctA;
 
-            const renderMiniTacticalCard = (p, team) => {
+            const renderDot = (p, team) => {
                 let isSelected = selectedSwapPlayer && selectedSwapPlayer.id === p.id;
-                let colorClass = team === 'A' ? 'border-sky-500 text-sky-400' : 'border-rose-500 text-rose-400';
+                let colorClass = team === 'A' ? 'border-sky-400 shadow-sky-500/50' : 'border-rose-400 shadow-rose-500/50';
                 return `
-                    <div onclick="clickTacticalSwap(${p.id}, '${team}')" class="tactical-slot ${isSelected ? 'selected-swap' : ''} cursor-pointer flex flex-col items-center p-1 bg-slate-900/90 rounded-xl border ${colorClass} shadow-lg backdrop-blur-md">
-                        <div class="relative w-11 h-11 md:w-14 md:h-14 rounded-full overflow-hidden border-2 ${colorClass} bg-slate-950">
+                    <div onclick="${isMatchHubEditMode ? `clickTacticalSwap(${p.id}, '${team}')` : ''}" class="tactical-dot ${isMatchHubEditMode ? 'editable' : ''} ${isSelected ? 'selected' : ''} flex flex-col items-center mx-1 my-0.5 z-10">
+                        <div class="relative w-12 h-12 md:w-14 md:h-14 rounded-full border-2 ${colorClass} bg-slate-950 shadow-lg overflow-hidden flex items-center justify-center">
                             <img src="${p.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="w-full h-full object-cover">
-                            <span class="absolute bottom-0 right-0 bg-black/90 font-stat font-bold text-[10px] px-1 rounded-tl text-amber-400">${calcolaOverall(p)}</span>
+                            <span class="absolute bottom-0 right-0 bg-black/90 font-stat font-bold text-[10px] px-1 rounded-tl text-amber-400 border-t border-l border-amber-500/40">${calcolaOverall(p)}</span>
                         </div>
-                        <span class="text-[10px] md:text-xs font-bold text-white mt-1 truncate max-w-[70px] text-center">${p.nome}</span>
-                        <span class="text-[9px] font-mono text-slate-400">${p.ruolo}</span>
+                        <span class="text-[10px] md:text-xs font-bold text-white mt-1 truncate max-w-[70px] text-center drop-shadow">${p.nome}</span>
+                        <span class="text-[9px] font-mono text-slate-400 uppercase">${p.ruolo}</span>
                     </div>
                 `;
             };
 
+            let righeA = generaDisposizioneCampo(m.sqA, m.moduloA || '1-2-2', true);
+            let righeB = generaDisposizioneCampo(m.sqB, m.moduloB || '1-2-2', false);
+
+            let nA = m.sqA.length;
+            let nB = m.sqB.length;
+            let moduliDispA = MODULI_TATTICI[nA] || MODULI_TATTICI[5];
+            let moduliDispB = MODULI_TATTICI[nB] || MODULI_TATTICI[5];
+
+            // H2H E STATISTICHE CONFRONTO DIRETTO
+            let vittorieH2HA = 0, vittorieH2HB = 0;
+            DB.storico.forEach(hist => {
+                let countA = hist.sqA.filter(p => m.sqA.some(x => x.id === p.id)).length;
+                let countB = hist.sqB.filter(p => m.sqB.some(x => x.id === p.id)).length;
+                if (countA >= 2 && countB >= 2) {
+                    if (hist.golA > hist.golB) vittorieH2HA++;
+                    else if (hist.golB > hist.golA) vittorieH2HB++;
+                }
+            });
+
+            // GIOCATORI ON FIRE
+            let allInMatch = [...m.sqA, ...m.sqB];
+            let onFirePlayers = [...allInMatch].sort((a, b) => {
+                let rA = a.voti && a.voti.length > 0 ? a.voti[a.voti.length - 1] : 6.0;
+                let rB = b.voti && b.voti.length > 0 ? b.voti[b.voti.length - 1] : 6.0;
+                return rB - rA;
+            }).slice(0, 2);
+
             container.innerHTML = `
-                <!-- LIVE MATCH INFO -->
+                <!-- LIVE MATCH HEADER -->
                 <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
                     <div class="text-center md:text-left">
                         <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono font-bold mb-1">
-                            MATCH DAY ATTIVO (PRE-PARTITA)
+                            MATCH DAY LIVE
                         </span>
                         <h2 class="text-2xl md:text-3xl font-sport font-black text-white">${m.campo}</h2>
                         <p class="text-xs text-slate-400 font-mono">📅 ${m.data}</p>
                     </div>
 
-                    <!-- TIRO ALLA FUNE OVERALL -->
+                    <!-- TIRO ALLA FUNE & INTESA -->
                     <div class="w-full md:w-1/2 flex flex-col gap-1.5">
                         <div class="flex justify-between items-center text-xs font-sport font-bold">
-                            <span class="text-sky-400">${m.nomeA} (OVR ${ovrA})</span>
+                            <span class="text-sky-400">${m.nomeA} (${ovrA})</span>
                             <span class="text-xs font-mono text-slate-400">Δ ${deltaOvr > 0 ? '+' : ''}${deltaOvr}</span>
-                            <span class="text-rose-400">(OVR ${ovrB}) ${m.nomeB}</span>
+                            <span class="text-rose-400">(${ovrB}) ${m.nomeB}</span>
                         </div>
                         <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden flex border border-slate-700">
                             <div style="width: ${pctA}%" class="bg-gradient-to-r from-sky-600 to-sky-400 transition-all duration-500"></div>
                             <div style="width: ${pctB}%" class="bg-gradient-to-r from-rose-400 to-rose-600 transition-all duration-500"></div>
                         </div>
                         <div class="flex justify-between text-[10px] font-mono text-slate-400">
-                            <span>Intesa: <b class="${chemA >= 60 ? 'text-emerald-400' : 'text-slate-300'}">${chemA}% ${chemA >= 60 ? '⚡ Perfetta' : ''}</b></span>
-                            <span>Intesa: <b class="${chemB >= 60 ? 'text-emerald-400' : 'text-slate-300'}">${chemB}% ${chemB >= 60 ? '⚡ Perfetta' : ''}</b></span>
+                            <span>Intesa: <b class="${chemA >= 60 ? 'text-emerald-400' : 'text-slate-300'}">${chemA}% ${chemA >= 60 ? '⚡ Ottima' : ''}</b></span>
+                            <span>Intesa: <b class="${chemB >= 60 ? 'text-emerald-400' : 'text-slate-300'}">${chemB}% ${chemB >= 60 ? '⚡ Ottima' : ''}</b></span>
                         </div>
                     </div>
 
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <button onclick="condividiFormazioniClipboard()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+                        ${!isMatchHubEditMode ? `
+                            <button onclick="sbloccaModificaTattica()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+                                🔒 Modifica Tattica
+                            </button>
+                        ` : `
+                            <button onclick="salvaModificaTattica()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+                                💾 Salva Formazioni
+                            </button>
+                        `}
+                        <button onclick="condividiFormazioniClipboard()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 px-3 py-2 rounded-xl text-xs font-bold transition">
                             Copia
                         </button>
-                        <button onclick="condividiFormazioni()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-lg">
+                        <button onclick="condividiFormazioni()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-2 rounded-xl text-xs font-bold transition">
                             WhatsApp
                         </button>
-                        <button onclick="annullaMatchAttivo()" class="bg-rose-950/60 hover:bg-rose-900 text-rose-300 border border-rose-800/60 px-3 py-2 rounded-xl text-xs font-bold transition shadow">
+                        <button onclick="annullaMatchAttivo()" class="bg-rose-950/60 hover:bg-rose-900 text-rose-300 border border-rose-800/60 px-2.5 py-2 rounded-xl text-xs font-bold transition">
                             Annulla
                         </button>
                     </div>
                 </div>
 
-                <!-- CAMPO TATTICO SWAP -->
-                <div class="glass-panel p-4 rounded-3xl border border-slate-700/60 shadow-2xl relative overflow-hidden">
-                    <div class="text-center mb-3">
-                        <p class="text-[11px] font-mono text-amber-400 font-bold uppercase tracking-wider">
-                            LAVAGNA TATTICA • CLICCA SU DUE GIOCATORI PER SCAMBIARLI
-                        </p>
+                <!-- OVERALL DIVISO PER REPARTI -->
+                <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-sky-500/30 flex justify-between items-center">
+                        <span class="font-bold text-sky-400 truncate">${m.nomeA}</span>
+                        <div class="flex gap-2 text-[10px]">
+                            <span>POR: <b class="text-white">${repA.por}</b></span>
+                            <span>DIF: <b class="text-white">${repA.dif}</b></span>
+                            <span>CEN: <b class="text-white">${repA.cen}</b></span>
+                            <span>ATT: <b class="text-white">${repA.att}</b></span>
+                        </div>
                     </div>
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-rose-500/30 flex justify-between items-center">
+                        <div class="flex gap-2 text-[10px]">
+                            <span>ATT: <b class="text-white">${repB.att}</b></span>
+                            <span>CEN: <b class="text-white">${repB.cen}</b></span>
+                            <span>DIF: <b class="text-white">${repB.dif}</b></span>
+                            <span>POR: <b class="text-white">${repB.por}</b></span>
+                        </div>
+                        <span class="font-bold text-rose-400 truncate">${m.nomeB}</span>
+                    </div>
+                </div>
 
-                    <div class="w-full aspect-[4/3] md:aspect-[16/9] bg-cover bg-center rounded-2xl relative border-2 border-slate-700/80 overflow-hidden shadow-inner flex flex-col justify-between p-3 md:p-6" style="background-image: url('${imgCampo}');">
-                        <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-[2px]"></div>
-                        
-                        <div class="absolute inset-3 border-2 border-white/20 rounded-xl pointer-events-none"></div>
-                        <div class="absolute top-1/2 left-0 right-0 border-t-2 border-white/20 -translate-y-1/2 pointer-events-none"></div>
-                        <div class="absolute top-1/2 left-1/2 w-20 h-20 border-2 border-white/20 rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-
-                        <div class="relative z-10">
-                            <div class="flex items-center justify-between mb-1 px-2">
-                                <span class="text-xs font-sport font-black text-sky-400 drop-shadow">${m.nomeA}</span>
-                            </div>
-                            <div class="flex flex-wrap justify-center gap-2 md:gap-4">
-                                ${m.sqA.map(p => renderMiniTacticalCard(p, 'A')).join('')}
-                            </div>
+                <!-- CAMPO TATTICO INGRANDITO STILE FC MOBILE -->
+                <div class="glass-panel p-4 rounded-3xl border border-slate-700/60 shadow-2xl relative overflow-hidden">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 mb-3">
+                        <!-- SELETTORE MODULO SQUADRA A -->
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[11px] font-sport text-sky-400 font-bold">${m.nomeA}:</span>
+                            ${isMatchHubEditMode ? `
+                                <select onchange="cambiaModuloTattico('A', this.value)" class="bg-slate-950 text-white text-[11px] font-bold p-1 rounded border border-slate-700 outline-none">
+                                    ${moduliDispA.map(mod => `<option value="${mod.nome}" ${(m.moduloA || '1-2-2') === mod.nome ? 'selected' : ''}>${mod.nome}</option>`).join('')}
+                                </select>
+                            ` : `<span class="bg-slate-950 px-2 py-0.5 rounded text-[11px] font-mono text-slate-300 border border-slate-800">${m.moduloA || '1-2-2'}</span>`}
                         </div>
 
-                        <div class="relative z-10">
-                            <div class="flex flex-wrap justify-center gap-2 md:gap-4">
-                                ${m.sqB.map(p => renderMiniTacticalCard(p, 'B')).join('')}
-                            </div>
-                            <div class="flex items-center justify-between mt-1 px-2">
-                                <span class="text-xs font-sport font-black text-rose-400 drop-shadow">${m.nomeB}</span>
-                            </div>
+                        <span class="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider">
+                            ${isMatchHubEditMode ? 'MODALITÀ MODIFICA ATTIVA (CLICCA PER SCAMBIARE)' : 'CAMPO TATTICO UFFICIALE (SOLA LETTURA)'}
+                        </span>
+
+                        <!-- SELETTORE MODULO SQUADRA B -->
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[11px] font-sport text-rose-400 font-bold">${m.nomeB}:</span>
+                            ${isMatchHubEditMode ? `
+                                <select onchange="cambiaModuloTattico('B', this.value)" class="bg-slate-950 text-white text-[11px] font-bold p-1 rounded border border-slate-700 outline-none">
+                                    ${moduliDispB.map(mod => `<option value="${mod.nome}" ${(m.moduloB || '1-2-2') === mod.nome ? 'selected' : ''}>${mod.nome}</option>`).join('')}
+                                </select>
+                            ` : `<span class="bg-slate-950 px-2 py-0.5 rounded text-[11px] font-mono text-slate-300 border border-slate-800">${m.moduloB || '1-2-2'}</span>`}
+                        </div>
+                    </div>
+
+                    <!-- PITCH BACKGROUND -->
+                    <div class="w-full aspect-[4/3] md:aspect-[16/10] min-h-[520px] bg-cover bg-center rounded-2xl relative border-2 border-slate-700/80 overflow-hidden shadow-inner flex flex-col justify-between p-4" style="background-image: url('${imgCampo}');">
+                        <div class="absolute inset-0 bg-slate-950/75 backdrop-blur-[2px]"></div>
+
+                        <!-- SEGNATURE DA CALCETTO -->
+                        <div class="absolute inset-3 border-2 border-white/20 rounded-xl pointer-events-none"></div>
+                        <div class="absolute top-1/2 left-0 right-0 border-t-2 border-white/20 -translate-y-1/2 pointer-events-none"></div>
+                        <div class="absolute top-1/2 left-1/2 w-24 h-24 border-2 border-white/20 rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+
+                        <!-- METÀ CAMPO SQUADRA A -->
+                        <div class="relative z-10 flex flex-col justify-around flex-1">
+                            ${righeA.map(riga => `
+                                <div class="flex justify-center items-center gap-4 md:gap-8">
+                                    ${riga.map(p => renderDot(p, 'A')).join('')}
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <!-- METÀ CAMPO SQUADRA B -->
+                        <div class="relative z-10 flex flex-col justify-around flex-1">
+                            ${righeB.map(riga => `
+                                <div class="flex justify-center items-center gap-4 md:gap-8">
+                                    ${riga.map(p => renderDot(p, 'B')).join('')}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEZIONE HEAD-TO-HEAD & GIOCATORI ON FIRE (SOTTO IL CAMPO) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="glass-panel p-4 rounded-2xl border border-slate-800">
+                        <h4 class="text-xs font-sport font-bold text-amber-400 mb-2">STORICO SCONTRI DIRETTI (H2H)</h4>
+                        <div class="flex items-center justify-between text-xs bg-slate-950 p-3 rounded-xl border border-slate-800">
+                            <span class="font-bold text-sky-400">${m.nomeA}</span>
+                            <span class="font-stat font-bold text-base text-white">${vittorieH2HA} - ${vittorieH2HB}</span>
+                            <span class="font-bold text-rose-400">${m.nomeB}</span>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-2 italic text-center">Confronto basato sui precedenti storici dei blocchi squadra</p>
+                    </div>
+
+                    <div class="glass-panel p-4 rounded-2xl border border-slate-800">
+                        <h4 class="text-xs font-sport font-bold text-emerald-400 mb-2">GIOCATORI ON FIRE (STATO DI FORMA)</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            ${onFirePlayers.map(p => `
+                                <div class="bg-slate-950 p-2 rounded-xl border border-slate-800 flex items-center gap-2">
+                                    <img src="${p.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="w-8 h-8 rounded-full object-cover border border-emerald-500">
+                                    <div class="truncate">
+                                        <span class="font-bold text-white block truncate">${p.nome}</span>
+                                        <span class="text-[10px] text-emerald-400 font-mono">Ultimo Voto: ${p.voti && p.voti.length > 0 ? p.voti[p.voti.length-1] : '6.0'}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 </div>
@@ -1001,10 +1339,10 @@
         }
 
         window.clickTacticalSwap = function(playerId, team) {
-            if (!DB.matchAttivo) return;
+            if (!DB.matchAttivo || !isMatchHubEditMode) return;
             if (!selectedSwapPlayer) {
                 selectedSwapPlayer = { id: playerId, team };
-                showToast("Selezionato. Clicca su un secondo giocatore per scambiare.");
+                showToast("Giocatore selezionato. Clicca su un secondo giocatore per scambiare.");
                 renderMatchHub();
             } else {
                 let first = selectedSwapPlayer;
@@ -1026,8 +1364,7 @@
                     let temp = arrFirst[idxFirst];
                     arrFirst[idxFirst] = arrSecond[idxSecond];
                     arrSecond[idxSecond] = temp;
-                    salvaDB();
-                    showToast("Formazioni aggiornate!");
+                    showToast("Posizioni formazioni scambiate!");
                 }
 
                 selectedSwapPlayer = null;
@@ -1038,9 +1375,9 @@
         window.condividiFormazioniClipboard = function() {
             if (!DB.matchAttivo) return;
             let m = DB.matchAttivo;
-            let text = `⚽ FORMAZIONI FANTACALCETTO HUB ⚽\n📍 Campo: ${m.campo}\n📅 Data: ${m.data}\n\n🔵 ${m.nomeA}:\n` +
+            let text = `⚽ FORMAZIONI FANTACALCETTO HUB ⚽\n📍 Campo: ${m.campo}\n📅 Data: ${m.data}\n\n🔵 ${m.nomeA} (${m.moduloA || '1-2-2'}):\n` +
                 m.sqA.map(p => `• ${p.nome} (${p.ruolo} - OVR ${calcolaOverall(p)})`).join('\n') +
-                `\n\n🔴 ${m.nomeB}:\n` +
+                `\n\n🔴 ${m.nomeB} (${m.moduloB || '1-2-2'}):\n` +
                 m.sqB.map(p => `• ${p.nome} (${p.ruolo} - OVR ${calcolaOverall(p)})`).join('\n') +
                 `\n\nChe vinca il migliore! 🔥`;
 
@@ -1054,12 +1391,154 @@
         window.condividiFormazioni = function() {
             if (!DB.matchAttivo) return;
             let m = DB.matchAttivo;
-            let testo = `*⚽ FORMAZIONI FANTACALCETTO HUB ⚽*%0A📍 Campo: *${m.campo}*%0A📅 Data/Ora: *${m.data}*%0A%0A🔵 *${m.nomeA}*:%0A` +
+            let testo = `*⚽ FORMAZIONI FANTACALCETTO HUB ⚽*%0A📍 Campo: *${m.campo}*%0A📅 Data/Ora: *${m.data}*%0A%0A🔵 *${m.nomeA}* (${m.moduloA || '1-2-2'}):%0A` +
                 m.sqA.map(g => `• ${g.nome} (${g.ruolo} - OVR ${calcolaOverall(g)})`).join('%0A') +
-                `%0A%0A🔴 *${m.nomeB}*:%0A` +
+                `%0A%0A🔴 *${m.nomeB}* (${m.moduloB || '1-2-2'}):%0A` +
                 m.sqB.map(g => `• ${g.nome} (${g.ruolo} - OVR ${calcolaOverall(g)})`).join('%0A') +
                 `%0A%0AAllacciate gli scarpini! 🔥`;
             window.open(`https://api.whatsapp.com/send?text=${testo}`, '_blank');
+        };
+
+        // ==========================================
+        // SONDAGGI 2.0 (DATA/ORA E CONVOCAZIONI)
+        // ==========================================
+        function renderSondaggi2() {
+            const container = document.getElementById('container-sondaggi-2');
+            if (!container) return;
+
+            let sOrari = DB.sondaggi.orari || initData.sondaggi.orari;
+            let sPresenze = DB.sondaggi.presenze || initData.sondaggi.presenze;
+
+            const isScaduto = (scadenzaStr) => {
+                if (!scadenzaStr) return false;
+                return new Date(scadenzaStr).getTime() < Date.now();
+            };
+
+            const creaBoxSondaggio = (sond, key) => {
+                let scaduto = isScaduto(sond.scadenza);
+                let totVoti = 0;
+                Object.values(sond.voti || {}).forEach(arr => { totVoti += arr.length; });
+
+                return `
+                    <div class="glass-panel p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-base font-bold text-amber-400 font-sport">${sond.titolo}</h3>
+                                ${scaduto ? '<span class="text-[10px] bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded font-mono font-bold">CHIUSO</span>' :
+                                           '<span class="text-[10px] bg-emerald-950 text-emerald-300 border border-emerald-800 px-2 py-0.5 rounded font-mono font-bold">ATTIVO</span>'}
+                            </div>
+                            ${sond.scadenza ? `<p class="text-[10px] font-mono text-slate-400 mb-3">Scadenza: ${new Date(sond.scadenza).toLocaleString('it-IT')}</p>` : ''}
+                            
+                            <div class="space-y-3 mb-4">
+                                ${sond.opzioni.map(opz => {
+                                    let votanti = (sond.voti && sond.voti[opz]) ? sond.voti[opz] : [];
+                                    let pct = totVoti > 0 ? Math.round((votanti.length / totVoti) * 100) : 0;
+                                    return `
+                                        <div>
+                                            <div class="flex justify-between text-xs font-bold mb-1">
+                                                <label class="flex items-center gap-1.5 cursor-pointer">
+                                                    <input type="checkbox" name="vote_${key}" value="${opz}" ${scaduto ? 'disabled' : ''} class="accent-amber-500">
+                                                    <span class="text-white">${opz}</span>
+                                                </label>
+                                                <span class="text-amber-400 font-mono text-xs">${votanti.length} voti (${pct}%)</span>
+                                            </div>
+                                            <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                                                <div class="bg-amber-500 h-full transition-all duration-500" style="width: ${pct}%"></div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <div>
+                            ${!scaduto ? `
+                                <button onclick="inviaVotoMultiplo('${key}')" class="w-full bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-2 rounded-xl border border-amber-500/30 text-xs transition">
+                                    Conferma Voti Selezionati
+                                </button>
+                            ` : `<p class="text-xs text-slate-500 italic text-center py-1">Sondaggio chiuso</p>`}
+                        </div>
+                    </div>
+                `;
+            };
+
+            container.innerHTML = creaBoxSondaggio(sOrari, 'orari') + creaBoxSondaggio(sPresenze, 'presenze');
+
+            const selectMvp = document.getElementById('voto-mvp-user');
+            if (selectMvp) {
+                selectMvp.innerHTML = `<option value="">-- Seleziona Giocatore per MVP --</option>` +
+                    [...DB.giocatori].sort((a, b) => a.nome.localeCompare(b.nome)).map(g => `<option value="${g.id}">${g.nome} (${g.ruolo})</option>`).join('');
+            }
+
+            const rMvp = document.getElementById('risultati-mvp');
+            if (rMvp) {
+                let entries = Object.entries(DB.votiMVP).sort((a, b) => b[1] - a[1]);
+                let tot = entries.reduce((s, c) => s + c[1], 0) || 0;
+                rMvp.innerHTML = entries.length === 0 ? '<p class="text-slate-500 italic">Nessun voto registrato per MVP.</p>' :
+                    entries.map(([id, v]) => {
+                        let g = DB.giocatori.find(x => x.id == id);
+                        if (!g) return '';
+                        let pct = tot > 0 ? Math.round((v / tot) * 100) : 0;
+                        return `
+                            <div class="flex justify-between items-center bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                <span class="font-bold text-white text-xs">${g.nome}</span>
+                                <span class="text-amber-400 font-stat font-bold text-xs">${v} voti (${pct}%)</span>
+                            </div>
+                        `;
+                    }).join('');
+            }
+        }
+
+        window.inviaVotoMultiplo = function(key) {
+            let sk = `voto_${key}_fatto`;
+            if (localStorage.getItem(sk)) return showToast("Hai già votato in questo sondaggio!", "error");
+
+            let checked = Array.from(document.querySelectorAll(`input[name="vote_${key}"]:checked`)).map(c => c.value);
+            if (checked.length === 0) return showToast("Seleziona almeno un'opzione!", "error");
+
+            let sond = DB.sondaggi[key];
+            if (!sond.voti) sond.voti = {};
+            let userToken = 'user_' + Math.random().toString(36).substring(2, 7);
+
+            checked.forEach(opz => {
+                if (!sond.voti[opz]) sond.voti[opz] = [];
+                sond.voti[opz].push(userToken);
+            });
+
+            localStorage.setItem(sk, 'si');
+            salvaDB();
+            aggiornaUI();
+            showToast("Voto registrato con successo!");
+        };
+
+        window.adminCreaSondaggio2 = function() {
+            const raw = document.getElementById('admin-sond-orari-multiline').value.trim();
+            const scadenza = document.getElementById('admin-sond-scadenza').value;
+            if (!raw) return showToast("Inserisci almeno un'opzione per riga!", "error");
+
+            let opzioni = raw.split('\n').map(s => s.trim()).filter(Boolean);
+            DB.sondaggi.orari = {
+                titolo: "Disponibilità Giorno & Orario",
+                opzioni,
+                scadenza,
+                voti: {}
+            };
+            localStorage.removeItem('voto_orari_fatto');
+            salvaDB();
+            aggiornaUI();
+            showToast("Nuovo sondaggio pubblicato!");
+        };
+
+        window.inviaVotoMVP = function() {
+            if (localStorage.getItem('voto_mvp_fatto')) return showToast("Hai già votato per l'MVP!", "error");
+            const select = document.getElementById('voto-mvp-user');
+            const id = select ? select.value : null;
+            if (!id) return showToast("Seleziona un giocatore valido!", "error");
+            DB.votiMVP[id] = (DB.votiMVP[id] || 0) + 1;
+            localStorage.setItem('voto_mvp_fatto', 'si');
+            salvaDB();
+            aggiornaUI();
+            showToast("Voto MVP registrato!");
         };
 
         // ==========================================
@@ -1196,7 +1675,8 @@
 
             if (editStoricoIndex === -1) {
                 DB.storico.unshift(m);
-                DB.matchAttivo = null; // Reset immediato: match archiviato!
+                DB.matchAttivo = null; // MATCH TERMINATO: azzeramento immediato del match hub
+                isMatchHubEditMode = false;
                 DB.votiMVP = {};
                 localStorage.removeItem('voto_mvp_fatto');
             }
@@ -1222,7 +1702,7 @@
         };
 
         // ==========================================
-        // RENDERING CARTE GIOCATORI
+        // RENDERING CARTE GIOCATORI FC 27 STYLE
         // ==========================================
         function renderCarteFC() {
             const grid = document.getElementById('cards-grid');
@@ -1237,21 +1717,24 @@
             grid.innerHTML = filtrati.map(g => {
                 let ovr = calcolaOverall(g);
                 let rarity = getCardRarityClass(ovr);
-                let playstyles = getTuttiPlaystyles(g);
+                let playstyles = calcolaPlaystylesDinamici(g);
 
                 return `
-                    <div class="fc-card-luxury ${rarity} cursor-pointer group" onclick="apriDettaglioGiocatore(${g.id})">
-                        <div class="relative h-36 sm:h-40 overflow-hidden flex justify-center items-end border-b border-white/10 bg-gradient-to-b from-slate-800/40 to-transparent">
+                    <div class="fc27-card ${rarity} cursor-pointer group" onclick="apriDettaglioGiocatore(${g.id})">
+                        <!-- TOP CARD CON RATING E PLAYSTYLES ESAGONALI -->
+                        <div class="relative h-36 sm:h-40 overflow-hidden flex justify-center items-end border-b border-white/10 bg-gradient-to-b from-white/5 to-transparent">
                             <div class="absolute top-2 left-2 flex flex-col items-center leading-none z-20">
                                 <span class="font-stat font-bold text-3xl md:text-4xl text-amber-400 drop-shadow">${ovr}</span>
                                 <span class="text-[9px] font-bold text-slate-300 font-mono tracking-wider">${g.ruolo}</span>
                             </div>
+                            <!-- BADGES ESAGONALI VETTORIALI TOP-RIGHT -->
                             <div class="absolute top-2 right-2 flex flex-col gap-1 z-20">
-                                ${playstyles.slice(0, 3).map(ps => `<span title="${ps.nome}" class="text-xs">${ps.icon}</span>`).join('')}
+                                ${playstyles.slice(0, 3).map(ps => renderHexPlaystyleBadge(ps.key, ps.isPlus)).join('')}
                             </div>
                             <img src="${g.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="h-[92%] w-auto object-cover z-10 transition-transform duration-300 group-hover:scale-105">
                         </div>
 
+                        <!-- BOTTOM CARD INFO -->
                         <div class="p-2 sm:p-2.5 bg-slate-950 flex-1 flex flex-col justify-between">
                             <h4 class="text-center font-bold text-xs sm:text-sm font-sport text-white truncate">${g.nome}</h4>
                             <div class="grid grid-cols-2 gap-x-1 gap-y-0.5 text-[9px] sm:text-[10px] text-slate-300 font-mono mt-1 pt-1 border-t border-slate-800">
@@ -1370,7 +1853,7 @@
         window.closeMatchDetail = () => document.getElementById('match-detail-modal').classList.add('hidden');
 
         // ==========================================
-        // SCHEDA DETTAGLIATA GIOCATORE (3 SEZIONI RICHIESTE)
+        // SCHEDA DETTAGLIATA GIOCATORE (3 SEZIONI SPECIFICHE)
         // ==========================================
         window.apriDettaglioGiocatore = function(id) {
             const g = DB.giocatori.find(x => x.id === id);
@@ -1381,7 +1864,7 @@
             let ovr = calcolaOverall(g);
             let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
             let winRate = presenze > 0 ? Math.round((g.vinte / presenze) * 100) : 0;
-            let playstyles = getTuttiPlaystyles(g);
+            let playstyles = calcolaPlaystylesDinamici(g);
             let mediaVoti = getMediaVotiStr(g);
 
             let ultimePartite = [];
@@ -1412,9 +1895,9 @@
 
             cont.innerHTML = `
                 <div class="flex flex-col md:flex-row gap-6 items-center md:items-start">
-                    <!-- ANTEPRIMA CARTA -->
+                    <!-- ANTEPRIMA CARTA FC 27 -->
                     <div class="w-48 sm:w-56 flex-shrink-0">
-                        <div class="fc-card-luxury ${getCardRarityClass(ovr)}">
+                        <div class="fc27-card ${getCardRarityClass(ovr)}">
                             <div class="relative h-44 overflow-hidden flex justify-center items-end border-b border-white/10">
                                 <span class="absolute top-2 left-3 font-stat font-bold text-4xl text-amber-400 drop-shadow">${ovr}</span>
                                 <span class="absolute top-2 right-3 text-xs font-mono font-bold text-slate-400">${g.ruolo}</span>
@@ -1422,9 +1905,9 @@
                             </div>
                             <div class="p-3 bg-slate-950 text-center">
                                 <h3 class="font-sport font-black text-base text-white">${g.nome}</h3>
-                                <span class="text-[10px] text-amber-400 font-mono block">Media Voti: ${mediaVoti}</span>
-                                <div class="flex flex-wrap justify-center gap-1 mt-2">
-                                    ${playstyles.map(ps => `<span title="${ps.nome}" class="text-xs bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">${ps.icon}</span>`).join('')}
+                                <span class="text-[10px] text-amber-400 font-mono block">Media Voti: ${mediaVoti} • ${g.paese || 'Italia'}</span>
+                                <div class="flex flex-wrap justify-center gap-1.5 mt-2">
+                                    ${playstyles.map(ps => renderHexPlaystyleBadge(ps.key, ps.isPlus)).join('')}
                                 </div>
                             </div>
                         </div>
@@ -1434,7 +1917,7 @@
                     <div class="flex-1 w-full space-y-4">
                         <div class="border-b border-slate-800 pb-2">
                             <h2 class="text-2xl font-sport font-black text-white">${g.nome}</h2>
-                            <p class="text-xs text-slate-400 font-mono">Ruolo: <b class="text-amber-400">${g.ruolo}</b> • OVR: <b class="text-emerald-400">${ovr}</b></p>
+                            <p class="text-xs text-slate-400 font-mono">Ruolo: <b class="text-amber-400">${g.ruolo}</b> • OVR: <b class="text-emerald-400">${ovr}</b> • Provenienza: <b class="text-sky-400">${g.paese || 'Italia'}</b></p>
                         </div>
 
                         <!-- SEZIONE 1: STATISTICHE PERSONALI (SENZA CLEAN SHEET, CON TOTW) -->
@@ -1559,7 +2042,7 @@
                         </div>
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
                             ${bestTotw.map(g => `
-                                <div class="fc-card-luxury rarity-totw p-2 flex flex-col items-center cursor-pointer" onclick="apriDettaglioGiocatore(${g.id})">
+                                <div class="fc27-card fc27-totw p-2 flex flex-col items-center cursor-pointer" onclick="apriDettaglioGiocatore(${g.id})">
                                     <div class="relative w-full h-32 overflow-hidden flex justify-center items-end">
                                         <span class="absolute top-1 left-2 font-stat font-bold text-2xl text-sky-300">${calcolaOverall(g)}</span>
                                         <span class="absolute top-1 right-2 text-[9px] font-mono text-slate-400">${g.ruolo}</span>
@@ -1583,12 +2066,8 @@
                 let assistman = getBest(DB.giocatori, g => g.assist || 0);
 
                 let conVoti = DB.giocatori.filter(g => g.voti && g.voti.length >= 2);
-                let topMediaVoti = conVoti.sort((a, b) => {
-                    let avgA = a.voti.reduce((s, c) => s + c, 0) / a.voti.length;
-                    let avgB = b.voti.reduce((s, c) => s + c, 0) / b.voti.length;
-                    return avgB - avgA;
-                })[0];
-                let valAvg = topMediaVoti ? (topMediaVoti.voti.reduce((s, c) => s + c, 0) / topMediaVoti.voti.length).toFixed(2) : '-';
+                let topMediaVoti = conVoti.sort((a, b) => getMediaVotiPonderata(b) - getMediaVotiPonderata(a))[0];
+                let valAvg = topMediaVoti ? getMediaVotiStr(topMediaVoti) : '-';
 
                 let peggiorVotoObj = null;
                 DB.storico.forEach(m => {
@@ -1686,124 +2165,11 @@
             }
             if (rVoti) {
                 let sortVoti = [...DB.giocatori].filter(g => g.voti && g.voti.length > 0).sort((a, b) => {
-                    let avgA = a.voti.reduce((s, c) => s + c, 0) / a.voti.length;
-                    let avgB = b.voti.reduce((s, c) => s + c, 0) / b.voti.length;
-                    return avgB - avgA;
+                    return getMediaVotiPonderata(b) - getMediaVotiPonderata(a);
                 });
                 rVoti.innerHTML = makeList(sortVoti, g => getMediaVotiStr(g), '★');
             }
         }
-
-        // ==========================================
-        // SONDAGGI
-        // ==========================================
-        function renderSondaggi() {
-            const container = document.getElementById('container-sondaggi');
-            if (!container) return;
-
-            let totalOrariVoti = Object.values(DB.votiOrari).reduce((a, b) => a + b, 0) || 0;
-            let totalCampiVoti = Object.values(DB.votiCampo).reduce((a, b) => a + b, 0) || 0;
-
-            let htmlOrari = `
-                <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-                    <h3 class="text-base font-bold text-amber-400 font-sport mb-3">DISPONIBILITÀ ORARI</h3>
-                    <div class="space-y-3">
-                        ${DB.sondaggioOrari.map(ora => {
-                            let voti = DB.votiOrari[ora] || 0;
-                            let pct = totalOrariVoti > 0 ? Math.round((voti / totalOrariVoti) * 100) : 0;
-                            return `
-                                <div>
-                                    <div class="flex justify-between text-xs font-bold mb-1">
-                                        <span>${ora}</span>
-                                        <span class="text-amber-400">${voti} voti (${pct}%)</span>
-                                    </div>
-                                    <div class="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-slate-800">
-                                        <div class="bg-amber-500 h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div>
-                                    </div>
-                                    <button onclick="votaOpzione('orari', '${ora}')" class="mt-1.5 text-[10px] bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1 rounded-lg border border-amber-500/20">Vota Orario</button>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                </div>
-            `;
-
-            let htmlCampi = `
-                <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-                    <h3 class="text-base font-bold text-sky-400 font-sport mb-3">SCELTA STRUTTURA</h3>
-                    <div class="space-y-3">
-                        ${DB.campi.map(c => {
-                            let voti = DB.votiCampo[c.nome] || 0;
-                            let pct = totalCampiVoti > 0 ? Math.round((voti / totalCampiVoti) * 100) : 0;
-                            return `
-                                <div class="flex gap-3 items-center bg-slate-950/60 p-2 rounded-xl border border-slate-800">
-                                    <img src="${c.img}" onerror="this.src='${fallbackImg}'" class="w-14 h-11 rounded-lg object-cover">
-                                    <div class="flex-1">
-                                        <div class="flex justify-between text-xs font-bold mb-1">
-                                            <span>${c.nome}</span>
-                                            <span class="text-sky-400">${voti} voti (${pct}%)</span>
-                                        </div>
-                                        <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden">
-                                            <div class="bg-sky-500 h-full transition-all duration-500" style="width: ${pct}%"></div>
-                                        </div>
-                                        <button onclick="votaOpzione('campi', '${c.nome}')" class="mt-1.5 text-[10px] bg-slate-800 hover:bg-slate-700 text-sky-400 font-bold px-3 py-0.5 rounded-lg border border-sky-500/20">Vota Campo</button>
-                                    </div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                </div>
-            `;
-
-            container.innerHTML = htmlOrari + htmlCampi;
-
-            const selectMvp = document.getElementById('voto-mvp-user');
-            if (selectMvp) {
-                selectMvp.innerHTML = `<option value="">-- Seleziona Giocatore per MVP --</option>` +
-                    [...DB.giocatori].sort((a, b) => a.nome.localeCompare(b.nome)).map(g => `<option value="${g.id}">${g.nome} (${g.ruolo})</option>`).join('');
-            }
-
-            const rMvp = document.getElementById('risultati-mvp');
-            if (rMvp) {
-                let entries = Object.entries(DB.votiMVP).sort((a, b) => b[1] - a[1]);
-                let tot = entries.reduce((s, c) => s + c[1], 0) || 0;
-                rMvp.innerHTML = entries.length === 0 ? '<p class="text-slate-500 italic">Nessun voto registrato per MVP.</p>' :
-                    entries.map(([id, v]) => {
-                        let g = DB.giocatori.find(x => x.id == id);
-                        if (!g) return '';
-                        let pct = tot > 0 ? Math.round((v / tot) * 100) : 0;
-                        return `
-                            <div class="flex justify-between items-center bg-slate-950 p-2 rounded-lg border border-slate-800">
-                                <span class="font-bold text-white text-xs">${g.nome}</span>
-                                <span class="text-amber-400 font-stat font-bold text-xs">${v} voti (${pct}%)</span>
-                            </div>
-                        `;
-                    }).join('');
-            }
-        }
-
-        window.votaOpzione = function(tipo, chiave) {
-            let sk = `voto_${tipo}_fatto`;
-            if (localStorage.getItem(sk)) return showToast("Hai già votato in questo sondaggio!", "error");
-            if (tipo === 'orari') DB.votiOrari[chiave] = (DB.votiOrari[chiave] || 0) + 1;
-            else DB.votiCampo[chiave] = (DB.votiCampo[chiave] || 0) + 1;
-            localStorage.setItem(sk, 'si');
-            salvaDB();
-            aggiornaUI();
-            showToast("Voto memorizzato!");
-        };
-
-        window.inviaVotoMVP = function() {
-            if (localStorage.getItem('voto_mvp_fatto')) return showToast("Hai già votato per l'MVP!", "error");
-            const select = document.getElementById('voto-mvp-user');
-            const id = select ? select.value : null;
-            if (!id) return showToast("Seleziona un giocatore valido!", "error");
-            DB.votiMVP[id] = (DB.votiMVP[id] || 0) + 1;
-            localStorage.setItem('voto_mvp_fatto', 'si');
-            salvaDB();
-            aggiornaUI();
-            showToast("Voto MVP registrato!");
-        };
 
         // ==========================================
         // GESTIONE AMMINISTRATORE
@@ -1848,7 +2214,7 @@
             if (listaGioc) {
                 listaGioc.innerHTML = DB.giocatori.map(g => `
                     <div class="flex justify-between items-center bg-slate-950 p-2 rounded border border-slate-800">
-                        <span class="text-white font-bold">${g.nome} (${g.ruolo})</span>
+                        <span class="text-white font-bold">${g.nome} (${g.ruolo} - ${g.paese || 'Italia'})</span>
                         <div class="flex gap-2">
                             <button onclick="preparaModificaGiocatore(${g.id})" class="text-sky-400">✏️</button>
                             <button onclick="adminEliminaGiocatore(${g.id})" class="text-rose-500">🗑️</button>
@@ -1886,29 +2252,8 @@
                     [...DB.giocatori].sort((a, b) => a.nome.localeCompare(b.nome)).map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
             }
 
-            const psCheckboxes = document.getElementById('playstyles-checkboxes');
-            if (psCheckboxes) {
-                psCheckboxes.innerHTML = Object.keys(PLAYSTYLES_MAP).map(ps => `
-                    <label class="flex items-center gap-1 cursor-pointer">
-                        <input type="checkbox" value="${ps}" class="ps-input accent-amber-500">
-                        <span>${PLAYSTYLES_MAP[ps]} ${ps}</span>
-                    </label>
-                `).join('');
-            }
-
             renderTabellino();
         }
-
-        window.adminCreaSondaggio = function() {
-            const val = document.getElementById('admin-sond-orari').value.trim();
-            if (!val) return showToast("Inserisci orari validi!", "error");
-            DB.sondaggioOrari = val.split(',').map(s => s.trim()).filter(Boolean);
-            DB.votiOrari = {};
-            localStorage.removeItem('voto_orari_fatto');
-            salvaDB();
-            aggiornaUI();
-            showToast("Sondaggio creato!");
-        };
 
         window.adminEliminaMatch = function(idx) {
             if (!confirm("Eliminare definitivamente questo match? Le statistiche verranno ricalcolate.")) return;
@@ -1927,11 +2272,8 @@
             document.getElementById('add-gioc-nome').value = g.nome;
             document.getElementById('add-gioc-ruolo').value = g.ruolo;
             document.getElementById('add-gioc-foto').value = g.foto || '';
+            document.getElementById('add-gioc-paese').value = g.paese || 'Italia';
             document.getElementById('add-gioc-por').checked = g.por || false;
-
-            document.querySelectorAll('.ps-input').forEach(cb => {
-                cb.checked = g.playstyles && g.playstyles.includes(cb.value);
-            });
 
             document.getElementById('btn-salva-giocatore').innerText = "Aggiorna Giocatore";
             document.getElementById('btn-annulla-gioc').classList.remove('hidden');
@@ -1941,8 +2283,8 @@
             document.getElementById('edit-gioc-id').value = '';
             document.getElementById('add-gioc-nome').value = '';
             document.getElementById('add-gioc-foto').value = '';
+            document.getElementById('add-gioc-paese').value = 'Italia';
             document.getElementById('add-gioc-por').checked = false;
-            document.querySelectorAll('.ps-input').forEach(cb => cb.checked = false);
             document.getElementById('btn-salva-giocatore').innerText = "Salva Giocatore";
             document.getElementById('btn-annulla-gioc').classList.add('hidden');
         };
@@ -1952,9 +2294,8 @@
             const nome = document.getElementById('add-gioc-nome').value.trim();
             const ruolo = document.getElementById('add-gioc-ruolo').value;
             const foto = document.getElementById('add-gioc-foto').value.trim();
+            const paese = document.getElementById('add-gioc-paese').value.trim() || 'Italia';
             const por = document.getElementById('add-gioc-por').checked;
-
-            let playstyles = Array.from(document.querySelectorAll('.ps-input:checked')).map(cb => cb.value);
 
             if (!nome) return showToast("Inserisci il nome del giocatore!", "error");
 
@@ -1964,8 +2305,8 @@
                     g.nome = nome;
                     g.ruolo = ruolo;
                     g.foto = foto;
+                    g.paese = paese;
                     g.por = por;
-                    g.playstyles = playstyles;
                 }
             } else {
                 let newId = DB.giocatori.length > 0 ? Math.max(...DB.giocatori.map(x => x.id)) + 1 : 1;
@@ -1974,6 +2315,7 @@
                     nome,
                     ruolo,
                     foto: foto || '',
+                    paese,
                     por,
                     gol: 0,
                     assist: 0,
@@ -1985,10 +2327,8 @@
                     pareggiate: 0,
                     perse: 0,
                     voti: [],
-                    playstyles: playstyles,
                     totw: 0,
-                    presenzeTOTW: 0,
-                    ultimoPunteggio: 0
+                    presenzeTOTW: 0
                 });
             }
 
@@ -2107,7 +2447,7 @@
 
             if (tabId === 'matchday') renderMatchHub();
             else if (tabId === 'partite') renderArchivioPartite();
-            else if (tabId === 'sondaggi') renderSondaggi();
+            else if (tabId === 'sondaggi') renderSondaggi2();
             else if (tabId === 'giocatori') renderCarteFC();
             else if (tabId === 'albo') renderAlboTotw();
             else if (tabId === 'classifiche') renderClassifiche();
@@ -2116,7 +2456,7 @@
         function aggiornaUI() {
             renderMatchHub();
             renderArchivioPartite();
-            renderSondaggi();
+            renderSondaggi2();
             renderCarteFC();
             renderAlboTotw();
             renderClassifiche();
@@ -2137,6 +2477,7 @@
                             } else {
                                 locG.foto = cloudG.foto || locG.foto;
                                 locG.ruolo = cloudG.ruolo || locG.ruolo;
+                                if (cloudG.paese) locG.paese = cloudG.paese;
                             }
                         });
 
@@ -2154,13 +2495,13 @@
 
                         sanificaDatabase();
                         ricalcolaStatisticheGlobali();
-                        // NESSUN salvataggio automatico all'avvio!
+                        // NESSUN salvataggio automatico (sola lettura per non sovrascrivere)
                         aggiornaUI();
                         console.log("Cloud sync completato con successo (sola lettura).");
                     }
                 })
                 .catch(err => {
-                    console.warn("Cloud sync non raggiungibile, utilizzo database locale:", err);
+                    console.warn("Cloud sync non raggiungibile, uso cache locale:", err);
                     sanificaDatabase();
                     ricalcolaStatisticheGlobali();
                     aggiornaUI();
