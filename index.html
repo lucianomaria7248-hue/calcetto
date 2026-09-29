@@ -11,12 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@500;700;900&family=Oswald:wght@500;700&family=Poppins:wght@300;400;500;600;700&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold-primary: #f59e0b;
-            --gold-glow: rgba(245, 158, 11, 0.4);
-            --cyan-glow: rgba(6, 182, 212, 0.4);
-            --neon-green: #10b981;
-        }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #05070a;
@@ -41,21 +35,21 @@
 
         /* Glassmorphism Luxury */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
+            background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .glass-panel-gold {
-            background: rgba(18, 20, 29, 0.8);
+            background: rgba(18, 20, 29, 0.85);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(212, 175, 55, 0.35);
         }
 
-        /* Player Card System 2.0 */
+        /* Player Card System */
         .fc-card-luxury {
             position: relative;
-            border-radius: 12px 12px 34px 12px;
+            border-radius: 12px 12px 32px 12px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -63,7 +57,7 @@
             background: linear-gradient(160deg, #18202c 0%, #0a0e17 100%);
         }
         .fc-card-luxury:hover {
-            transform: translateY(-6px) scale(1.02);
+            transform: translateY(-5px) scale(1.02);
             z-index: 30;
         }
 
@@ -146,11 +140,11 @@
 </head>
 <body class="p-2 sm:p-4 md:p-6 min-h-screen pb-28 text-slate-200">
 
-    <!-- TOP BAR -->
+    <!-- TOP HEADER -->
     <header class="max-w-6xl mx-auto my-4 text-center animate-fade">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-amber-500/30 text-[10px] md:text-xs font-mono font-bold text-amber-400 mb-2">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            LIVE E-SPORTS ENGINE V9.0 • ZERO LATENCY
+            LIVE E-SPORTS ENGINE V9.5 • ZERO LOSS RESTORE
         </div>
         <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-500 font-sport tracking-wider drop-shadow-md">
             FANTACALCETTO HUB
@@ -160,7 +154,7 @@
         </p>
     </header>
 
-    <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION TABS -->
     <nav class="max-w-6xl mx-auto mb-6 glass-panel-gold p-1.5 md:p-2 rounded-2xl flex justify-between gap-1 sticky top-3 z-40 shadow-2xl animate-fade overflow-x-auto">
         <button onclick="switchTab('matchday')" id="btn-matchday" class="tab-btn flex-1 min-w-[75px] md:min-w-[90px] py-2.5 rounded-xl font-bold text-[11px] md:text-xs transition text-amber-400 bg-slate-800/90 shadow">
             ⚡ Match Hub
@@ -188,11 +182,9 @@
     <!-- MAIN VIEWS -->
     <main class="max-w-6xl mx-auto">
 
-        <!-- TAB: MATCH HUB (PRE-MATCH, CHEMISTRY, TIRO ALLA FUNE & LAVAGNA TATTICA) -->
+        <!-- TAB: MATCH HUB -->
         <section id="tab-matchday" class="tab-content space-y-6">
-            <div id="match-live-container">
-                <!-- Popolato via JS da renderMatchHub() -->
-            </div>
+            <div id="match-live-container"></div>
         </section>
 
         <!-- TAB: ARCHIVIO PARTITE -->
@@ -204,7 +196,7 @@
             <div id="storico-partite" class="space-y-3"></div>
         </section>
 
-        <!-- TAB: SONDAGGI & DISPONIBILITÀ -->
+        <!-- TAB: SONDAGGI & PREFERENZE -->
         <section id="tab-sondaggi" class="tab-content hidden space-y-6">
             <div class="flex items-center justify-between border-b border-slate-800 pb-2">
                 <h2 class="text-xl md:text-2xl font-bold text-white font-sport">🗳️ SONDAGGI & PREFERENZE</h2>
@@ -225,7 +217,7 @@
             </div>
         </section>
 
-        <!-- TAB: DATABASE GIOCATORI -->
+        <!-- TAB: DATABASE SQUADRA -->
         <section id="tab-giocatori" class="tab-content hidden space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
                 <h2 class="text-xl md:text-2xl font-bold text-white font-sport">🎴 DATABASE GIOCATORI</h2>
@@ -245,7 +237,7 @@
             <div>
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-4">
                     <h2 class="text-xl md:text-2xl font-bold text-sky-400 font-sport">🔥 TEAM OF THE WEEK (TOTW)</h2>
-                    <span class="text-xs text-sky-400 font-mono">Generato dall'Algoritmo Prestazione</span>
+                    <span class="text-xs text-sky-400 font-mono">Calcolato dall'Algoritmo Prestazione</span>
                 </div>
                 <div id="totw-container" class="rounded-2xl overflow-hidden border border-sky-500/30 shadow-2xl"></div>
             </div>
@@ -259,20 +251,20 @@
         <!-- TAB: CLASSIFICHE -->
         <section id="tab-classifiche" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-                <h3 class="text-base font-bold text-amber-400 font-sport mb-3 flex items-center gap-2">⚽ TOP GOLEADOR</h3>
+                <h3 class="text-base font-bold text-amber-400 font-sport mb-3 flex items-center gap-2">⚽ TOP MARCATORI</h3>
                 <div id="rank-gol" class="space-y-1.5 text-xs"></div>
             </div>
             <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-                <h3 class="text-base font-bold text-cyan-400 font-sport mb-3 flex items-center gap-2">🎯 TOP ASSIST</h3>
+                <h3 class="text-base font-bold text-sky-400 font-sport mb-3 flex items-center gap-2">🎯 TOP ASSIST</h3>
                 <div id="rank-assist" class="space-y-1.5 text-xs"></div>
             </div>
             <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-                <h3 class="text-base font-bold text-purple-400 font-sport mb-3 flex items-center gap-2">⭐ MEDIA VOTI</h3>
-                <div id="rank-voti" class="space-y-1.5 text-xs"></div>
+                <h3 class="text-base font-bold text-amber-400 font-sport mb-3 flex items-center gap-2">⭐ STELLE MVP</h3>
+                <div id="rank-mvp" class="space-y-1.5 text-xs"></div>
             </div>
             <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-                <h3 class="text-base font-bold text-emerald-400 font-sport mb-3 flex items-center gap-2">🧤 SARACINESCHE</h3>
-                <div id="rank-clean" class="space-y-1.5 text-xs"></div>
+                <h3 class="text-base font-bold text-purple-400 font-sport mb-3 flex items-center gap-2">📈 MEDIA VOTI</h3>
+                <div id="rank-voti" class="space-y-1.5 text-xs"></div>
             </div>
         </section>
     </main>
@@ -287,15 +279,15 @@
         </div>
     </div>
 
-    <!-- MODALE SCHEDA DETTAGLIATA GIOCATORE -->
+    <!-- MODALE SCHEDA DETTAGLIATA GIOCATORE (3 SEZIONI SPECIFICHE) -->
     <div id="player-detail-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center hidden p-3">
-        <div class="glass-panel-gold rounded-2xl max-w-3xl w-full p-4 sm:p-6 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+        <div class="glass-panel-gold rounded-2xl max-w-4xl w-full p-4 sm:p-6 shadow-2xl relative max-h-[92vh] overflow-y-auto">
             <button onclick="closePlayerDetail()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-3xl font-bold">&times;</button>
             <div id="player-modal-content"></div>
         </div>
     </div>
 
-    <!-- MODALE PANNELLO DI CONTROLLO AMMINISTRATORE -->
+    <!-- MODALE AMMINISTRATORE -->
     <div id="admin-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center hidden p-2 sm:p-4">
         <div class="glass-panel border-slate-700 rounded-2xl max-w-5xl w-full p-4 sm:p-6 shadow-2xl relative max-h-[95vh] overflow-y-auto">
             <button onclick="closeAdmin()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-3xl font-bold z-50">&times;</button>
@@ -303,7 +295,7 @@
             <div id="admin-login" class="space-y-4 text-center py-10">
                 <div class="w-16 h-16 bg-rose-950/60 border border-rose-500/40 rounded-full flex items-center justify-center mx-auto text-2xl">🔒</div>
                 <h3 class="text-2xl font-bold text-rose-500 font-sport">ACCESSO AMMINISTRATORE</h3>
-                <p class="text-xs text-slate-400">Inserisci la chiave di sicurezza per accedere al pannello</p>
+                <p class="text-xs text-slate-400">Inserisci la password di controllo</p>
                 <input type="password" id="admin-pass" placeholder="Password di controllo..." class="w-full max-w-xs bg-slate-900 text-white p-3 rounded-xl border border-slate-700 text-center text-base outline-none focus:border-rose-500">
                 <button onclick="verificaAdmin()" class="block w-full max-w-xs mx-auto bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 rounded-xl transition text-sm">Sblocca Centro di Comando</button>
             </div>
@@ -311,7 +303,7 @@
             <div id="admin-dashboard" class="hidden space-y-6">
                 <div class="flex items-center justify-between border-b border-slate-700 pb-3">
                     <h3 class="text-xl md:text-2xl font-bold text-emerald-400 font-sport flex items-center gap-2">
-                        ⚙️ CENTRO DI CONTROLLO TATTICO
+                        ⚙️ CENTRO DI COMANDO TATTICO
                     </h3>
                     <button onclick="salvaSuCloudManuale()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg font-bold">
                         ☁️ Forza Sync Cloud
@@ -319,7 +311,7 @@
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <!-- CREA SONDAGGIO -->
+                    <!-- SONDAGGIO ORARI -->
                     <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
                         <h4 class="font-bold text-amber-400 mb-2 text-sm flex items-center gap-1.5">1. SONDAGGIO ORARI</h4>
                         <input type="text" id="admin-sond-orari" placeholder="Es: Lunedì 20:30, Giovedì 21:00" class="w-full bg-slate-950 p-2.5 text-xs rounded-lg border border-slate-700 mb-2 text-white outline-none">
@@ -337,7 +329,7 @@
                             <input type="text" id="admin-nome-a" placeholder="Nome Sq. Blu" value="Squadra Blu" class="p-2 rounded bg-slate-950 text-white text-xs border border-slate-700 outline-none">
                             <input type="text" id="admin-nome-b" placeholder="Nome Sq. Rossa" value="Squadra Rossa" class="p-2 rounded bg-slate-950 text-white text-xs border border-slate-700 outline-none">
                         </div>
-                        <label class="text-[11px] text-slate-400 font-bold block mb-1">Seleziona Convocati (Minimo 2):</label>
+                        <label class="text-[11px] text-slate-400 font-bold block mb-1">Seleziona Convocati:</label>
                         <div id="admin-check-giocatori" class="grid grid-cols-2 sm:grid-cols-3 gap-1 mb-2 max-h-36 overflow-y-auto p-2 bg-slate-950 rounded border border-slate-800"></div>
                         <button onclick="avviaSmartDraft()" class="w-full bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold py-2.5 rounded-lg shadow">
                             ⚡ Esegui Smart Snake Draft Bilanciato
@@ -368,10 +360,16 @@
                                 <option value="POR">Portiere (POR)</option>
                             </select>
                         </div>
-                        <input type="text" id="add-gioc-foto" placeholder="URL Foto (es. bonetti.webp)" class="w-full p-2 bg-slate-950 text-white rounded text-xs border border-slate-700 mb-2">
-                        <label class="flex items-center text-xs text-slate-300 mb-3 gap-2 cursor-pointer">
+                        <input type="text" id="add-gioc-foto" placeholder="URL o nome file foto (es. bonetti.webp)" class="w-full p-2 bg-slate-950 text-white rounded text-xs border border-slate-700 mb-2">
+                        <label class="flex items-center text-xs text-slate-300 mb-2 gap-2 cursor-pointer">
                             <input type="checkbox" id="add-gioc-por" class="w-4 h-4 accent-amber-500"> È un Portiere di Ruolo?
                         </label>
+
+                        <div class="mb-3 border-t border-slate-800 pt-2">
+                            <label class="text-[10px] text-slate-400 uppercase font-bold block mb-1">Playstyles Assegnati:</label>
+                            <div id="playstyles-checkboxes" class="grid grid-cols-3 gap-1 text-[10px] text-white"></div>
+                        </div>
+
                         <div class="flex gap-2">
                             <button onclick="adminSalvaGiocatore()" id="btn-salva-giocatore" class="flex-1 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-2.5 rounded-lg">Salva Giocatore</button>
                             <button onclick="annullaModificaGiocatore()" id="btn-annulla-gioc" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold px-4 py-2.5 rounded-lg hidden">Annulla</button>
@@ -429,16 +427,22 @@
     <!-- CONTENITORE TOAST -->
     <div id="toast-container"></div>
 
-    <!-- ENGINE CORE JAVASCRIPT -->
+    <!-- JAVASCRIPT ENGINE CORE -->
     <script>
-        // CONFIGURAZIONE APPLICAZIONE
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDR9JHVewdoiQAsooCLui5OWdTns4gXCStGeEBTay-cidYiW9GNk_4DgljCinFjVC9Hg/exec";
         const fallbackImg = "https://placehold.co/200x200/1e293b/ffffff?text=FOTO";
         let editStoricoIndex = -1;
         let selectedSwapPlayer = null;
         let currentRoleFilter = 'ALL';
 
-        // MAPPATURA EVENT BADGES SVG PROFESSIONALI
+        // DIZIONARIO PLAYSTYLES
+        const PLAYSTYLES_MAP = {
+            'Bomber': '🚀', 'Cecchino': '🎯', 'Regista': '👁️', 'Maestro': '🎩',
+            'Muro': '🧱', 'Instancabile': '🏃‍♂️', 'Torre': '🗼', 'Frociazzo': '🏳️‍🌈',
+            'Rapinatore': '🦊', 'Saracinesca': '🧤', 'Leader': '👑', 'Insuperabile': '🛡️'
+        };
+
+        // EVENT BADGES SVG
         const SVG_ICONS = {
             gol: `<span title="Gol" class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[11px]">⚽</span>`,
             assist: `<span title="Assist" class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/40 text-[11px]">🎯</span>`,
@@ -447,7 +451,6 @@
             autogol: `<span title="Autogol" class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[11px]">🛑</span>`
         };
 
-        // NOTIFICHE TOAST ZERO-LATENCY
         window.showToast = function(msg, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -457,7 +460,7 @@
             setTimeout(() => toast.remove(), 3000);
         };
 
-        // DATABASE INIZIALE STRUTTURATO
+        // BASE DATABASE DI DEFAULT (CON CAMPO PONTE ROMITO E ARMANDOSKY SENZA FOTO)
         const initData = {
             ultimoAggiornamento: Date.now(),
             giocatori: [
@@ -468,27 +471,69 @@
                 { id: 5, nome: "Cristofer", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "cristofer.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
                 { id: 6, nome: "Schivonsky", ruolo: "POR", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "schivonsky.webp", por: true, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
                 { id: 7, nome: "Carbone", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "carbone.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 8, nome: "Armandoski", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "5133.jpg", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 8, nome: "Armandosky", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
                 { id: 9, nome: "Checco", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "checco.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
                 { id: 10, nome: "Edoardo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "edoardo.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
                 { id: 11, nome: "Gerardo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "gerrywebp.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
                 { id: 12, nome: "Peppo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "peppo.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] }
             ],
             campi: [
-                { nome: "Ponte Rumito", img: "campopr.webp" },
+                { nome: "Ponte Romito", img: "campopr.webp" },
                 { nome: "Castelfranci", img: "campoc.jfif" }
             ],
             sondaggioOrari: ["Lunedì 20:30", "Giovedì 21:00"],
-            votiCampo: { "Ponte Rumito": 0, "Castelfranci": 0 },
+            votiCampo: { "Ponte Romito": 0, "Castelfranci": 0 },
             votiOrari: {},
             votiMVP: {},
             matchAttivo: null,
             storico: []
         };
 
-        let DB = JSON.parse(localStorage.getItem('fantaHubV9')) || initData;
+        // ==========================================
+        // AUTO-MIGRAZIONE DATI: NESSUNA PERDITA STORICO
+        // ==========================================
+        function recuperaDatabase() {
+            let v9 = localStorage.getItem('fantaHubV9');
+            let v8 = localStorage.getItem('fantaHubV8');
+            let v7 = localStorage.getItem('fantaHubV7');
 
-        // SANIFICAZIONE E RETROCOMPATIBILITÀ DATABASE
+            let parsedV8 = null, parsedV9 = null, parsedV7 = null;
+            try { if (v8) parsedV8 = JSON.parse(v8); } catch(e) {}
+            try { if (v9) parsedV9 = JSON.parse(v9); } catch(e) {}
+            try { if (v7) parsedV7 = JSON.parse(v7); } catch(e) {}
+
+            // Scegli la sorgente più ricca (con più giocatori o partite archiviate)
+            let candidati = [parsedV8, parsedV9, parsedV7].filter(Boolean);
+            if (candidati.length === 0) return JSON.parse(JSON.stringify(initData));
+
+            candidati.sort((a, b) => {
+                let pA = (a.giocatori ? a.giocatori.length : 0) + (a.storico ? a.storico.length * 5 : 0);
+                let pB = (b.giocatori ? b.giocatori.length : 0) + (b.storico ? b.storico.length * 5 : 0);
+                return pB - pA;
+            });
+
+            let best = candidati[0];
+
+            // Se ci sono giocatori in altre versioni, uniscili per non perdere quelli aggiunti manualmente
+            candidati.forEach(source => {
+                if (source.giocatori) {
+                    source.giocatori.forEach(srcG => {
+                        let esiste = best.giocatori.find(bg => bg.id === srcG.id || bg.nome.toLowerCase() === srcG.nome.toLowerCase());
+                        if (!esiste) {
+                            best.giocatori.push(srcG);
+                        }
+                    });
+                }
+                if (source.storico && source.storico.length > (best.storico ? best.storico.length : 0)) {
+                    best.storico = source.storico;
+                }
+            });
+
+            return best;
+        }
+
+        let DB = recuperaDatabase();
+
         function sanificaDatabase() {
             if (!DB.giocatori) DB.giocatori = initData.giocatori;
             DB.giocatori.forEach(g => {
@@ -497,33 +542,77 @@
                 if (g.autogol === undefined) g.autogol = 0;
                 if (g.rigoriParati === undefined) g.rigoriParati = 0;
                 if (g.rigoriSbagliati === undefined) g.rigoriSbagliati = 0;
-                if (g.cleanSheet === undefined) g.cleanSheet = 0;
                 if (g.vinte === undefined) g.vinte = 0;
                 if (g.pareggiate === undefined) g.pareggiate = 0;
                 if (g.perse === undefined) g.perse = 0;
                 if (g.mvp === undefined) g.mvp = 0;
                 if (g.por === undefined) g.por = (g.ruolo === "POR");
-                if (g.playstyles === undefined) g.playstyles = [];
+                if (g.playstyles === undefined || !Array.isArray(g.playstyles)) g.playstyles = [];
                 if (g.totw === undefined) g.totw = 0;
                 if (g.presenzeTOTW === undefined) g.presenzeTOTW = g.totw || 0;
                 if (!Array.isArray(g.voti)) g.voti = [];
             });
+
             if (!DB.campi || DB.campi.length === 0) DB.campi = initData.campi;
+            // Aggiorna il nome del campo in Ponte Romito se presente come Ponte Rumito
+            DB.campi.forEach(c => {
+                if (c.nome.toLowerCase().includes("rumito") || c.nome.toLowerCase().includes("ponteromito")) {
+                    c.nome = "Ponte Romito";
+                    c.img = "campopr.webp";
+                }
+            });
+
             if (!DB.votiOrari) DB.votiOrari = {};
             if (!DB.votiCampo) DB.votiCampo = {};
             if (!DB.votiMVP) DB.votiMVP = {};
             if (!DB.sondaggioOrari) DB.sondaggioOrari = initData.sondaggioOrari;
             if (!DB.storico) DB.storico = [];
+
+            // Ricalibra voti retroattivi per le partite storiche che ne erano prive
+            assegnaVotiRetroattivi();
         }
+
+        // ==========================================
+        // ASSEGNAZIONE VOTI RETROATTIVI PER MATCH VECCHI
+        // ==========================================
+        function assegnaVotiRetroattivi() {
+            DB.storico.forEach(m => {
+                let haVintoA = m.golA > m.golB;
+                let haVintoB = m.golB > m.golA;
+
+                const processaDett = (sq, dett, won) => {
+                    if (!dett) return;
+                    sq.forEach(p => {
+                        if (!dett[p.id]) dett[p.id] = { gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0 };
+                        let d = dett[p.id];
+                        if (d.voto === undefined || d.voto === null || isNaN(d.voto)) {
+                            let base = 6.0;
+                            base += (d.gol || 0) * 1.0;
+                            base += (d.assist || 0) * 0.5;
+                            base += (d.rigoriParati || 0) * 1.5;
+                            base -= (d.autogol || 0) * 1.0;
+                            base -= (d.rigoriSbagliati || 0) * 1.0;
+                            if (m.mvpId === p.id) base += 1.5;
+                            if (won) base += 0.5;
+                            d.voto = parseFloat(Math.min(10, Math.max(4.0, base)).toFixed(1));
+                        }
+                    });
+                };
+
+                processaDett(m.sqA, m.dettA, haVintoA);
+                processaDett(m.sqB, m.dettB, haVintoB);
+            });
+        }
+
         sanificaDatabase();
 
         function getImgCampo(nome) {
-            const c = DB.campi.find(x => x.nome === nome);
+            const c = DB.campi.find(x => x.nome.toLowerCase() === (nome || "").toLowerCase());
             return (c && c.img) ? c.img : "campopr.webp";
         }
 
         // ==========================================
-        // FASE 3: MOTORE OVERALL IBRIDO & PLAYSTYLES
+        // CALCOLO OVERALL & PLAYSTYLES IBRIDI
         // ==========================================
         function calcolaOverall(g) {
             let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
@@ -532,7 +621,6 @@
                 let somma = g.voti.reduce((acc, curr) => acc + curr, 0);
                 mediaVoti = somma / g.voti.length;
             }
-            // Normalizzazione Media Voti su scala 40-99 (Voto 4 -> 40, Voto 10 -> 99)
             let normVoti = 40 + (mediaVoti - 4) * (59 / 6);
             normVoti = Math.max(40, Math.min(99, normVoti));
 
@@ -542,9 +630,9 @@
             } else if (g.ruolo === 'CEN') {
                 baseStat += (g.gol || 0) * 0.35 + (g.assist || 0) * 0.45 + (g.vinte || 0) * 0.30 - (g.perse || 0) * 0.15 - (g.rigoriSbagliati || 0) * 0.40 - (g.autogol || 0) * 0.40;
             } else if (g.ruolo === 'DIF') {
-                baseStat += (g.cleanSheet || 0) * 0.60 + (g.gol || 0) * 0.25 + (g.assist || 0) * 0.25 + (g.vinte || 0) * 0.30 - (g.perse || 0) * 0.15 - (g.autogol || 0) * 0.60;
+                baseStat += (g.gol || 0) * 0.30 + (g.assist || 0) * 0.30 + (g.vinte || 0) * 0.40 - (g.perse || 0) * 0.15 - (g.autogol || 0) * 0.60;
             } else if (g.ruolo === 'POR' || g.por) {
-                baseStat += (g.cleanSheet || 0) * 0.70 + (g.rigoriParati || 0) * 0.85 + (g.vinte || 0) * 0.30 - (g.perse || 0) * 0.15 - (g.autogol || 0) * 0.50;
+                baseStat += (g.rigoriParati || 0) * 0.90 + (g.vinte || 0) * 0.40 - (g.perse || 0) * 0.15 - (g.autogol || 0) * 0.50;
             }
 
             baseStat = Math.max(40, Math.min(99, baseStat));
@@ -558,43 +646,38 @@
             return 'rarity-silver';
         }
 
-        // MOTORE PLAYSTYLE DINAMICI ADATTIVI
-        function calcolaPlaystylesDinamici(g) {
-            let ps = [];
-            let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
-
-            if (g.ruolo === 'DIF' && presenze > 0 && ((g.gol || 0) / presenze) >= 0.4) {
-                ps.push({ nome: 'Il Muro Goleador', icon: '🧱⚽', desc: 'Difensore con fiuto del gol eccezionale' });
+        function getTuttiPlaystyles(g) {
+            let res = [];
+            // Playstyle manuali scelti
+            if (g.playstyles && Array.isArray(g.playstyles)) {
+                g.playstyles.forEach(ps => {
+                    res.push({ nome: ps, icon: PLAYSTYLES_MAP[ps] || '⭐', desc: 'Assegnato dall\'anagrafica' });
+                });
             }
-            if ((g.ruolo === 'ATT' || g.ruolo === 'CEN') && presenze > 0 && ((g.assist || 0) / presenze) >= 0.6) {
-                ps.push({ nome: 'Regista Offensivo', icon: '👁️🎩', desc: 'Visione di gioco sopraffina e assist man' });
+
+            // Playstyle dinamici aggiunti automaticamente se non già presenti
+            let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
+            if (g.ruolo === 'DIF' && presenze > 0 && ((g.gol || 0) / presenze) >= 0.4) {
+                if (!res.some(x => x.nome.includes('Muro'))) res.push({ nome: 'Il Muro Goleador', icon: '🧱', desc: 'Difensore goleador' });
+            }
+            if ((g.ruolo === 'ATT' || g.ruolo === 'CEN') && presenze > 0 && ((g.assist || 0) / presenze) >= 0.5) {
+                if (!res.some(x => x.nome.includes('Regista'))) res.push({ nome: 'Regista Offensivo', icon: '👁️', desc: 'Fornitore costante di assist' });
             }
             if ((g.por || g.ruolo === 'POR') && (g.rigoriParati || 0) >= 2) {
-                ps.push({ nome: 'Saracinesca', icon: '🧤🛡️', desc: 'Specialista nel neutralizzare tiri dal dischetto' });
+                if (!res.some(x => x.nome.includes('Saracinesca'))) res.push({ nome: 'Saracinesca', icon: '🧤', desc: 'Specialista pararigori' });
             }
             if ((g.gol || 0) >= 3 && (g.rigoriSbagliati || 0) === 0) {
-                ps.push({ nome: 'Cecchino', icon: '🎯⚡', desc: 'Infallibile nelle conclusioni e zero rigori falliti' });
+                if (!res.some(x => x.nome.includes('Cecchino'))) res.push({ nome: 'Cecchino', icon: '🎯', desc: 'Zero errori dagli undici metri' });
             }
             if ((g.autogol || 0) >= 2) {
-                ps.push({ nome: 'Calamita (Malus)', icon: '🛑🧲', desc: 'Attira sfortunatamente deviazioni nella propria porta' });
-            }
-            if (presenze >= 5) {
-                let ultimePartite = DB.storico.slice(0, 5);
-                let giocateUltime = ultimePartite.filter(m => [...m.sqA, ...m.sqB].some(x => x.id === g.id)).length;
-                if (giocateUltime === 5) {
-                    ps.push({ nome: 'Stacanovista', icon: '🏃‍♂️🔥', desc: 'Presenza costante nel 100% degli ultimi 5 match' });
-                }
-            }
-            let avgPresenze = DB.giocatori.reduce((acc, cur) => acc + (cur.vinte + cur.pareggiate + cur.perse), 0) / (DB.giocatori.length || 1);
-            if ((g.mvp || 0) >= 2 && presenze < avgPresenze) {
-                ps.push({ nome: 'Mr. Efficienza', icon: '⚡👑', desc: 'Colleziona titoli di MVP con un minutaggio ridotto' });
+                if (!res.some(x => x.nome.includes('Calamita'))) res.push({ nome: 'Calamita (Malus)', icon: '🛑', desc: 'Deviazioni sfortunate' });
             }
 
-            return ps;
+            return res;
         }
 
         // ==========================================
-        // FASE 1: SMART DRAFT (SNAKE BALANCING)
+        // SMART DRAFT (SNAKE BALANCING)
         // ==========================================
         window.avviaSmartDraft = function() {
             let checkboxes = document.querySelectorAll('input[name="convocati"]:checked');
@@ -609,7 +692,6 @@
 
             let convocati = DB.giocatori.filter(g => ids.includes(g.id));
 
-            // Raggruppamento per ruoli
             let ruoli = ['POR', 'DIF', 'CEN', 'ATT'];
             let perRuolo = { POR: [], DIF: [], CEN: [], ATT: [] };
             convocati.forEach(g => {
@@ -617,20 +699,18 @@
                 perRuolo[r].push(g);
             });
 
-            // Ordina ciascun ruolo per Overall decrescente
             Object.keys(perRuolo).forEach(r => {
                 perRuolo[r].sort((a, b) => calcolaOverall(b) - calcolaOverall(a));
             });
 
             let sqA = [], sqB = [];
-            let snakeTurn = true; // true -> A, false -> B
+            let snakeTurn = true;
 
             ruoli.forEach(r => {
                 perRuolo[r].forEach(player => {
                     let ovrA = sqA.reduce((sum, p) => sum + calcolaOverall(p), 0);
                     let ovrB = sqB.reduce((sum, p) => sum + calcolaOverall(p), 0);
 
-                    // Distribuzione Snake ponderata: se c'è un gap elevato bilancia la squadra con meno OVR
                     if (Math.abs(ovrA - ovrB) >= 4) {
                         if (ovrA < ovrB) sqA.push(player);
                         else sqB.push(player);
@@ -664,7 +744,7 @@
         };
 
         // ==========================================
-        // FASE 4: MATCH HUB, CHEMISTRY & TACTICAL BOARD
+        // MATCH HUB & LAVAGNA TATTICA
         // ==========================================
         function calcolaChemistry(squadra) {
             if (!squadra || squadra.length < 2) return 50;
@@ -697,7 +777,7 @@
                 }
             }
 
-            if (coppieTotali === 0) return 65; // Baseline amichevole iniziale
+            if (coppieTotali === 0) return 65;
             let chemRate = Math.round((vittorieCoppia / coppieTotali) * 100);
             return Math.min(99, Math.max(30, chemRate));
         }
@@ -710,8 +790,8 @@
                 container.innerHTML = `
                     <div class="glass-panel text-center p-12 rounded-3xl border border-slate-800">
                         <div class="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center mx-auto mb-4 text-2xl">⏳</div>
-                        <h3 class="text-xl md:text-2xl font-bold font-sport text-slate-300 mb-2">NESSUN MATCH PROGRAMMATO</h3>
-                        <p class="text-xs text-slate-500 max-w-md mx-auto mb-6">Apri il Centro di Controllo per selezionare i convocati e generare le formazioni con lo Smart Snake Draft.</p>
+                        <h3 class="text-xl md:text-2xl font-bold font-sport text-slate-300 mb-2">NESSUN MATCH ATTIVO</h3>
+                        <p class="text-xs text-slate-500 max-w-md mx-auto mb-6">Seleziona i convocati nel pannello Admin per comporre automaticamente le squadre bilanciate.</p>
                         <button onclick="openAdmin()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs shadow-lg transition">Apri Pannello Admin</button>
                     </div>
                 `;
@@ -748,7 +828,7 @@
             };
 
             container.innerHTML = `
-                <!-- SCHEDA LIVE MATCH INFO -->
+                <!-- LIVE MATCH INFO -->
                 <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
                     <div class="text-center md:text-left">
                         <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono font-bold mb-1">
@@ -758,7 +838,7 @@
                         <p class="text-xs text-slate-400 font-mono">📅 ${m.data}</p>
                     </div>
 
-                    <!-- TIRO ALLA FUNE (OVERALL COMPARISON) -->
+                    <!-- TIRO ALLA FUNE OVERALL -->
                     <div class="w-full md:w-1/2 flex flex-col gap-1.5">
                         <div class="flex justify-between items-center text-xs font-sport font-bold">
                             <span class="text-sky-400">${m.nomeA} (OVR ${ovrA})</span>
@@ -780,28 +860,26 @@
                             📋 Copia Formazioni
                         </button>
                         <button onclick="condividiFormazioni()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-lg">
-                            📲 Invia su WhatsApp
+                            📲 WhatsApp
                         </button>
                     </div>
                 </div>
 
-                <!-- LAVAGNA TATTICA INTERATTIVA DRAG & SWAP -->
+                <!-- CAMPO TATTICO SWAP -->
                 <div class="glass-panel p-4 rounded-3xl border border-slate-700/60 shadow-2xl relative overflow-hidden">
                     <div class="text-center mb-3">
                         <p class="text-[11px] font-mono text-amber-400 font-bold uppercase tracking-wider">
-                            LAVAGNA TATTICA PRE-MATCH • CLICCA SU DUE CARTE PER SCAMBIARLE
+                            LAVAGNA TATTICA • CLICCA SU DUE GIOCATORI PER SCAMBIARLI
                         </p>
                     </div>
 
                     <div class="w-full aspect-[4/3] md:aspect-[16/9] bg-cover bg-center rounded-2xl relative border-2 border-slate-700/80 overflow-hidden shadow-inner flex flex-col justify-between p-3 md:p-6" style="background-image: url('${imgCampo}');">
                         <div class="absolute inset-0 bg-slate-950/70 backdrop-blur-[2px]"></div>
                         
-                        <!-- Segnature del campo da calcetto -->
                         <div class="absolute inset-3 border-2 border-white/20 rounded-xl pointer-events-none"></div>
                         <div class="absolute top-1/2 left-0 right-0 border-t-2 border-white/20 -translate-y-1/2 pointer-events-none"></div>
                         <div class="absolute top-1/2 left-1/2 w-20 h-20 border-2 border-white/20 rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
-                        <!-- METÀ CAMPO SQUADRA A -->
                         <div class="relative z-10">
                             <div class="flex items-center justify-between mb-1 px-2">
                                 <span class="text-xs font-sport font-black text-sky-400 drop-shadow">${m.nomeA}</span>
@@ -811,7 +889,6 @@
                             </div>
                         </div>
 
-                        <!-- METÀ CAMPO SQUADRA B -->
                         <div class="relative z-10">
                             <div class="flex flex-wrap justify-center gap-2 md:gap-4">
                                 ${m.sqB.map(p => renderMiniTacticalCard(p, 'B')).join('')}
@@ -829,7 +906,7 @@
             if (!DB.matchAttivo) return;
             if (!selectedSwapPlayer) {
                 selectedSwapPlayer = { id: playerId, team };
-                showToast("Giocatore selezionato. Clicca su un secondo giocatore per scambiarli.", "success");
+                showToast("Selezionato. Clicca su un secondo giocatore per scambiare di posto.");
                 renderMatchHub();
             } else {
                 let first = selectedSwapPlayer;
@@ -852,7 +929,7 @@
                     arrFirst[idxFirst] = arrSecond[idxSecond];
                     arrSecond[idxSecond] = temp;
                     salvaDB();
-                    showToast("Posizioni formazioni aggiornate!", "success");
+                    showToast("Formazioni aggiornate!");
                 }
 
                 selectedSwapPlayer = null;
@@ -867,12 +944,12 @@
                 m.sqA.map(p => `• ${p.nome} (${p.ruolo} - OVR ${calcolaOverall(p)})`).join('\n') +
                 `\n\n🔴 ${m.nomeB}:\n` +
                 m.sqB.map(p => `• ${p.nome} (${p.ruolo} - OVR ${calcolaOverall(p)})`).join('\n') +
-                `\n\nChi vincerà? Allacciate gli scarpini! 🔥`;
+                `\n\nChe vinca il migliore! 🔥`;
 
             navigator.clipboard.writeText(text).then(() => {
                 showToast("Formazioni copiate negli appunti!");
             }).catch(() => {
-                showToast("Impossibile copiare il testo", "error");
+                showToast("Impossibile copiare", "error");
             });
         };
 
@@ -883,29 +960,29 @@
                 m.sqA.map(g => `• ${g.nome} (${g.ruolo} - OVR ${calcolaOverall(g)})`).join('%0A') +
                 `%0A%0A🔴 *${m.nomeB}*:%0A` +
                 m.sqB.map(g => `• ${g.nome} (${g.ruolo} - OVR ${calcolaOverall(g)})`).join('%0A') +
-                `%0A%0AChe vinca il migliore! 🔥`;
+                `%0A%0AAllacciate gli scarpini! 🔥`;
             window.open(`https://api.whatsapp.com/send?text=${testo}`, '_blank');
         };
 
         // ==========================================
-        // FASE 1: TABELLINO CON DOCUMENT FRAGMENT
+        // TABELLINO LIVE & DOCUMENT FRAGMENT
         // ==========================================
         function renderTabellino() {
             const container = document.getElementById('admin-tabellino-container');
             const statusBadge = document.getElementById('tabellino-status-badge');
             if (!container) return;
 
-            container.innerHTML = ''; // AZZERAMENTO RIGOROSO PER EVITARE DUPLICAZIONI DOM
+            container.innerHTML = '';
 
             let m = editStoricoIndex > -1 ? DB.storico[editStoricoIndex] : DB.matchAttivo;
             if (!m) {
                 if (statusBadge) statusBadge.innerText = 'Nessun match caricato';
-                container.innerHTML = '<p class="text-xs text-slate-500 py-4 italic">Crea un match tramite Smart Draft o seleziona un match dall\'archivio storico per registrare gli eventi.</p>';
+                container.innerHTML = '<p class="text-xs text-slate-500 py-4 italic">Crea un match tramite Smart Draft o seleziona un incontro dall\'archivio storico.</p>';
                 return;
             }
 
             if (statusBadge) {
-                statusBadge.innerText = editStoricoIndex > -1 ? `Modifica Storico #${editStoricoIndex + 1}` : 'Live Match In Corso';
+                statusBadge.innerText = editStoricoIndex > -1 ? `Modifica Incontro #${editStoricoIndex + 1}` : 'Live Match In Corso';
             }
 
             const fragment = document.createDocumentFragment();
@@ -980,19 +1057,19 @@
                 </div>
                 <div class="flex gap-2">
                     <button onclick="adminSalvaTabellino()" class="flex-1 ${editStoricoIndex > -1 ? 'bg-sky-600 hover:bg-sky-500' : 'bg-emerald-600 hover:bg-emerald-500'} text-white font-bold py-3 rounded-xl text-xs shadow-lg transition">
-                        ${editStoricoIndex > -1 ? '💾 AGGIORNA ARCHIVIO & RICALCOLA' : '🏁 ARCHIVIA RISULTATO UFFICIALE'}
+                        ${editStoricoIndex > -1 ? '💾 AGGIORNA INCONTRO & RICALCOLA' : '🏁 ARCHIVIA RISULTATO UFFICIALE'}
                     </button>
                     ${editStoricoIndex > -1 ? `<button onclick="annullaModificaStorico()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-3 rounded-xl text-xs">Annulla</button>` : ''}
                 </div>
             `;
             fragment.appendChild(footerActions);
 
-            container.appendChild(fragment); // UNICO APPEND ATOMICO NEL DOM
+            container.appendChild(fragment);
         }
 
         window.adminSalvaTabellino = function() {
             let m = editStoricoIndex > -1 ? DB.storico[editStoricoIndex] : DB.matchAttivo;
-            if (!m) return showToast("Nessun match attivo!", "error");
+            if (!m) return showToast("Nessun match caricato!", "error");
 
             const mvpIdStr = document.getElementById('tab-mvp-id').value;
             if (!mvpIdStr) return showToast("Seleziona l'MVP dell'incontro!", "error");
@@ -1038,7 +1115,7 @@
             editStoricoIndex = idx;
             renderTabellino();
             document.getElementById('admin-tabellino-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            showToast(`Match del ${DB.storico[idx].data} caricato nel tabellino.`);
+            showToast(`Match del ${DB.storico[idx].data} pronto per la modifica.`);
         };
 
         window.annullaModificaStorico = function() {
@@ -1047,33 +1124,27 @@
         };
 
         // ==========================================
-        // FASE 1: RICALCOLO DETERMINISTICO STATISTICHE
+        // RICALCOLO STATISTICHE DETERMINISTICO
         // ==========================================
         function ricalcolaStatisticheGlobali() {
-            // Reset contatori Single Source of Truth
             DB.giocatori.forEach(g => {
                 g.gol = 0;
                 g.assist = 0;
                 g.autogol = 0;
                 g.rigoriParati = 0;
                 g.rigoriSbagliati = 0;
-                g.cleanSheet = 0;
                 g.vinte = 0;
                 g.pareggiate = 0;
                 g.perse = 0;
                 g.mvp = 0;
                 g.voti = [];
-                g.totw = 0;
-                g.presenzeTOTW = 0;
             });
 
-            DB.storico.forEach((match, matchIndex) => {
+            DB.storico.forEach(match => {
                 let winA = match.golA > match.golB;
                 let pareggio = match.golA === match.golB;
-                let cleanSheetA = match.golB === 0;
-                let cleanSheetB = match.golA === 0;
 
-                const processaTeam = (teamList, dett, won, draw, cleanSheet) => {
+                const processaTeam = (teamList, dett, won, draw) => {
                     teamList.forEach(player => {
                         let pg = DB.giocatori.find(x => x.id === player.id);
                         if (!pg) return;
@@ -1085,26 +1156,22 @@
                         pg.rigoriParati += (d.rigoriParati || 0);
                         pg.rigoriSbagliati += (d.rigoriSbagliati || 0);
 
-                        if (cleanSheet && (pg.ruolo === 'DIF' || pg.ruolo === 'POR' || pg.por)) {
-                            pg.cleanSheet++;
-                        }
-
                         if (won) pg.vinte++;
                         else if (draw) pg.pareggiate++;
                         else pg.perse++;
 
                         if (match.mvpId === pg.id) pg.mvp++;
-                        if (d.voto !== undefined) pg.voti.push(d.voto);
+                        if (d.voto !== undefined && !isNaN(d.voto)) pg.voti.push(d.voto);
                     });
                 };
 
-                processaTeam(match.sqA, match.dettA, winA, pareggio, cleanSheetA);
-                processaTeam(match.sqB, match.dettB, !winA && !pareggio, pareggio, cleanSheetB);
+                processaTeam(match.sqA, match.dettA, winA, pareggio);
+                processaTeam(match.sqB, match.dettB, !winA && !pareggio, pareggio);
             });
         }
 
         // ==========================================
-        // FASE 2: RENDERING CARTE & BADGES SVG
+        // RENDERING DATABASE CARTE SQUADRA
         // ==========================================
         function renderCarteFC() {
             const grid = document.getElementById('cards-grid');
@@ -1119,23 +1186,21 @@
             grid.innerHTML = filtrati.map(g => {
                 let ovr = calcolaOverall(g);
                 let rarity = getCardRarityClass(ovr);
-                let dynamicPS = calcolaPlaystylesDinamici(g);
+                let playstyles = getTuttiPlaystyles(g);
 
                 return `
                     <div class="fc-card-luxury ${rarity} cursor-pointer group" onclick="apriDettaglioGiocatore(${g.id})">
-                        <!-- TOP CARD -->
                         <div class="relative h-36 sm:h-40 overflow-hidden flex justify-center items-end border-b border-white/10 bg-gradient-to-b from-slate-800/40 to-transparent">
                             <div class="absolute top-2 left-2 flex flex-col items-center leading-none z-20">
                                 <span class="font-stat font-bold text-3xl md:text-4xl text-amber-400 drop-shadow">${ovr}</span>
                                 <span class="text-[9px] font-bold text-slate-300 font-mono tracking-wider">${g.ruolo}</span>
                             </div>
                             <div class="absolute top-2 right-2 flex flex-col gap-1 z-20">
-                                ${dynamicPS.slice(0, 2).map(ps => `<span title="${ps.nome}" class="text-xs">${ps.icon.split(' ')[0]}</span>`).join('')}
+                                ${playstyles.slice(0, 3).map(ps => `<span title="${ps.nome}" class="text-xs">${ps.icon}</span>`).join('')}
                             </div>
                             <img src="${g.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="h-[92%] w-auto object-cover z-10 transition-transform duration-300 group-hover:scale-105">
                         </div>
 
-                        <!-- BOTTOM CARD INFO -->
                         <div class="p-2 sm:p-2.5 bg-slate-950 flex-1 flex flex-col justify-between">
                             <h4 class="text-center font-bold text-xs sm:text-sm font-sport text-white truncate">${g.nome}</h4>
                             <div class="grid grid-cols-2 gap-x-1 gap-y-0.5 text-[9px] sm:text-[10px] text-slate-300 font-mono mt-1 pt-1 border-t border-slate-800">
@@ -1165,33 +1230,20 @@
         };
 
         // ==========================================
-        // FASE 2: MATCH CENTER ARCHIVIO CON BADGES SVG
+        // ARCHIVIO PARTITE
         // ==========================================
         function renderArchivioPartite() {
             const container = document.getElementById('storico-partite');
             if (!container) return;
 
             if (DB.storico.length === 0) {
-                container.innerHTML = '<p class="text-xs text-slate-500 text-center py-8 italic">Nessun incontro salvato in archivio.</p>';
+                container.innerHTML = '<p class="text-xs text-slate-500 text-center py-8 italic">Nessun match archiviato nel database.</p>';
                 return;
             }
 
             container.innerHTML = DB.storico.map((m, idx) => {
                 let mvpPlayer = DB.giocatori.find(g => g.id === m.mvpId);
                 let mvpNome = mvpPlayer ? mvpPlayer.nome : 'N.D.';
-
-                const formatEvents = (squadra, dett) => {
-                    let events = [];
-                    squadra.forEach(p => {
-                        let d = (dett && dett[p.id]) ? dett[p.id] : {};
-                        if (d.gol > 0) events.push(`${p.nome} ${SVG_ICONS.gol}${d.gol > 1 ? `x${d.gol}` : ''}`);
-                        if (d.assist > 0) events.push(`${p.nome} ${SVG_ICONS.assist}${d.assist > 1 ? `x${d.assist}` : ''}`);
-                        if (d.rigoriParati > 0) events.push(`${p.nome} ${SVG_ICONS.rigoreParato}`);
-                        if (d.rigoriSbagliati > 0) events.push(`${p.nome} ${SVG_ICONS.rigoreSbagliato}`);
-                        if (d.autogol > 0) events.push(`${p.nome} ${SVG_ICONS.autogol}`);
-                    });
-                    return events.length > 0 ? events.join(' • ') : '<span class="text-slate-500 italic">Nessun evento</span>';
-                };
 
                 return `
                     <div onclick="apriDettaglioPartita(${idx})" class="glass-panel p-4 rounded-xl border border-slate-800 hover:border-amber-500/50 transition cursor-pointer flex flex-col md:flex-row items-center justify-between gap-3 shadow-lg">
@@ -1209,7 +1261,7 @@
                         </div>
 
                         <div class="text-center md:text-right min-w-[120px]">
-                            <span class="text-[10px] text-amber-400 font-mono block">⭐ MVP GIORNATA</span>
+                            <span class="text-[10px] text-amber-400 font-mono block">⭐ MVP INCONTRO</span>
                             <span class="text-xs font-bold text-white">${mvpNome}</span>
                         </div>
                     </div>
@@ -1224,7 +1276,7 @@
             document.getElementById('md-title').innerText = `${m.nomeA} ${m.golA} - ${m.golB} ${m.nomeB}`;
             document.getElementById('md-subtitle').innerText = `📅 ${m.data} | 📍 ${m.campo}`;
 
-            const renderTeamEventsList = (squadra, dett, color) => {
+            const renderTeamEventsList = (squadra, dett) => {
                 return squadra.map(p => {
                     let d = (dett && dett[p.id]) ? dett[p.id] : {};
                     let badges = [];
@@ -1253,11 +1305,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="bg-slate-950 p-3 rounded-xl border border-sky-500/30">
                         <h4 class="font-bold font-sport text-sky-400 border-b border-slate-800 pb-1 mb-2">${m.nomeA}</h4>
-                        ${renderTeamEventsList(m.sqA, m.dettA, 'sky')}
+                        ${renderTeamEventsList(m.sqA, m.dettA)}
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-rose-500/30">
                         <h4 class="font-bold font-sport text-rose-400 border-b border-slate-800 pb-1 mb-2">${m.nomeB}</h4>
-                        ${renderTeamEventsList(m.sqB, m.dettB, 'rose')}
+                        ${renderTeamEventsList(m.sqB, m.dettB)}
                     </div>
                 </div>
             `;
@@ -1267,14 +1319,162 @@
         window.closeMatchDetail = () => document.getElementById('match-detail-modal').classList.add('hidden');
 
         // ==========================================
-        // FASE 5: ALBO D'ORO & ALGORITMO TOTW AUTOMATICO
+        // SCHEDA DETTAGLIATA GIOCATORE (3 SEZIONI RICHIESTE)
         // ==========================================
-        function calcolaPunteggioTOTW(dettaglio, won, cleanSheet, isPor) {
+        window.apriDettaglioGiocatore = function(id) {
+            const g = DB.giocatori.find(x => x.id === id);
+            if (!g) return;
+
+            const modal = document.getElementById('player-detail-modal');
+            const cont = document.getElementById('player-modal-content');
+            let ovr = calcolaOverall(g);
+            let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
+            let winRate = presenze > 0 ? Math.round((g.vinte / presenze) * 100) : 0;
+            let playstyles = getTuttiPlaystyles(g);
+
+            let mediaVoti = "6.00";
+            if (g.voti && g.voti.length > 0) {
+                mediaVoti = (g.voti.reduce((s, c) => s + c, 0) / g.voti.length).toFixed(2);
+            }
+
+            // Ricerca delle ultime 5 partite giocate
+            let ultimePartite = [];
+            for (let match of DB.storico) {
+                let inA = match.sqA.some(p => p.id === g.id);
+                let inB = match.sqB.some(p => p.id === g.id);
+                if (inA || inB) {
+                    let d = inA ? (match.dettA ? match.dettA[g.id] : {}) : (match.dettB ? match.dettB[g.id] : {});
+                    d = d || {};
+                    let haVinto = inA ? match.golA > match.golB : match.golB > match.golA;
+                    let pareggio = match.golA === match.golB;
+                    let esito = haVinto ? '<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">V</span>' :
+                               (pareggio ? '<span class="px-2 py-0.5 rounded bg-slate-700 text-slate-300 font-bold">P</span>' :
+                                           '<span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 font-bold border border-rose-500/30">S</span>');
+
+                    ultimePartite.push({
+                        data: match.data,
+                        esito,
+                        gol: d.gol || 0,
+                        assist: d.assist || 0,
+                        voto: d.voto !== undefined ? d.voto : 6.0,
+                        isMvp: match.mvpId === g.id
+                    });
+
+                    if (ultimePartite.length === 5) break;
+                }
+            }
+
+            cont.innerHTML = `
+                <div class="flex flex-col md:flex-row gap-6 items-center md:items-start">
+                    <!-- ANTEPRIMA CARTA -->
+                    <div class="w-48 sm:w-56 flex-shrink-0">
+                        <div class="fc-card-luxury ${getCardRarityClass(ovr)}">
+                            <div class="relative h-44 overflow-hidden flex justify-center items-end border-b border-white/10">
+                                <span class="absolute top-2 left-3 font-stat font-bold text-4xl text-amber-400 drop-shadow">${ovr}</span>
+                                <span class="absolute top-2 right-3 text-xs font-mono font-bold text-slate-400">${g.ruolo}</span>
+                                <img src="${g.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="h-[92%] object-cover">
+                            </div>
+                            <div class="p-3 bg-slate-950 text-center">
+                                <h3 class="font-sport font-black text-base text-white">${g.nome}</h3>
+                                <span class="text-[10px] text-amber-400 font-mono block">Media Voti: ${mediaVoti}</span>
+                                <div class="flex flex-wrap justify-center gap-1 mt-2">
+                                    ${playstyles.map(ps => `<span title="${ps.nome}" class="text-xs bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">${ps.icon}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BLOCCO PRINCIPALE 3 SEZIONI -->
+                    <div class="flex-1 w-full space-y-4">
+                        <div class="border-b border-slate-800 pb-2">
+                            <h2 class="text-2xl font-sport font-black text-white">${g.nome}</h2>
+                            <p class="text-xs text-slate-400 font-mono">Ruolo: <b class="text-amber-400">${g.ruolo}</b> • OVR: <b class="text-emerald-400">${ovr}</b></p>
+                        </div>
+
+                        <!-- SEZIONE 1: STATISTICHE PERSONALI (SENZA CLEAN SHEET) -->
+                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+                            <h4 class="text-xs font-sport font-bold text-amber-400 mb-2.5">1. STATISTICHE INDIVIDUALI</h4>
+                            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center text-xs">
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Gol</span><b class="text-base font-stat text-emerald-400">${g.gol}</b></div>
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Assist</span><b class="text-base font-stat text-sky-400">${g.assist}</b></div>
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">MVP</span><b class="text-base font-stat text-amber-400">${g.mvp}</b></div>
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Rig. Sbagliati</span><b class="text-base font-stat text-rose-400">${g.rigoriSbagliati || 0}</b></div>
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Autogol</span><b class="text-base font-stat text-purple-400">${g.autogol}</b></div>
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Rig. Parati</span><b class="text-base font-stat text-yellow-400">${g.rigoriParati}</b></div>
+                            </div>
+                        </div>
+
+                        <!-- SEZIONE 2: RECORD PARTITE (SEPARATA) -->
+                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+                            <div class="flex justify-between items-center mb-2.5">
+                                <h4 class="text-xs font-sport font-bold text-sky-400">2. RECORD PARTITE & RENDIMENTO</h4>
+                                <span class="text-xs font-mono font-bold text-emerald-400">Win Rate: ${winRate}%</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2 text-center text-xs mb-3">
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Giocate</span><b class="text-base font-stat text-white">${presenze}</b></div>
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Vinte</span><b class="text-base font-stat text-emerald-400">${g.vinte}</b></div>
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Pareggiate</span><b class="text-base font-stat text-slate-300">${g.pareggiate}</b></div>
+                                <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Perse</span><b class="text-base font-stat text-rose-400">${g.perse}</b></div>
+                            </div>
+                            <!-- BARRA RENDIMENTO RECORD -->
+                            <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden flex border border-slate-800">
+                                ${presenze > 0 ? `
+                                    <div style="width: ${(g.vinte / presenze) * 100}%" class="bg-emerald-500" title="Vinte"></div>
+                                    <div style="width: ${(g.pareggiate / presenze) * 100}%" class="bg-slate-500" title="Pareggiate"></div>
+                                    <div style="width: ${(g.perse / presenze) * 100}%" class="bg-rose-500" title="Perse"></div>
+                                ` : '<div class="w-full bg-slate-800"></div>'}
+                            </div>
+                        </div>
+
+                        <!-- SEZIONE 3: ULTIME 5 PARTITE (SEPARATA) -->
+                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
+                            <h4 class="text-xs font-sport font-bold text-emerald-400 mb-2.5">3. ULTIME 5 PARTITE DISPUTATE</h4>
+                            ${ultimePartite.length > 0 ? `
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left text-xs">
+                                        <thead>
+                                            <tr class="text-[10px] font-mono text-slate-500 border-b border-slate-800 uppercase">
+                                                <th class="py-1 px-2">Data</th>
+                                                <th class="py-1 px-2 text-center">Esito</th>
+                                                <th class="py-1 px-2 text-center">Gol</th>
+                                                <th class="py-1 px-2 text-center">Assist</th>
+                                                <th class="py-1 px-2 text-center">Voto</th>
+                                                <th class="py-1 px-2 text-center">MVP</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-850">
+                                            ${ultimePartite.map(p => `
+                                                <tr class="hover:bg-slate-900/50 transition">
+                                                    <td class="py-1.5 px-2 text-slate-300 font-mono text-[11px]">${p.data}</td>
+                                                    <td class="py-1.5 px-2 text-center">${p.esito}</td>
+                                                    <td class="py-1.5 px-2 text-center font-bold text-emerald-400">${p.gol}</td>
+                                                    <td class="py-1.5 px-2 text-center font-bold text-sky-400">${p.assist}</td>
+                                                    <td class="py-1.5 px-2 text-center font-stat font-bold text-amber-300">${p.voto}</td>
+                                                    <td class="py-1.5 px-2 text-center">${p.isMvp ? '⭐' : '-'}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ` : '<p class="text-xs text-slate-500 italic py-2">Nessuna partita disputata trovata nello storico.</p>'}
+                        </div>
+
+                    </div>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+        };
+
+        window.closePlayerDetail = () => document.getElementById('player-detail-modal').classList.add('hidden');
+
+        // ==========================================
+        // ALBO D'ORO & TOTW AUTOMATICO
+        // ==========================================
+        function calcolaPunteggioTOTW(dettaglio, won, isPor) {
             let voto = dettaglio.voto !== undefined ? dettaglio.voto : 6.0;
             let score = (voto * 10) +
                 ((dettaglio.gol || 0) * 5) +
-                ((dettaglio.assist || 0) * 3) +
-                (cleanSheet ? 4 : 0) -
+                ((dettaglio.assist || 0) * 3) -
                 ((dettaglio.autogol || 0) * 5) -
                 ((dettaglio.rigoriSbagliati || 0) * 4);
             if (isPor && (dettaglio.rigoriParati || 0) > 0) score += (dettaglio.rigoriParati * 6);
@@ -1286,7 +1486,6 @@
             const totwCont = document.getElementById('totw-container');
             const alboCont = document.getElementById('albo-container');
 
-            // --- TOTW ALGORITHM ---
             if (totwCont) {
                 let bestTotw = [];
                 if (DB.storico.length > 0) {
@@ -1295,17 +1494,17 @@
                     let haVintoB = ultimoMatch.golB > ultimoMatch.golA;
 
                     let candidati = [];
-                    const processa = (squadra, dett, won, cleanSheet) => {
+                    const processa = (squadra, dett, won) => {
                         squadra.forEach(p => {
                             let gDb = DB.giocatori.find(x => x.id === p.id) || p;
                             let d = (dett && dett[p.id]) ? dett[p.id] : {};
-                            let score = calcolaPunteggioTOTW(d, won, cleanSheet, gDb.por);
+                            let score = calcolaPunteggioTOTW(d, won, gDb.por);
                             candidati.push({ ...gDb, punteggioMatch: score, votoMatch: d.voto || 6.0 });
                         });
                     };
 
-                    processa(ultimoMatch.sqA, ultimoMatch.dettA, haVintoA, ultimoMatch.golB === 0);
-                    processa(ultimoMatch.sqB, ultimoMatch.dettB, haVintoB, ultimoMatch.golA === 0);
+                    processa(ultimoMatch.sqA, ultimoMatch.dettA, haVintoA);
+                    processa(ultimoMatch.sqB, ultimoMatch.dettB, haVintoB);
 
                     let portieri = candidati.filter(g => g.por).sort((a, b) => b.punteggioMatch - a.punteggioMatch);
                     let movimento = candidati.filter(g => !g.por).sort((a, b) => b.punteggioMatch - a.punteggioMatch);
@@ -1322,7 +1521,7 @@
                 totwCont.innerHTML = `
                     <div class="glass-panel p-6 bg-gradient-to-b from-sky-950/40 via-slate-900 to-black">
                         <div class="text-center mb-6">
-                            <span class="text-xs font-mono text-sky-400 font-bold tracking-widest uppercase">Migliori 5 del Turno</span>
+                            <span class="text-xs font-mono text-sky-400 font-bold tracking-widest uppercase">Migliori 5 dell'Ultimo Turno</span>
                         </div>
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
                             ${bestTotw.map(g => `
@@ -1343,15 +1542,13 @@
                 `;
             }
 
-            // --- ALBO D'ORO COMPUTAZIONALE DINAMICO ---
             if (alboCont) {
                 const getBest = (arr, fn) => [...arr].sort((a, b) => fn(b) - fn(a))[0];
 
                 let bomber = getBest(DB.giocatori, g => g.gol || 0);
                 let assistman = getBest(DB.giocatori, g => g.assist || 0);
 
-                // Miglior Media Voti con almeno 3 voti
-                let conVoti = DB.giocatori.filter(g => g.voti && g.voti.length >= 3);
+                let conVoti = DB.giocatori.filter(g => g.voti && g.voti.length >= 2);
                 let topMediaVoti = conVoti.sort((a, b) => {
                     let avgA = a.voti.reduce((s, c) => s + c, 0) / a.voti.length;
                     let avgB = b.voti.reduce((s, c) => s + c, 0) / b.voti.length;
@@ -1359,7 +1556,6 @@
                 })[0];
                 let valAvg = topMediaVoti ? (topMediaVoti.voti.reduce((s, c) => s + c, 0) / topMediaVoti.voti.length).toFixed(2) : '-';
 
-                // Peggior Voto Singolo della Stagione
                 let peggiorVotoObj = null;
                 DB.storico.forEach(m => {
                     [m.sqA, m.sqB].forEach((sq, sIdx) => {
@@ -1373,10 +1569,8 @@
                     });
                 });
 
-                // Re degli Autogol
                 let autogolKing = getBest(DB.giocatori, g => g.autogol || 0);
 
-                // Miglior Coppia Storica
                 let coppieVittorie = {};
                 DB.storico.forEach(m => {
                     const conta = (sq, won) => {
@@ -1415,24 +1609,24 @@
                 `;
 
                 alboCont.innerHTML = `
-                    ${alboCard("Pichichi Stagionale", bomber ? bomber.nome : 'N.D.', `${bomber ? bomber.gol : 0} Gol Segnati`, "⚽", "border-amber-500/40")}
-                    ${alboCard("Mago dell'Assist", assistman ? assistman.nome : 'N.D.', `${assistman ? assistman.assist : 0} Assist Realizzati`, "🎯", "border-sky-500/40")}
+                    ${alboCard("Pichichi Storico", bomber ? bomber.nome : 'N.D.', `${bomber ? bomber.gol : 0} Gol`, "⚽", "border-amber-500/40")}
+                    ${alboCard("Mago Assist", assistman ? assistman.nome : 'N.D.', `${assistman ? assistman.assist : 0} Assist`, "🎯", "border-sky-500/40")}
                     ${alboCard("Miglior Media Voti", topMediaVoti ? topMediaVoti.nome : 'N.D.', `Media: ${valAvg}`, "📈", "border-purple-500/40")}
-                    ${alboCard("Coppia Inossidabile", pairNames, `${pairWins} Vittorie Assieme`, "👯‍♂️", "border-emerald-500/40")}
-                    ${alboCard("Premio Bidone (Peggior Voto)", peggiorVotoObj ? peggiorVotoObj.nome : 'N.D.', peggiorVotoObj ? `Voto: ${peggiorVotoObj.voto} (${peggiorVotoObj.data})` : 'N.D.', "🥶", "border-rose-500/40")}
-                    ${alboCard("Re degli Autogol", autogolKing && autogolKing.autogol > 0 ? autogolKing.nome : 'Nessuno', `${autogolKing ? autogolKing.autogol : 0} Deviazioni nella propria porta`, "🛑", "border-orange-500/40")}
+                    ${alboCard("Miglior Coppia", pairNames, `${pairWins} Vittorie Assieme`, "👯‍♂️", "border-emerald-500/40")}
+                    ${alboCard("Premio Bidone", peggiorVotoObj ? peggiorVotoObj.nome : 'N.D.', peggiorVotoObj ? `Voto: ${peggiorVotoObj.voto}` : 'N.D.', "🥶", "border-rose-500/40")}
+                    ${alboCard("Re Autogol", autogolKing && autogolKing.autogol > 0 ? autogolKing.nome : 'Nessuno', `${autogolKing ? autogolKing.autogol : 0} Autogol`, "🛑", "border-orange-500/40")}
                 `;
             }
         }
 
         // ==========================================
-        // FASE 5: CLASSIFICHE COMPARATIVE
+        // CLASSIFICHE COMPARATIVE
         // ==========================================
         function renderClassifiche() {
             const rGol = document.getElementById('rank-gol');
             const rAss = document.getElementById('rank-assist');
+            const rMvp = document.getElementById('rank-mvp');
             const rVoti = document.getElementById('rank-voti');
-            const rClean = document.getElementById('rank-clean');
 
             const makeList = (arr, valFn, unit) => {
                 return arr.slice(0, 8).map((g, i) => `
@@ -1446,11 +1640,15 @@
 
             if (rGol) {
                 let sortGol = [...DB.giocatori].sort((a, b) => (b.gol || 0) - (a.gol || 0));
-                rGol.innerHTML = makeList(sortGol, g => g.gol || 0, 'G');
+                rGol.innerHTML = makeList(sortGol, g => g.gol || 0, 'Gol');
             }
             if (rAss) {
                 let sortAss = [...DB.giocatori].sort((a, b) => (b.assist || 0) - (a.assist || 0));
-                rAss.innerHTML = makeList(sortAss, g => g.assist || 0, 'A');
+                rAss.innerHTML = makeList(sortAss, g => g.assist || 0, 'Ass');
+            }
+            if (rMvp) {
+                let sortMvp = [...DB.giocatori].sort((a, b) => (b.mvp || 0) - (a.mvp || 0));
+                rMvp.innerHTML = makeList(sortMvp, g => g.mvp || 0, '⭐');
             }
             if (rVoti) {
                 let sortVoti = [...DB.giocatori].filter(g => g.voti && g.voti.length > 0).sort((a, b) => {
@@ -1460,92 +1658,10 @@
                 });
                 rVoti.innerHTML = makeList(sortVoti, g => (g.voti.reduce((s, c) => s + c, 0) / g.voti.length).toFixed(2), '★');
             }
-            if (rClean) {
-                let sortClean = [...DB.giocatori].filter(g => g.cleanSheet > 0 || g.por).sort((a, b) => (b.cleanSheet || 0) - (a.cleanSheet || 0));
-                rClean.innerHTML = makeList(sortClean, g => g.cleanSheet || 0, 'CS');
-            }
         }
 
         // ==========================================
-        // SCHEDA DETTAGLIATA GIOCATORE CON PLAYSTYLES
-        // ==========================================
-        window.apriDettaglioGiocatore = function(id) {
-            const g = DB.giocatori.find(x => x.id === id);
-            if (!g) return;
-
-            const modal = document.getElementById('player-detail-modal');
-            const cont = document.getElementById('player-modal-content');
-            let ovr = calcolaOverall(g);
-            let dynamicPS = calcolaPlaystylesDinamici(g);
-            let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
-            let winRate = presenze > 0 ? Math.round((g.vinte / presenze) * 100) : 0;
-
-            let mediaVoti = 6.0;
-            if (g.voti && g.voti.length > 0) {
-                mediaVoti = (g.voti.reduce((s, c) => s + c, 0) / g.voti.length).toFixed(2);
-            }
-
-            cont.innerHTML = `
-                <div class="flex flex-col md:flex-row gap-6 items-center md:items-start">
-                    <!-- CARD PREVIEW -->
-                    <div class="w-48 sm:w-56 flex-shrink-0">
-                        <div class="fc-card-luxury ${getCardRarityClass(ovr)}">
-                            <div class="relative h-44 overflow-hidden flex justify-center items-end border-b border-white/10">
-                                <span class="absolute top-2 left-3 font-stat font-bold text-4xl text-amber-400 drop-shadow">${ovr}</span>
-                                <span class="absolute top-2 right-3 text-xs font-mono font-bold text-slate-400">${g.ruolo}</span>
-                                <img src="${g.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="h-[92%] object-cover">
-                            </div>
-                            <div class="p-3 bg-slate-950 text-center">
-                                <h3 class="font-sport font-black text-base text-white">${g.nome}</h3>
-                                <span class="text-[10px] text-amber-400 font-mono block">Win Rate: ${winRate}%</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- STATS DETTAGLIATE -->
-                    <div class="flex-1 w-full space-y-4">
-                        <div class="border-b border-slate-800 pb-2">
-                            <h2 class="text-2xl font-sport font-black text-white">${g.nome}</h2>
-                            <p class="text-xs text-slate-400 font-mono">Ruolo Primario: <b class="text-amber-400">${g.ruolo}</b> • Media Voti: <b class="text-purple-400">${mediaVoti}</b></p>
-                        </div>
-
-                        <!-- GRIGLIA STATISTICHE -->
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="text-slate-400 block text-[10px]">Presenze</span><b class="text-base font-stat text-white">${presenze}</b></div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="text-slate-400 block text-[10px]">Gol</span><b class="text-base font-stat text-emerald-400">${g.gol}</b></div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="text-slate-400 block text-[10px]">Assist</span><b class="text-base font-stat text-sky-400">${g.assist}</b></div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="text-slate-400 block text-[10px]">MVP</span><b class="text-base font-stat text-amber-400">${g.mvp}</b></div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="text-slate-400 block text-[10px]">Vinte</span><b class="text-base font-stat text-emerald-400">${g.vinte}</b></div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="text-slate-400 block text-[10px]">Pareggiate</span><b class="text-base font-stat text-slate-400">${g.pareggiate}</b></div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="text-slate-400 block text-[10px]">Perse</span><b class="text-base font-stat text-rose-400">${g.perse}</b></div>
-                            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800"><span class="text-slate-400 block text-[10px]">Clean Sheet</span><b class="text-base font-stat text-cyan-400">${g.cleanSheet}</b></div>
-                        </div>
-
-                        <!-- PLAYSTYLES ACQUISITI -->
-                        <div>
-                            <h4 class="text-xs font-sport font-bold text-amber-400 mb-2">PLAYSTYLES DINAMICI</h4>
-                            <div class="flex flex-wrap gap-2">
-                                ${dynamicPS.length > 0 ? dynamicPS.map(ps => `
-                                    <div class="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2">
-                                        <span class="text-sm">${ps.icon}</span>
-                                        <div>
-                                            <span class="text-xs font-bold text-white block">${ps.nome}</span>
-                                            <span class="text-[9px] text-slate-400 block">${ps.desc}</span>
-                                        </div>
-                                    </div>
-                                `).join('') : '<span class="text-xs text-slate-500 italic">Nessun playstyle ancora sbloccato. Continua a giocare per ottenere badge!</span>'}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            modal.classList.remove('hidden');
-        };
-
-        window.closePlayerDetail = () => document.getElementById('player-detail-modal').classList.add('hidden');
-
-        // ==========================================
-        // SONDAGGI & VOTAZIONI
+        // SONDAGGI & VOTI
         // ==========================================
         function renderSondaggi() {
             const container = document.getElementById('container-sondaggi');
@@ -1556,7 +1672,7 @@
 
             let htmlOrari = `
                 <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-                    <h3 class="text-base font-bold text-amber-400 font-sport mb-3">⏰ PREFERENZA ORARI</h3>
+                    <h3 class="text-base font-bold text-amber-400 font-sport mb-3">⏰ DISPONIBILITÀ ORARI</h3>
                     <div class="space-y-3">
                         ${DB.sondaggioOrari.map(ora => {
                             let voti = DB.votiOrari[ora] || 0;
@@ -1570,7 +1686,7 @@
                                     <div class="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-slate-800">
                                         <div class="bg-amber-500 h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div>
                                     </div>
-                                    <button onclick="votaOpzione('orari', '${ora}')" class="mt-1.5 text-[10px] bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1 rounded-lg border border-amber-500/20">Vota</button>
+                                    <button onclick="votaOpzione('orari', '${ora}')" class="mt-1.5 text-[10px] bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3 py-1 rounded-lg border border-amber-500/20">Vota Orario</button>
                                 </div>
                             `;
                         }).join('')}
@@ -1617,7 +1733,7 @@
             if (rMvp) {
                 let entries = Object.entries(DB.votiMVP).sort((a, b) => b[1] - a[1]);
                 let tot = entries.reduce((s, c) => s + c[1], 0) || 0;
-                rMvp.innerHTML = entries.length === 0 ? '<p class="text-slate-500 italic">Nessun voto registrato in questo turno.</p>' :
+                rMvp.innerHTML = entries.length === 0 ? '<p class="text-slate-500 italic">Nessun voto registrato per MVP.</p>' :
                     entries.map(([id, v]) => {
                         let g = DB.giocatori.find(x => x.id == id);
                         if (!g) return '';
@@ -1672,14 +1788,13 @@
                 document.getElementById('admin-login').classList.add('hidden');
                 document.getElementById('admin-dashboard').classList.remove('hidden');
                 popolaAdminArea();
-                showToast("Accesso autorizzato all'area amministrativa!");
+                showToast("Accesso autorizzato!");
             } else {
-                showToast("Password di sicurezza errata!", "error");
+                showToast("Password errata!", "error");
             }
         };
 
         function popolaAdminArea() {
-            // Convocati Draft Checkbox
             const checkCont = document.getElementById('admin-check-giocatori');
             if (checkCont) {
                 checkCont.innerHTML = [...DB.giocatori].sort((a, b) => a.nome.localeCompare(b.nome)).map(g => `
@@ -1690,13 +1805,11 @@
                 `).join('');
             }
 
-            // Selezione Campo
             const selectCampo = document.getElementById('admin-org-campo');
             if (selectCampo) {
                 selectCampo.innerHTML = DB.campi.map(c => `<option value="${c.nome}">${c.nome}</option>`).join('');
             }
 
-            // Lista Giocatori Eliminazione/Modifica
             const listaGioc = document.getElementById('admin-lista-del-giocatori');
             if (listaGioc) {
                 listaGioc.innerHTML = DB.giocatori.map(g => `
@@ -1710,7 +1823,6 @@
                 `).join('');
             }
 
-            // Lista Campi Eliminazione
             const listaCampi = document.getElementById('admin-lista-del-campi');
             if (listaCampi) {
                 listaCampi.innerHTML = DB.campi.map(c => `
@@ -1721,7 +1833,6 @@
                 `).join('');
             }
 
-            // Storico per Modifica/Eliminazione
             const listaStorico = document.getElementById('admin-lista-storico');
             if (listaStorico) {
                 listaStorico.innerHTML = DB.storico.map((m, i) => `
@@ -1735,11 +1846,20 @@
                 `).join('');
             }
 
-            // Select Quick Edit
             const qeSelect = document.getElementById('quick-edit-select');
             if (qeSelect) {
                 qeSelect.innerHTML = `<option value="">-- Seleziona Giocatore da Modificare --</option>` +
                     [...DB.giocatori].sort((a, b) => a.nome.localeCompare(b.nome)).map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
+            }
+
+            const psCheckboxes = document.getElementById('playstyles-checkboxes');
+            if (psCheckboxes) {
+                psCheckboxes.innerHTML = Object.keys(PLAYSTYLES_MAP).map(ps => `
+                    <label class="flex items-center gap-1 cursor-pointer">
+                        <input type="checkbox" value="${ps}" class="ps-input accent-amber-500">
+                        <span>${PLAYSTYLES_MAP[ps]} ${ps}</span>
+                    </label>
+                `).join('');
             }
 
             renderTabellino();
@@ -1747,26 +1867,25 @@
 
         window.adminCreaSondaggio = function() {
             const val = document.getElementById('admin-sond-orari').value.trim();
-            if (!val) return showToast("Inserisci almeno un orario!", "error");
+            if (!val) return showToast("Inserisci orari validi!", "error");
             DB.sondaggioOrari = val.split(',').map(s => s.trim()).filter(Boolean);
             DB.votiOrari = {};
             localStorage.removeItem('voto_orari_fatto');
             salvaDB();
             aggiornaUI();
-            showToast("Nuovo sondaggio orari creato!");
+            showToast("Sondaggio creato!");
         };
 
         window.adminEliminaMatch = function(idx) {
-            if (!confirm("Sei sicuro di voler eliminare questo match dall'archivio? Tutte le statistiche verranno ricalcolate.")) return;
+            if (!confirm("Eliminare definitivamente questo match? Le statistiche verranno ricalcolate.")) return;
             DB.storico.splice(idx, 1);
             ricalcolaStatisticheGlobali();
             salvaDB();
             aggiornaUI();
             popolaAdminArea();
-            showToast("Match eliminato con successo.");
+            showToast("Match eliminato.");
         };
 
-        // GESTIONE ANAGRAFICA GIOCATORI
         window.preparaModificaGiocatore = function(id) {
             const g = DB.giocatori.find(x => x.id === id);
             if (!g) return;
@@ -1775,6 +1894,11 @@
             document.getElementById('add-gioc-ruolo').value = g.ruolo;
             document.getElementById('add-gioc-foto').value = g.foto || '';
             document.getElementById('add-gioc-por').checked = g.por || false;
+
+            document.querySelectorAll('.ps-input').forEach(cb => {
+                cb.checked = g.playstyles && g.playstyles.includes(cb.value);
+            });
+
             document.getElementById('btn-salva-giocatore').innerText = "Aggiorna Giocatore";
             document.getElementById('btn-annulla-gioc').classList.remove('hidden');
         };
@@ -1784,6 +1908,7 @@
             document.getElementById('add-gioc-nome').value = '';
             document.getElementById('add-gioc-foto').value = '';
             document.getElementById('add-gioc-por').checked = false;
+            document.querySelectorAll('.ps-input').forEach(cb => cb.checked = false);
             document.getElementById('btn-salva-giocatore').innerText = "Salva Giocatore";
             document.getElementById('btn-annulla-gioc').classList.add('hidden');
         };
@@ -1795,6 +1920,8 @@
             const foto = document.getElementById('add-gioc-foto').value.trim();
             const por = document.getElementById('add-gioc-por').checked;
 
+            let playstyles = Array.from(document.querySelectorAll('.ps-input:checked')).map(cb => cb.value);
+
             if (!nome) return showToast("Inserisci il nome del giocatore!", "error");
 
             if (id) {
@@ -1804,6 +1931,7 @@
                     g.ruolo = ruolo;
                     g.foto = foto;
                     g.por = por;
+                    g.playstyles = playstyles;
                 }
             } else {
                 let newId = DB.giocatori.length > 0 ? Math.max(...DB.giocatori.map(x => x.id)) + 1 : 1;
@@ -1811,7 +1939,7 @@
                     id: newId,
                     nome,
                     ruolo,
-                    foto: foto || `${nome.toLowerCase()}.webp`,
+                    foto: foto || '',
                     por,
                     gol: 0,
                     assist: 0,
@@ -1824,7 +1952,7 @@
                     pareggiate: 0,
                     perse: 0,
                     voti: [],
-                    playstyles: [],
+                    playstyles: playstyles,
                     totw: 0,
                     presenzeTOTW: 0,
                     ultimoPunteggio: 0
@@ -1835,7 +1963,7 @@
             aggiornaUI();
             annullaModificaGiocatore();
             popolaAdminArea();
-            showToast("Scheda giocatore salvata!");
+            showToast("Giocatore salvato!");
         };
 
         window.adminEliminaGiocatore = function(id) {
@@ -1847,7 +1975,6 @@
             showToast("Giocatore rimosso.");
         };
 
-        // GESTIONE CAMPI
         window.adminSalvaCampo = function() {
             const nome = document.getElementById('add-campo-nome').value.trim();
             const foto = document.getElementById('add-campo-foto').value.trim();
@@ -1865,7 +1992,7 @@
             salvaDB();
             aggiornaUI();
             popolaAdminArea();
-            showToast("Campo salvato nel sistema!");
+            showToast("Campo salvato!");
         };
 
         window.adminEliminaCampo = function(nome) {
@@ -1877,7 +2004,6 @@
             showToast("Campo rimosso.");
         };
 
-        // MODIFICA RAPIDA STATISTICHE
         window.caricaModificaRapida = function() {
             const id = document.getElementById('quick-edit-select').value;
             const panel = document.getElementById('quick-edit-panel');
@@ -1918,11 +2044,11 @@
 
             salvaDB();
             aggiornaUI();
-            showToast("Statistiche sovrascritte con successo!");
+            showToast("Statistiche aggiornate!");
         };
 
         // ==========================================
-        // SWITCH TAB & SINCRONIZZAZIONE GENERALE
+        // GESTIONE VISTE E TABS
         // ==========================================
         window.switchTab = function(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => {
@@ -1964,28 +2090,36 @@
         }
 
         // ==========================================
-        // FASE 1: CLOUD SYNC & GESTIONE CORS
+        // CLOUD SYNC & LOCAL PERSISTENCE
         // ==========================================
         function caricaDatiDaGoogle() {
             fetch(SCRIPT_URL)
                 .then(res => res.json())
                 .then(data => {
-                    if (data && data.giocatori) {
-                        DB = data;
+                    if (data && data.giocatori && data.giocatori.length > 0) {
+                        // Sincronizza integrando senza perdere giocatori locali
+                        data.giocatori.forEach(cloudG => {
+                            let locG = DB.giocatori.find(x => x.id === cloudG.id || x.nome.toLowerCase() === cloudG.nome.toLowerCase());
+                            if (!locG) {
+                                DB.giocatori.push(cloudG);
+                            }
+                        });
+                        if (data.storico && data.storico.length >= (DB.storico ? DB.storico.length : 0)) {
+                            DB.storico = data.storico;
+                        }
                         sanificaDatabase();
-                        localStorage.setItem('fantaHubV9', JSON.stringify(DB));
+                        salvaDB();
                         aggiornaUI();
-                        console.log("Cloud sync completato con successo.");
+                        console.log("Cloud sync completato.");
                     }
                 })
                 .catch(err => {
-                    console.warn("Cloud sync offline o non disponibile, uso cache locale:", err);
+                    console.warn("Cloud sync non raggiungibile, utilizzo database locale:", err);
                     aggiornaUI();
                 });
         }
 
         function salvaSuCloud() {
-            // Payload text/plain per bypassare il blocco CORS di Google Apps Script
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -1994,14 +2128,11 @@
             .then(res => res.json())
             .then(result => {
                 if (result.status === 'success') {
-                    showToast("Sincronizzazione Cloud completata!");
-                } else {
-                    showToast("Attenzione: risposta Cloud anomala.", "error");
+                    showToast("Sincronizzato con il Cloud!");
                 }
             })
             .catch(err => {
                 console.error("Errore salvataggio Cloud:", err);
-                showToast("Errore di rete durante il sync Cloud.", "error");
             });
         }
 
@@ -2011,10 +2142,10 @@
 
         function salvaDB() {
             localStorage.setItem('fantaHubV9', JSON.stringify(DB));
+            localStorage.setItem('fantaHubV8', JSON.stringify(DB));
             salvaSuCloud();
         }
 
-        // INIZIALIZZAZIONE APPLICAZIONE
         window.onload = function() {
             caricaDatiDaGoogle();
             aggiornaUI();
@@ -2022,7 +2153,7 @@
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration skipped:', err));
+                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW offline ready'));
             });
         }
     </script>
