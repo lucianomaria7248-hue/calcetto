@@ -144,7 +144,7 @@
     <header class="max-w-6xl mx-auto my-4 text-center animate-fade">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-amber-500/30 text-[10px] md:text-xs font-mono font-bold text-amber-400 mb-2">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            LIVE E-SPORTS ENGINE V9.5 • ZERO LOSS RESTORE
+            LIVE E-SPORTS ENGINE V10 • ZERO LOSS SYNC
         </div>
         <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-500 font-sport tracking-wider drop-shadow-md">
             FANTACALCETTO HUB
@@ -154,28 +154,28 @@
         </p>
     </header>
 
-    <!-- NAVIGATION TABS -->
+    <!-- NAVIGATION TABS (TESTI PULITI SENZA EMOJI) -->
     <nav class="max-w-6xl mx-auto mb-6 glass-panel-gold p-1.5 md:p-2 rounded-2xl flex justify-between gap-1 sticky top-3 z-40 shadow-2xl animate-fade overflow-x-auto">
         <button onclick="switchTab('matchday')" id="btn-matchday" class="tab-btn flex-1 min-w-[75px] md:min-w-[90px] py-2.5 rounded-xl font-bold text-[11px] md:text-xs transition text-amber-400 bg-slate-800/90 shadow">
-            ⚡ Match Hub
+            Match Hub
         </button>
         <button onclick="switchTab('partite')" id="btn-partite" class="tab-btn flex-1 min-w-[75px] md:min-w-[90px] py-2.5 rounded-xl font-bold text-[11px] md:text-xs transition text-slate-400 hover:text-white">
-            📚 Archivio
+            Archivio
         </button>
         <button onclick="switchTab('sondaggi')" id="btn-sondaggi" class="tab-btn flex-1 min-w-[75px] md:min-w-[90px] py-2.5 rounded-xl font-bold text-[11px] md:text-xs transition text-slate-400 hover:text-white">
-            🗳️ Sondaggi
+            Sondaggi
         </button>
         <button onclick="switchTab('giocatori')" id="btn-giocatori" class="tab-btn flex-1 min-w-[75px] md:min-w-[90px] py-2.5 rounded-xl font-bold text-[11px] md:text-xs transition text-slate-400 hover:text-white">
-            🎴 Squadra
+            Giocatori
         </button>
         <button onclick="switchTab('albo')" id="btn-albo" class="tab-btn flex-1 min-w-[75px] md:min-w-[90px] py-2.5 rounded-xl font-bold text-[11px] md:text-xs transition text-slate-400 hover:text-white">
-            🏆 Albo & TOTW
+            Albo d'Oro
         </button>
         <button onclick="switchTab('classifiche')" id="btn-classifiche" class="tab-btn flex-1 min-w-[75px] md:min-w-[90px] py-2.5 rounded-xl font-bold text-[11px] md:text-xs transition text-slate-400 hover:text-white">
-            📊 Statistiche
+            Classifiche
         </button>
         <button onclick="openAdmin()" class="flex-none px-3.5 py-2.5 rounded-xl font-bold text-[11px] md:text-xs text-rose-400 bg-rose-950/40 hover:bg-rose-900/60 border border-rose-800/50 transition">
-            ⚙️ Admin
+            Admin
         </button>
     </nav>
 
@@ -190,22 +190,22 @@
         <!-- TAB: ARCHIVIO PARTITE -->
         <section id="tab-partite" class="tab-content hidden space-y-6">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h2 class="text-xl md:text-2xl font-bold text-white font-sport">📚 ARCHIVIO INCONTRI</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-white font-sport">ARCHIVIO INCONTRI</h2>
                 <span class="text-xs text-slate-400">Clicca sul match per il tabellino completo</span>
             </div>
             <div id="storico-partite" class="space-y-3"></div>
         </section>
 
-        <!-- TAB: SONDAGGI & PREFERENZE -->
+        <!-- TAB: SONDAGGI -->
         <section id="tab-sondaggi" class="tab-content hidden space-y-6">
             <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                <h2 class="text-xl md:text-2xl font-bold text-white font-sport">🗳️ SONDAGGI & PREFERENZE</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-white font-sport">SONDAGGI & DISPONIBILITÀ</h2>
                 <span class="text-xs text-amber-400 font-mono">1 Voto per dispositivo</span>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="container-sondaggi"></div>
 
             <div class="glass-panel p-6 rounded-2xl border border-amber-500/30">
-                <h3 class="text-lg font-bold text-amber-400 font-sport mb-2">⭐ VOTA MVP DELL'ULTIMA GIORNATA</h3>
+                <h3 class="text-lg font-bold text-amber-400 font-sport mb-2">VOTA MVP DELL'ULTIMA GIORNATA</h3>
                 <p class="text-xs text-slate-400 mb-4">Esprimi la tua preferenza sul migliore in campo dell'ultimo match disputato.</p>
                 <div class="flex flex-col sm:flex-row gap-3 max-w-xl">
                     <select id="voto-mvp-user" class="flex-1 bg-slate-900 text-white p-3 rounded-xl border border-slate-700 font-semibold focus:outline-none focus:border-amber-400 text-sm"></select>
@@ -217,10 +217,10 @@
             </div>
         </section>
 
-        <!-- TAB: DATABASE SQUADRA -->
+        <!-- TAB: DATABASE GIOCATORI -->
         <section id="tab-giocatori" class="tab-content hidden space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
-                <h2 class="text-xl md:text-2xl font-bold text-white font-sport">🎴 DATABASE GIOCATORI</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-white font-sport">DATABASE GIOCATORI</h2>
                 <div class="flex gap-2">
                     <button onclick="filtraGiocatori('ALL')" class="btn-filter-role text-xs px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold" data-role="ALL">TUTTI</button>
                     <button onclick="filtraGiocatori('ATT')" class="btn-filter-role text-xs px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-bold" data-role="ATT">ATT</button>
@@ -236,14 +236,14 @@
         <section id="tab-albo" class="tab-content hidden space-y-8">
             <div>
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-4">
-                    <h2 class="text-xl md:text-2xl font-bold text-sky-400 font-sport">🔥 TEAM OF THE WEEK (TOTW)</h2>
+                    <h2 class="text-xl md:text-2xl font-bold text-sky-400 font-sport">SQUADRA DELLA SETTIMANA (TOTW)</h2>
                     <span class="text-xs text-sky-400 font-mono">Calcolato dall'Algoritmo Prestazione</span>
                 </div>
                 <div id="totw-container" class="rounded-2xl overflow-hidden border border-sky-500/30 shadow-2xl"></div>
             </div>
 
             <div>
-                <h2 class="text-xl md:text-2xl font-bold text-amber-400 font-sport border-b border-slate-800 pb-2 mb-4">🏆 ALBO D'ORO COMPUTAZIONALE</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-amber-400 font-sport border-b border-slate-800 pb-2 mb-4">ALBO D'ORO STORICO</h2>
                 <div id="albo-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
         </section>
@@ -251,19 +251,19 @@
         <!-- TAB: CLASSIFICHE -->
         <section id="tab-classifiche" class="tab-content hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-                <h3 class="text-base font-bold text-amber-400 font-sport mb-3 flex items-center gap-2">⚽ TOP MARCATORI</h3>
+                <h3 class="text-base font-bold text-amber-400 font-sport mb-3">TOP MARCATORI</h3>
                 <div id="rank-gol" class="space-y-1.5 text-xs"></div>
             </div>
             <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-                <h3 class="text-base font-bold text-sky-400 font-sport mb-3 flex items-center gap-2">🎯 TOP ASSIST</h3>
+                <h3 class="text-base font-bold text-sky-400 font-sport mb-3">TOP ASSIST</h3>
                 <div id="rank-assist" class="space-y-1.5 text-xs"></div>
             </div>
             <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-                <h3 class="text-base font-bold text-amber-400 font-sport mb-3 flex items-center gap-2">⭐ STELLE MVP</h3>
+                <h3 class="text-base font-bold text-amber-400 font-sport mb-3">STELLE MVP</h3>
                 <div id="rank-mvp" class="space-y-1.5 text-xs"></div>
             </div>
             <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-                <h3 class="text-base font-bold text-purple-400 font-sport mb-3 flex items-center gap-2">📈 MEDIA VOTI</h3>
+                <h3 class="text-base font-bold text-purple-400 font-sport mb-3">MEDIA VOTI</h3>
                 <div id="rank-voti" class="space-y-1.5 text-xs"></div>
             </div>
         </section>
@@ -302,25 +302,30 @@
 
             <div id="admin-dashboard" class="hidden space-y-6">
                 <div class="flex items-center justify-between border-b border-slate-700 pb-3">
-                    <h3 class="text-xl md:text-2xl font-bold text-emerald-400 font-sport flex items-center gap-2">
-                        ⚙️ CENTRO DI COMANDO TATTICO
+                    <h3 class="text-xl md:text-2xl font-bold text-emerald-400 font-sport">
+                        CENTRO DI COMANDO TATTICO
                     </h3>
-                    <button onclick="salvaSuCloudManuale()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg font-bold">
-                        ☁️ Forza Sync Cloud
-                    </button>
+                    <div class="flex gap-2">
+                        <button onclick="annullaMatchAttivo()" class="text-xs bg-rose-900/60 hover:bg-rose-800 text-rose-300 border border-rose-700 px-3 py-1.5 rounded-lg font-bold">
+                            Resetta Match Attivo
+                        </button>
+                        <button onclick="salvaSuCloudManuale()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg font-bold">
+                            Forza Sync Cloud
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <!-- SONDAGGIO ORARI -->
                     <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                        <h4 class="font-bold text-amber-400 mb-2 text-sm flex items-center gap-1.5">1. SONDAGGIO ORARI</h4>
+                        <h4 class="font-bold text-amber-400 mb-2 text-sm">1. SONDAGGIO ORARI</h4>
                         <input type="text" id="admin-sond-orari" placeholder="Es: Lunedì 20:30, Giovedì 21:00" class="w-full bg-slate-950 p-2.5 text-xs rounded-lg border border-slate-700 mb-2 text-white outline-none">
                         <button onclick="adminCreaSondaggio()" class="w-full bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold py-2.5 rounded-lg">Crea Nuovo Sondaggio</button>
                     </div>
 
                     <!-- SMART DRAFT (SNAKE ALGORITHM) -->
                     <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                        <h4 class="font-bold text-sky-400 mb-2 text-sm flex items-center gap-1.5">2. CREA MATCH & SMART DRAFT</h4>
+                        <h4 class="font-bold text-sky-400 mb-2 text-sm">2. CREA MATCH & SMART DRAFT</h4>
                         <div class="grid grid-cols-2 gap-2 mb-2">
                             <input type="text" id="admin-org-ora" placeholder="Data e Ora (es. Lun 20:30)" class="p-2 rounded bg-slate-950 text-white text-xs border border-slate-700 outline-none">
                             <select id="admin-org-campo" class="p-2 rounded bg-slate-950 text-white text-xs border border-slate-700 outline-none"></select>
@@ -332,7 +337,7 @@
                         <label class="text-[11px] text-slate-400 font-bold block mb-1">Seleziona Convocati:</label>
                         <div id="admin-check-giocatori" class="grid grid-cols-2 sm:grid-cols-3 gap-1 mb-2 max-h-36 overflow-y-auto p-2 bg-slate-950 rounded border border-slate-800"></div>
                         <button onclick="avviaSmartDraft()" class="w-full bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold py-2.5 rounded-lg shadow">
-                            ⚡ Esegui Smart Snake Draft Bilanciato
+                            Esegui Smart Snake Draft Bilanciato
                         </button>
                     </div>
                 </div>
@@ -435,14 +440,12 @@
         let selectedSwapPlayer = null;
         let currentRoleFilter = 'ALL';
 
-        // DIZIONARIO PLAYSTYLES
         const PLAYSTYLES_MAP = {
             'Bomber': '🚀', 'Cecchino': '🎯', 'Regista': '👁️', 'Maestro': '🎩',
             'Muro': '🧱', 'Instancabile': '🏃‍♂️', 'Torre': '🗼', 'Frociazzo': '🏳️‍🌈',
             'Rapinatore': '🦊', 'Saracinesca': '🧤', 'Leader': '👑', 'Insuperabile': '🛡️'
         };
 
-        // EVENT BADGES SVG
         const SVG_ICONS = {
             gol: `<span title="Gol" class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[11px]">⚽</span>`,
             assist: `<span title="Assist" class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/40 text-[11px]">🎯</span>`,
@@ -460,22 +463,21 @@
             setTimeout(() => toast.remove(), 3000);
         };
 
-        // BASE DATABASE DI DEFAULT (CON CAMPO PONTE ROMITO E ARMANDOSKY SENZA FOTO)
         const initData = {
             ultimoAggiornamento: Date.now(),
             giocatori: [
-                { id: 1, nome: "Bonetti", ruolo: "DIF", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "bonetti.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 2, nome: "Franco", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "franco.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 3, nome: "Jack", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "jack.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 4, nome: "Davidone", ruolo: "DIF", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "davidone.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 5, nome: "Cristofer", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "cristofer.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 6, nome: "Schivonsky", ruolo: "POR", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "schivonsky.webp", por: true, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 7, nome: "Carbone", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "carbone.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 8, nome: "Armandosky", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 9, nome: "Checco", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "checco.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 10, nome: "Edoardo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "edoardo.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 11, nome: "Gerardo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "gerrywebp.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
-                { id: 12, nome: "Peppo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, cleanSheet: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "peppo.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] }
+                { id: 1, nome: "Bonetti", ruolo: "DIF", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "bonetti.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 2, nome: "Franco", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "franco.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 3, nome: "Jack", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "jack.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 4, nome: "Davidone", ruolo: "DIF", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "davidone.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 5, nome: "Cristofer", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "cristofer.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 6, nome: "Schivonsky", ruolo: "POR", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "schivonsky.webp", por: true, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 7, nome: "Carbone", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "carbone.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 8, nome: "Armandosky", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 9, nome: "Checco", ruolo: "ATT", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "checco.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 10, nome: "Edoardo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "edoardo.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 11, nome: "Gerardo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "gerrywebp.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] },
+                { id: 12, nome: "Peppo", ruolo: "CEN", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "peppo.webp", por: false, playstyles: [], totw: 0, presenzeTOTW: 0, ultimoPunteggio: 0, voti: [] }
             ],
             campi: [
                 { nome: "Ponte Romito", img: "campopr.webp" },
@@ -489,9 +491,6 @@
             storico: []
         };
 
-        // ==========================================
-        // AUTO-MIGRAZIONE DATI: NESSUNA PERDITA STORICO
-        // ==========================================
         function recuperaDatabase() {
             let v9 = localStorage.getItem('fantaHubV9');
             let v8 = localStorage.getItem('fantaHubV8');
@@ -502,7 +501,6 @@
             try { if (v9) parsedV9 = JSON.parse(v9); } catch(e) {}
             try { if (v7) parsedV7 = JSON.parse(v7); } catch(e) {}
 
-            // Scegli la sorgente più ricca (con più giocatori o partite archiviate)
             let candidati = [parsedV8, parsedV9, parsedV7].filter(Boolean);
             if (candidati.length === 0) return JSON.parse(JSON.stringify(initData));
 
@@ -514,7 +512,6 @@
 
             let best = candidati[0];
 
-            // Se ci sono giocatori in altre versioni, uniscili per non perdere quelli aggiunti manualmente
             candidati.forEach(source => {
                 if (source.giocatori) {
                     source.giocatori.forEach(srcG => {
@@ -554,7 +551,6 @@
             });
 
             if (!DB.campi || DB.campi.length === 0) DB.campi = initData.campi;
-            // Aggiorna il nome del campo in Ponte Romito se presente come Ponte Rumito
             DB.campi.forEach(c => {
                 if (c.nome.toLowerCase().includes("rumito") || c.nome.toLowerCase().includes("ponteromito")) {
                     c.nome = "Ponte Romito";
@@ -567,14 +563,35 @@
             if (!DB.votiMVP) DB.votiMVP = {};
             if (!DB.sondaggioOrari) DB.sondaggioOrari = initData.sondaggioOrari;
             if (!DB.storico) DB.storico = [];
-
-            // Ricalibra voti retroattivi per le partite storiche che ne erano prive
-            assegnaVotiRetroattivi();
         }
 
         // ==========================================
-        // ASSEGNAZIONE VOTI RETROATTIVI PER MATCH VECCHI
+        // CALCOLO VOTI REALISTICI PER IL CAMPETTO
         // ==========================================
+        function calcolaVotoRealistico(d, won, mvp, isPor) {
+            let base = 6.0;
+            base += (d.gol || 0) * 0.35;
+            base += (d.assist || 0) * 0.20;
+            base += (d.rigoriParati || 0) * 0.80;
+            base -= (d.autogol || 0) * 0.60;
+            base -= (d.rigoriSbagliati || 0) * 0.50;
+            if (mvp) base += 0.50;
+            if (won) base += 0.25;
+            return parseFloat(Math.min(10.0, Math.max(4.0, base)).toFixed(1));
+        }
+
+        function calcolaPunteggioTOTW(dettaglio, won, isPor) {
+            let voto = dettaglio.voto !== undefined ? dettaglio.voto : 6.0;
+            let score = (voto * 10) +
+                ((dettaglio.gol || 0) * 5) +
+                ((dettaglio.assist || 0) * 3) -
+                ((dettaglio.autogol || 0) * 5) -
+                ((dettaglio.rigoriSbagliati || 0) * 4);
+            if (isPor && (dettaglio.rigoriParati || 0) > 0) score += (dettaglio.rigoriParati * 6);
+            if (won) score += 2;
+            return score;
+        }
+
         function assegnaVotiRetroattivi() {
             DB.storico.forEach(m => {
                 let haVintoA = m.golA > m.golB;
@@ -585,16 +602,9 @@
                     sq.forEach(p => {
                         if (!dett[p.id]) dett[p.id] = { gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0 };
                         let d = dett[p.id];
+                        let pg = DB.giocatori.find(x => x.id === p.id) || p;
                         if (d.voto === undefined || d.voto === null || isNaN(d.voto)) {
-                            let base = 6.0;
-                            base += (d.gol || 0) * 1.0;
-                            base += (d.assist || 0) * 0.5;
-                            base += (d.rigoriParati || 0) * 1.5;
-                            base -= (d.autogol || 0) * 1.0;
-                            base -= (d.rigoriSbagliati || 0) * 1.0;
-                            if (m.mvpId === p.id) base += 1.5;
-                            if (won) base += 0.5;
-                            d.voto = parseFloat(Math.min(10, Math.max(4.0, base)).toFixed(1));
+                            d.voto = calcolaVotoRealistico(d, won, m.mvpId === p.id, pg.por);
                         }
                     });
                 };
@@ -604,7 +614,85 @@
             });
         }
 
+        // ==========================================
+        // RICALCOLO STATISTICHE GLOBALI & TOTW
+        // ==========================================
+        function ricalcolaStatisticheGlobali() {
+            DB.giocatori.forEach(g => {
+                g.gol = 0;
+                g.assist = 0;
+                g.autogol = 0;
+                g.rigoriParati = 0;
+                g.rigoriSbagliati = 0;
+                g.vinte = 0;
+                g.pareggiate = 0;
+                g.perse = 0;
+                g.mvp = 0;
+                g.voti = [];
+                g.totw = 0;
+                g.presenzeTOTW = 0;
+            });
+
+            assegnaVotiRetroattivi();
+
+            DB.storico.forEach(match => {
+                let winA = match.golA > match.golB;
+                let pareggio = match.golA === match.golB;
+
+                const processaTeam = (teamList, dett, won, draw) => {
+                    teamList.forEach(player => {
+                        let pg = DB.giocatori.find(x => x.id === player.id);
+                        if (!pg) return;
+                        let d = (dett && dett[player.id]) ? dett[player.id] : {};
+
+                        pg.gol += (d.gol || 0);
+                        pg.assist += (d.assist || 0);
+                        pg.autogol += (d.autogol || 0);
+                        pg.rigoriParati += (d.rigoriParati || 0);
+                        pg.rigoriSbagliati += (d.rigoriSbagliati || 0);
+
+                        if (won) pg.vinte++;
+                        else if (draw) pg.pareggiate++;
+                        else pg.perse++;
+
+                        if (match.mvpId === pg.id) pg.mvp++;
+                        if (d.voto !== undefined && !isNaN(d.voto)) pg.voti.push(d.voto);
+                    });
+                };
+
+                processaTeam(match.sqA, match.dettA, winA, pareggio);
+                processaTeam(match.sqB, match.dettB, !winA && !pareggio, pareggio);
+
+                // Calcolo automatico presenze TOTW per ogni match storico
+                let candidati = [];
+                const addCandidati = (sq, dett, won) => {
+                    sq.forEach(p => {
+                        let pg = DB.giocatori.find(x => x.id === p.id);
+                        if (!pg) return;
+                        let d = (dett && dett[p.id]) ? dett[p.id] : {};
+                        let score = calcolaPunteggioTOTW(d, won, pg.por);
+                        candidati.push({ id: pg.id, por: pg.por, score });
+                    });
+                };
+                addCandidati(match.sqA, match.dettA, winA);
+                addCandidati(match.sqB, match.dettB, !winA && !pareggio);
+
+                let portieri = candidati.filter(g => g.por).sort((a, b) => b.score - a.score);
+                let movimento = candidati.filter(g => !g.por).sort((a, b) => b.score - a.score);
+                let bestMatchTotw = [portieri[0], ...movimento.slice(0, 4)].filter(Boolean);
+
+                bestMatchTotw.forEach(t => {
+                    let pg = DB.giocatori.find(x => x.id === t.id);
+                    if (pg) {
+                        pg.totw = (pg.totw || 0) + 1;
+                        pg.presenzeTOTW = pg.totw;
+                    }
+                });
+            });
+        }
+
         sanificaDatabase();
+        ricalcolaStatisticheGlobali();
 
         function getImgCampo(nome) {
             const c = DB.campi.find(x => x.nome.toLowerCase() === (nome || "").toLowerCase());
@@ -612,32 +700,27 @@
         }
 
         // ==========================================
-        // CALCOLO OVERALL & PLAYSTYLES IBRIDI
+        // FORMULA OVERALL ORIGINALE RESTAURATA
         // ==========================================
         function calcolaOverall(g) {
-            let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
-            let mediaVoti = 6.0;
+            let base = 65;
+            let bonus = (g.gol || 0) * 0.50 +
+                        (g.assist || 0) * 0.20 +
+                        (g.vinte || 0) * 0.30 +
+                        (g.mvp || 0) * 1.0;
+            let malus = (g.perse || 0) * 0.15 +
+                        (g.autogol || 0) * 0.50 +
+                        (g.rigoriSbagliati || 0) * 0.50;
+
+            let finale = base + bonus - malus;
+            if (g.por) finale += (g.rigoriParati || 0) * 0.60;
+
             if (g.voti && g.voti.length > 0) {
-                let somma = g.voti.reduce((acc, curr) => acc + curr, 0);
-                mediaVoti = somma / g.voti.length;
-            }
-            let normVoti = 40 + (mediaVoti - 4) * (59 / 6);
-            normVoti = Math.max(40, Math.min(99, normVoti));
-
-            let baseStat = 65;
-            if (g.ruolo === 'ATT') {
-                baseStat += (g.gol || 0) * 0.60 + (g.assist || 0) * 0.30 + (g.vinte || 0) * 0.30 - (g.perse || 0) * 0.15 - (g.rigoriSbagliati || 0) * 0.50 - (g.autogol || 0) * 0.40;
-            } else if (g.ruolo === 'CEN') {
-                baseStat += (g.gol || 0) * 0.35 + (g.assist || 0) * 0.45 + (g.vinte || 0) * 0.30 - (g.perse || 0) * 0.15 - (g.rigoriSbagliati || 0) * 0.40 - (g.autogol || 0) * 0.40;
-            } else if (g.ruolo === 'DIF') {
-                baseStat += (g.gol || 0) * 0.30 + (g.assist || 0) * 0.30 + (g.vinte || 0) * 0.40 - (g.perse || 0) * 0.15 - (g.autogol || 0) * 0.60;
-            } else if (g.ruolo === 'POR' || g.por) {
-                baseStat += (g.rigoriParati || 0) * 0.90 + (g.vinte || 0) * 0.40 - (g.perse || 0) * 0.15 - (g.autogol || 0) * 0.50;
+                let media = g.voti.reduce((acc, v) => acc + v, 0) / g.voti.length;
+                finale += (media - 6.0) * 1.0;
             }
 
-            baseStat = Math.max(40, Math.min(99, baseStat));
-            let overallFinale = Math.round((baseStat * 0.70) + (normVoti * 0.30));
-            return Math.min(99, Math.max(45, overallFinale));
+            return Math.min(99, Math.max(45, Math.floor(finale)));
         }
 
         function getCardRarityClass(ovr) {
@@ -646,16 +729,20 @@
             return 'rarity-silver';
         }
 
+        function getMediaVotiStr(g) {
+            if (!g.voti || g.voti.length === 0) return "0.0";
+            let somma = g.voti.reduce((acc, v) => acc + v, 0);
+            return (somma / g.voti.length).toFixed(2);
+        }
+
         function getTuttiPlaystyles(g) {
             let res = [];
-            // Playstyle manuali scelti
             if (g.playstyles && Array.isArray(g.playstyles)) {
                 g.playstyles.forEach(ps => {
                     res.push({ nome: ps, icon: PLAYSTYLES_MAP[ps] || '⭐', desc: 'Assegnato dall\'anagrafica' });
                 });
             }
 
-            // Playstyle dinamici aggiunti automaticamente se non già presenti
             let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
             if (g.ruolo === 'DIF' && presenze > 0 && ((g.gol || 0) / presenze) >= 0.4) {
                 if (!res.some(x => x.nome.includes('Muro'))) res.push({ nome: 'Il Muro Goleador', icon: '🧱', desc: 'Difensore goleador' });
@@ -667,7 +754,7 @@
                 if (!res.some(x => x.nome.includes('Saracinesca'))) res.push({ nome: 'Saracinesca', icon: '🧤', desc: 'Specialista pararigori' });
             }
             if ((g.gol || 0) >= 3 && (g.rigoriSbagliati || 0) === 0) {
-                if (!res.some(x => x.nome.includes('Cecchino'))) res.push({ nome: 'Cecchino', icon: '🎯', desc: 'Zero errori dagli undici metri' });
+                if (!res.some(x => x.nome.includes('Cecchino'))) res.push({ nome: 'Cecchino', icon: '🎯', desc: 'Infallibile dagli undici metri' });
             }
             if ((g.autogol || 0) >= 2) {
                 if (!res.some(x => x.nome.includes('Calamita'))) res.push({ nome: 'Calamita (Malus)', icon: '🛑', desc: 'Deviazioni sfortunate' });
@@ -740,12 +827,20 @@
             aggiornaUI();
             closeAdmin();
             switchTab('matchday');
-            showToast("Smart Snake Draft completato con successo!");
+            showToast("Smart Snake Draft completato! Match caricato nel Match Hub.");
         };
 
         // ==========================================
-        // MATCH HUB & LAVAGNA TATTICA
+        // MATCH HUB & RESET PARTITA ATTIVA
         // ==========================================
+        window.annullaMatchAttivo = function() {
+            if (!confirm("Sei sicuro di voler annullare e resettare la partita attualmente attiva nel Match Hub?")) return;
+            DB.matchAttivo = null;
+            salvaDB();
+            aggiornaUI();
+            showToast("Partita attiva annullata. Match Hub pronto per una nuova convocazione.");
+        };
+
         function calcolaChemistry(squadra) {
             if (!squadra || squadra.length < 2) return 50;
             let vittorieCoppia = 0;
@@ -791,7 +886,7 @@
                     <div class="glass-panel text-center p-12 rounded-3xl border border-slate-800">
                         <div class="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center mx-auto mb-4 text-2xl">⏳</div>
                         <h3 class="text-xl md:text-2xl font-bold font-sport text-slate-300 mb-2">NESSUN MATCH ATTIVO</h3>
-                        <p class="text-xs text-slate-500 max-w-md mx-auto mb-6">Seleziona i convocati nel pannello Admin per comporre automaticamente le squadre bilanciate.</p>
+                        <p class="text-xs text-slate-500 max-w-md mx-auto mb-6">Non ci sono partite in corso. Apri il pannello Admin per comporre una nuova sfida con lo Smart Draft.</p>
                         <button onclick="openAdmin()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs shadow-lg transition">Apri Pannello Admin</button>
                     </div>
                 `;
@@ -832,7 +927,7 @@
                 <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
                     <div class="text-center md:text-left">
                         <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono font-bold mb-1">
-                            MATCH DAY UFFICIALE
+                            MATCH DAY ATTIVO (PRE-PARTITA)
                         </span>
                         <h2 class="text-2xl md:text-3xl font-sport font-black text-white">${m.campo}</h2>
                         <p class="text-xs text-slate-400 font-mono">📅 ${m.data}</p>
@@ -855,12 +950,15 @@
                         </div>
                     </div>
 
-                    <div class="flex gap-2">
-                        <button onclick="condividiFormazioniClipboard()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
-                            📋 Copia Formazioni
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button onclick="condividiFormazioniClipboard()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+                            Copia
                         </button>
-                        <button onclick="condividiFormazioni()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-lg">
-                            📲 WhatsApp
+                        <button onclick="condividiFormazioni()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-lg">
+                            WhatsApp
+                        </button>
+                        <button onclick="annullaMatchAttivo()" class="bg-rose-950/60 hover:bg-rose-900 text-rose-300 border border-rose-800/60 px-3 py-2 rounded-xl text-xs font-bold transition shadow">
+                            Annulla
                         </button>
                     </div>
                 </div>
@@ -906,7 +1004,7 @@
             if (!DB.matchAttivo) return;
             if (!selectedSwapPlayer) {
                 selectedSwapPlayer = { id: playerId, team };
-                showToast("Selezionato. Clicca su un secondo giocatore per scambiare di posto.");
+                showToast("Selezionato. Clicca su un secondo giocatore per scambiare.");
                 renderMatchHub();
             } else {
                 let first = selectedSwapPlayer;
@@ -965,7 +1063,7 @@
         };
 
         // ==========================================
-        // TABELLINO LIVE & DOCUMENT FRAGMENT
+        // TABELLINO EVENTI & ARCHIVIAZIONE
         // ==========================================
         function renderTabellino() {
             const container = document.getElementById('admin-tabellino-container');
@@ -977,7 +1075,7 @@
             let m = editStoricoIndex > -1 ? DB.storico[editStoricoIndex] : DB.matchAttivo;
             if (!m) {
                 if (statusBadge) statusBadge.innerText = 'Nessun match caricato';
-                container.innerHTML = '<p class="text-xs text-slate-500 py-4 italic">Crea un match tramite Smart Draft o seleziona un incontro dall\'archivio storico.</p>';
+                container.innerHTML = '<p class="text-xs text-slate-500 py-4 italic">Crea un nuovo match tramite Smart Draft o seleziona un incontro dall\'archivio storico per modificarlo.</p>';
                 return;
             }
 
@@ -1049,7 +1147,7 @@
 
             footerActions.innerHTML = `
                 <div>
-                    <label class="text-xs font-bold text-amber-400 block mb-1">⭐ MVP DELL'INCONTRO:</label>
+                    <label class="text-xs font-bold text-amber-400 block mb-1">MVP DELL'INCONTRO:</label>
                     <select id="tab-mvp-id" class="w-full bg-slate-950 text-white p-2.5 rounded-lg border border-slate-700 text-xs font-bold outline-none">
                         <option value="">-- Seleziona MVP della Partita --</option>
                         ${mvpOptions}
@@ -1057,7 +1155,7 @@
                 </div>
                 <div class="flex gap-2">
                     <button onclick="adminSalvaTabellino()" class="flex-1 ${editStoricoIndex > -1 ? 'bg-sky-600 hover:bg-sky-500' : 'bg-emerald-600 hover:bg-emerald-500'} text-white font-bold py-3 rounded-xl text-xs shadow-lg transition">
-                        ${editStoricoIndex > -1 ? '💾 AGGIORNA INCONTRO & RICALCOLA' : '🏁 ARCHIVIA RISULTATO UFFICIALE'}
+                        ${editStoricoIndex > -1 ? 'AGGIORNA INCONTRO & RICALCOLA' : 'ARCHIVIA RISULTATO UFFICIALE'}
                     </button>
                     ${editStoricoIndex > -1 ? `<button onclick="annullaModificaStorico()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-3 rounded-xl text-xs">Annulla</button>` : ''}
                 </div>
@@ -1098,7 +1196,7 @@
 
             if (editStoricoIndex === -1) {
                 DB.storico.unshift(m);
-                DB.matchAttivo = null;
+                DB.matchAttivo = null; // Reset immediato: match archiviato!
                 DB.votiMVP = {};
                 localStorage.removeItem('voto_mvp_fatto');
             }
@@ -1108,7 +1206,7 @@
             salvaDB();
             aggiornaUI();
             closeAdmin();
-            showToast("Tabellino archiviato e statistiche ricalcolate!");
+            showToast("Risultato archiviato con successo! Match Hub pronto per una nuova sfida.");
         };
 
         window.caricaMatchInTabellino = function(idx) {
@@ -1124,54 +1222,7 @@
         };
 
         // ==========================================
-        // RICALCOLO STATISTICHE DETERMINISTICO
-        // ==========================================
-        function ricalcolaStatisticheGlobali() {
-            DB.giocatori.forEach(g => {
-                g.gol = 0;
-                g.assist = 0;
-                g.autogol = 0;
-                g.rigoriParati = 0;
-                g.rigoriSbagliati = 0;
-                g.vinte = 0;
-                g.pareggiate = 0;
-                g.perse = 0;
-                g.mvp = 0;
-                g.voti = [];
-            });
-
-            DB.storico.forEach(match => {
-                let winA = match.golA > match.golB;
-                let pareggio = match.golA === match.golB;
-
-                const processaTeam = (teamList, dett, won, draw) => {
-                    teamList.forEach(player => {
-                        let pg = DB.giocatori.find(x => x.id === player.id);
-                        if (!pg) return;
-                        let d = (dett && dett[player.id]) ? dett[player.id] : {};
-
-                        pg.gol += (d.gol || 0);
-                        pg.assist += (d.assist || 0);
-                        pg.autogol += (d.autogol || 0);
-                        pg.rigoriParati += (d.rigoriParati || 0);
-                        pg.rigoriSbagliati += (d.rigoriSbagliati || 0);
-
-                        if (won) pg.vinte++;
-                        else if (draw) pg.pareggiate++;
-                        else pg.perse++;
-
-                        if (match.mvpId === pg.id) pg.mvp++;
-                        if (d.voto !== undefined && !isNaN(d.voto)) pg.voti.push(d.voto);
-                    });
-                };
-
-                processaTeam(match.sqA, match.dettA, winA, pareggio);
-                processaTeam(match.sqB, match.dettB, !winA && !pareggio, pareggio);
-            });
-        }
-
-        // ==========================================
-        // RENDERING DATABASE CARTE SQUADRA
+        // RENDERING CARTE GIOCATORI
         // ==========================================
         function renderCarteFC() {
             const grid = document.getElementById('cards-grid');
@@ -1261,7 +1312,7 @@
                         </div>
 
                         <div class="text-center md:text-right min-w-[120px]">
-                            <span class="text-[10px] text-amber-400 font-mono block">⭐ MVP INCONTRO</span>
+                            <span class="text-[10px] text-amber-400 font-mono block">MVP INCONTRO</span>
                             <span class="text-xs font-bold text-white">${mvpNome}</span>
                         </div>
                     </div>
@@ -1331,13 +1382,8 @@
             let presenze = (g.vinte || 0) + (g.pareggiate || 0) + (g.perse || 0);
             let winRate = presenze > 0 ? Math.round((g.vinte / presenze) * 100) : 0;
             let playstyles = getTuttiPlaystyles(g);
+            let mediaVoti = getMediaVotiStr(g);
 
-            let mediaVoti = "6.00";
-            if (g.voti && g.voti.length > 0) {
-                mediaVoti = (g.voti.reduce((s, c) => s + c, 0) / g.voti.length).toFixed(2);
-            }
-
-            // Ricerca delle ultime 5 partite giocate
             let ultimePartite = [];
             for (let match of DB.storico) {
                 let inA = match.sqA.some(p => p.id === g.id);
@@ -1391,16 +1437,17 @@
                             <p class="text-xs text-slate-400 font-mono">Ruolo: <b class="text-amber-400">${g.ruolo}</b> • OVR: <b class="text-emerald-400">${ovr}</b></p>
                         </div>
 
-                        <!-- SEZIONE 1: STATISTICHE PERSONALI (SENZA CLEAN SHEET) -->
+                        <!-- SEZIONE 1: STATISTICHE PERSONALI (SENZA CLEAN SHEET, CON TOTW) -->
                         <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800">
                             <h4 class="text-xs font-sport font-bold text-amber-400 mb-2.5">1. STATISTICHE INDIVIDUALI</h4>
-                            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center text-xs">
+                            <div class="grid grid-cols-3 sm:grid-cols-7 gap-2 text-center text-xs">
                                 <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Gol</span><b class="text-base font-stat text-emerald-400">${g.gol}</b></div>
                                 <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Assist</span><b class="text-base font-stat text-sky-400">${g.assist}</b></div>
                                 <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">MVP</span><b class="text-base font-stat text-amber-400">${g.mvp}</b></div>
                                 <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Rig. Sbagliati</span><b class="text-base font-stat text-rose-400">${g.rigoriSbagliati || 0}</b></div>
                                 <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Autogol</span><b class="text-base font-stat text-purple-400">${g.autogol}</b></div>
                                 <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Rig. Parati</span><b class="text-base font-stat text-yellow-400">${g.rigoriParati}</b></div>
+                                <div class="bg-slate-900 p-2 rounded-lg border border-sky-500/40"><span class="text-sky-400 block text-[10px] font-bold">TOTW</span><b class="text-base font-stat text-sky-300">${g.totw || 0}</b></div>
                             </div>
                         </div>
 
@@ -1416,7 +1463,6 @@
                                 <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Pareggiate</span><b class="text-base font-stat text-slate-300">${g.pareggiate}</b></div>
                                 <div class="bg-slate-900 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[10px]">Perse</span><b class="text-base font-stat text-rose-400">${g.perse}</b></div>
                             </div>
-                            <!-- BARRA RENDIMENTO RECORD -->
                             <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden flex border border-slate-800">
                                 ${presenze > 0 ? `
                                     <div style="width: ${(g.vinte / presenze) * 100}%" class="bg-emerald-500" title="Vinte"></div>
@@ -1456,7 +1502,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            ` : '<p class="text-xs text-slate-500 italic py-2">Nessuna partita disputata trovata nello storico.</p>'}
+                            ` : '<p class="text-xs text-slate-500 italic py-2">Nessuna partita trovata nello storico per questo giocatore.</p>'}
                         </div>
 
                     </div>
@@ -1470,18 +1516,6 @@
         // ==========================================
         // ALBO D'ORO & TOTW AUTOMATICO
         // ==========================================
-        function calcolaPunteggioTOTW(dettaglio, won, isPor) {
-            let voto = dettaglio.voto !== undefined ? dettaglio.voto : 6.0;
-            let score = (voto * 10) +
-                ((dettaglio.gol || 0) * 5) +
-                ((dettaglio.assist || 0) * 3) -
-                ((dettaglio.autogol || 0) * 5) -
-                ((dettaglio.rigoriSbagliati || 0) * 4);
-            if (isPor && (dettaglio.rigoriParati || 0) > 0) score += (dettaglio.rigoriParati * 6);
-            if (won) score += 2;
-            return score;
-        }
-
         function renderAlboTotw() {
             const totwCont = document.getElementById('totw-container');
             const alboCont = document.getElementById('albo-container');
@@ -1656,12 +1690,12 @@
                     let avgB = b.voti.reduce((s, c) => s + c, 0) / b.voti.length;
                     return avgB - avgA;
                 });
-                rVoti.innerHTML = makeList(sortVoti, g => (g.voti.reduce((s, c) => s + c, 0) / g.voti.length).toFixed(2), '★');
+                rVoti.innerHTML = makeList(sortVoti, g => getMediaVotiStr(g), '★');
             }
         }
 
         // ==========================================
-        // SONDAGGI & VOTI
+        // SONDAGGI
         // ==========================================
         function renderSondaggi() {
             const container = document.getElementById('container-sondaggi');
@@ -1672,7 +1706,7 @@
 
             let htmlOrari = `
                 <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-                    <h3 class="text-base font-bold text-amber-400 font-sport mb-3">⏰ DISPONIBILITÀ ORARI</h3>
+                    <h3 class="text-base font-bold text-amber-400 font-sport mb-3">DISPONIBILITÀ ORARI</h3>
                     <div class="space-y-3">
                         ${DB.sondaggioOrari.map(ora => {
                             let voti = DB.votiOrari[ora] || 0;
@@ -1696,7 +1730,7 @@
 
             let htmlCampi = `
                 <div class="glass-panel p-5 rounded-2xl border border-slate-800">
-                    <h3 class="text-base font-bold text-sky-400 font-sport mb-3">🏟️ SCELTA STRUTTURA</h3>
+                    <h3 class="text-base font-bold text-sky-400 font-sport mb-3">SCELTA STRUTTURA</h3>
                     <div class="space-y-3">
                         ${DB.campi.map(c => {
                             let voti = DB.votiCampo[c.nome] || 0;
@@ -1756,7 +1790,7 @@
             localStorage.setItem(sk, 'si');
             salvaDB();
             aggiornaUI();
-            showToast("Voto memorizzato con successo!");
+            showToast("Voto memorizzato!");
         };
 
         window.inviaVotoMVP = function() {
@@ -1772,7 +1806,7 @@
         };
 
         // ==========================================
-        // GESTIONE AMMINISTRATIVA (ADMIN AREA)
+        // GESTIONE AMMINISTRATORE
         // ==========================================
         window.openAdmin = () => document.getElementById('admin-modal').classList.remove('hidden');
         window.closeAdmin = () => {
@@ -1946,7 +1980,6 @@
                     autogol: 0,
                     rigoriParati: 0,
                     rigoriSbagliati: 0,
-                    cleanSheet: 0,
                     mvp: 0,
                     vinte: 0,
                     pareggiate: 0,
@@ -2090,31 +2123,46 @@
         }
 
         // ==========================================
-        // CLOUD SYNC & LOCAL PERSISTENCE
+        // CLOUD SYNC: SOLA LETTURA SICURA ALL'AVVIO
         // ==========================================
         function caricaDatiDaGoogle() {
             fetch(SCRIPT_URL)
                 .then(res => res.json())
                 .then(data => {
                     if (data && data.giocatori && data.giocatori.length > 0) {
-                        // Sincronizza integrando senza perdere giocatori locali
                         data.giocatori.forEach(cloudG => {
                             let locG = DB.giocatori.find(x => x.id === cloudG.id || x.nome.toLowerCase() === cloudG.nome.toLowerCase());
                             if (!locG) {
                                 DB.giocatori.push(cloudG);
+                            } else {
+                                locG.foto = cloudG.foto || locG.foto;
+                                locG.ruolo = cloudG.ruolo || locG.ruolo;
                             }
                         });
-                        if (data.storico && data.storico.length >= (DB.storico ? DB.storico.length : 0)) {
+
+                        if (data.storico && data.storico.length > 0) {
                             DB.storico = data.storico;
                         }
+
+                        if (data.campi && data.campi.length > 0) {
+                            DB.campi = data.campi;
+                        }
+
+                        if (data.matchAttivo !== undefined) {
+                            DB.matchAttivo = data.matchAttivo;
+                        }
+
                         sanificaDatabase();
-                        salvaDB();
+                        ricalcolaStatisticheGlobali();
+                        // NESSUN salvataggio automatico all'avvio!
                         aggiornaUI();
-                        console.log("Cloud sync completato.");
+                        console.log("Cloud sync completato con successo (sola lettura).");
                     }
                 })
                 .catch(err => {
                     console.warn("Cloud sync non raggiungibile, utilizzo database locale:", err);
+                    sanificaDatabase();
+                    ricalcolaStatisticheGlobali();
                     aggiornaUI();
                 });
         }
