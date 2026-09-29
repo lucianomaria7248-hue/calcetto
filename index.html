@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#d4af37">
-    <title>FantaCalcetto Hub - FC 27 Elite Edition</title>
+    <title>FantaCalcetto Hub - FC 27 Special Edition</title>
     <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,9 +13,9 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #04060a;
+            background-color: #03060a;
             color: #f1f5f9;
-            background-image: radial-gradient(circle at 50% 0%, #111827 0%, #04060a 75%);
+            background-image: radial-gradient(circle at 50% 0%, #0d1524 0%, #03060a 80%);
             background-attachment: fixed;
         }
         .font-sport { font-family: 'Orbitron', sans-serif; }
@@ -23,19 +23,19 @@
         .font-stat { font-family: 'Oswald', sans-serif; }
         .font-bebas { font-family: 'Bebas Neue', sans-serif; }
 
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(52, 211, 153, 0.35), inset 0 0 12px rgba(52, 211, 153, 0.15); }
-            50% { box-shadow: 0 0 25px rgba(52, 211, 153, 0.7), inset 0 0 20px rgba(52, 211, 153, 0.35); }
+        @keyframes laserSweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade { animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-fade { animation: fadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
         /* Glassmorphism Luxury */
         .glass-panel {
-            background: rgba(13, 18, 30, 0.75);
+            background: rgba(11, 16, 28, 0.78);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -46,61 +46,95 @@
             border: 1px solid rgba(212, 175, 55, 0.35);
         }
 
-        /* FC 27 CARDS SYSTEM */
-        .fc27-card {
+        /* FC 27 SPECIAL EDITION CARDS ARCHITECTURE */
+        .fc27-card-wrapper {
             position: relative;
-            border-radius: 10px 10px 28px 10px;
+            transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+        }
+        .fc27-card-wrapper:hover {
+            transform: translateY(-6px) scale(1.03);
+            z-index: 35;
+        }
+
+        .fc27-card-shield {
+            position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%);
-        }
-        .fc27-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            z-index: 30;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px));
+            border-radius: 8px 8px 0 0;
         }
 
-        /* Tier Silver */
+        /* Tier Silver (< 75) */
         .fc27-silver {
-            background: linear-gradient(155deg, #2a3441 0%, #151d26 50%, #0a0f14 100%);
-            border: 2px solid #94a3b8;
-            box-shadow: inset 0 0 14px rgba(148, 163, 184, 0.15), 0 8px 20px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(155deg, #1f2937 0%, #111827 50%, #0b0f17 100%);
+            border: 2px solid #64748b;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.8);
         }
-
-        /* Tier Gold (75-84) */
-        .fc27-gold {
-            background: linear-gradient(155deg, #3d2f0a 0%, #1e1704 40%, #0a0802 100%);
-            border: 2px solid #eab308;
-            box-shadow: inset 0 0 18px rgba(234, 179, 8, 0.25), 0 10px 24px rgba(0, 0, 0, 0.85);
-        }
-
-        /* Tier Elite Neon (85+) */
-        .fc27-elite {
-            background: linear-gradient(155deg, #063428 0%, #051a15 45%, #020b08 100%);
-            border: 2px solid #10b981;
-            animation: pulseGlow 3s infinite;
-        }
-
-        /* Tier TOTW Celestial Midnight */
-        .fc27-totw {
-            background: linear-gradient(155deg, #0b1f3a 0%, #040a14 55%, #010408 100%);
-            border: 2px solid #38bdf8;
-            box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.3), 0 10px 26px rgba(0, 0, 0, 0.9);
-        }
-
-        .fc27-card::before {
+        .fc27-silver::after {
             content: '';
             position: absolute;
-            top: 0; left: -140%;
-            width: 70%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
+            inset: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.02) 10px, rgba(255, 255, 255, 0.02) 20px);
+            pointer-events: none;
+        }
+
+        /* Tier Gold (75 - 84) Luxury Obsidian */
+        .fc27-gold {
+            background: linear-gradient(155deg, #2a1f05 0%, #150f02 45%, #050401 100%);
+            border: 2px solid #eab308;
+            box-shadow: inset 0 0 16px rgba(234, 179, 8, 0.2), 0 12px 28px rgba(0, 0, 0, 0.9);
+        }
+        .fc27-gold::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(234, 179, 8, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Tier Elite Special 85+ (Trailblazers / Centurions Style) */
+        .fc27-elite {
+            background: linear-gradient(155deg, #032b20 0%, #021711 40%, #010806 100%);
+            border: 2px solid #10b981;
+            box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.25), 0 14px 30px rgba(0, 0, 0, 0.95);
+        }
+        .fc27-elite::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(16, 185, 129, 0.12) 50%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* Tier TOTW Celestial In-Form */
+        .fc27-totw {
+            background: linear-gradient(155deg, #07192f 0%, #030b17 50%, #010408 100%);
+            border: 2px solid #38bdf8;
+            box-shadow: inset 0 0 22px rgba(56, 189, 248, 0.25), 0 14px 32px rgba(0, 0, 0, 0.95);
+        }
+        .fc27-totw::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 10%, rgba(56, 189, 248, 0.2) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        /* Riflesso dinamico al passaggio cursore */
+        .fc27-card-shield::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 75%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.12), transparent);
             transform: skewX(-25deg);
-            transition: 0.6s ease;
+            transition: 0.65s ease;
             pointer-events: none;
             z-index: 25;
         }
-        .fc27-card:hover::before { left: 180%; }
+        .fc27-card-wrapper:hover .fc27-card-shield::before { left: 190%; }
 
         /* Tactical Board Player Dots */
         .tactical-dot {
@@ -160,7 +194,7 @@
     <header class="max-w-6xl mx-auto my-4 text-center animate-fade">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-amber-500/30 text-[10px] md:text-xs font-mono font-bold text-amber-400 mb-2">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            FC 27 TACTICAL ENGINE • ZERO LATENCY
+            FC 27 SPECIAL EDITION • CALIBRAZIONE ARBITRALE UFFICIALE
         </div>
         <h1 class="text-3xl sm:text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-500 font-sport tracking-wider drop-shadow-md">
             FANTACALCETTO HUB
@@ -398,7 +432,7 @@
                             <input type="text" id="add-gioc-foto" placeholder="Asset Foto (es. bonetti.webp)" class="p-2 bg-slate-950 text-white rounded text-xs border border-slate-700">
                             <input type="text" id="add-gioc-paese" placeholder="Paese di provenienza" class="p-2 bg-slate-950 text-white rounded text-xs border border-slate-700">
                         </div>
-                        <label class="flex items-center text-xs text-slate-300 mb-3 gap-2 cursor-pointer">
+                        <label class="flex items-center text-xs text-slate-300 mb-2 gap-2 cursor-pointer">
                             <input type="checkbox" id="add-gioc-por" class="w-4 h-4 accent-amber-500"> È un Portiere di Ruolo?
                         </label>
                         <p class="text-[10px] text-slate-400 italic mb-3">Nota: i PlayStyles vengono assegnati automaticamente al 100% in base al rendimento reale sul campo.</p>
@@ -469,6 +503,25 @@
         let isMatchHubEditMode = false;
         let currentRoleFilter = 'ALL';
 
+        // MAPPATURA UFFICIALE PAESI DI PROVENIENZA
+        const CITTA_GIOCATORI = {
+            'Montella': ['jack', 'armandosky', 'bonetti', 'checco', 'edoardo', 'gemello', 'nando', 'mario', 'mattia', 'carbone', 'gerardo'],
+            'Taranto': ['giuseppe cp', 'daniele cp'],
+            'Cassano': ['peppo'],
+            'Ponteromito': ['ijam', 'franco'],
+            'Castelfranci': ['davide', 'schivonsky', 'marco']
+        };
+
+        function getPaeseUfficiale(nome) {
+            let n = (nome || '').toLowerCase().trim();
+            for (let [citta, nomi] of Object.entries(CITTA_GIOCATORI)) {
+                if (nomi.some(x => n.includes(x) || x.includes(n))) {
+                    return citta;
+                }
+            }
+            return 'Montella';
+        }
+
         // MODULI TATTICI DISPONIBILI
         const MODULI_TATTICI = {
             4: [
@@ -506,32 +559,32 @@
         };
 
         // ==========================================
-        // ESAGONI PLAYSTYLES VETTORIALI FC 27 (SENZA EMOJI)
+        // ESAGONI PLAYSTYLES VETTORIALI SATINATI FC 27
         // ==========================================
         const HEX_PLAYSTYLES = {
             'Bomber': {
                 nome: 'Tiro Potente',
-                desc: 'Conclusione devastante dalla media-lunga distanza',
+                desc: 'Conclusione pesante dalla media-lunga distanza',
                 svg: `<path d="M4 14l8-8 4 4-8 8-4-4zm11-7l2-2 3 3-2 2-3-3zM3 21l3-1-2-2-1 3z" fill="currentColor"/>`
             },
             'Cecchino': {
                 nome: 'Tiro di Precisione',
                 desc: 'Precisione chirurgica e zero errori dal dischetto',
-                svg: `<circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4" stroke="currentColor" stroke-width="2"/>`
+                svg: `<circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4" stroke="currentColor" stroke-width="2"/>`
             },
             'Regista': {
                 nome: 'Visione di Gioco',
-                desc: 'Traiettorie millimetriche e passaggi chiave',
+                desc: 'Traiettorie millimetriche e passaggi chiave filtranti',
                 svg: `<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7zm10 4a4 4 0 100-8 4 4 0 000 8z" fill="currentColor"/>`
             },
             'Muro': {
                 nome: 'Intercettazione Rocciosa',
-                desc: 'Respinge conclusioni e blocca le ripartenze',
+                desc: 'Respinge conclusioni e blocca le ripartenze avversarie',
                 svg: `<path d="M12 2L4 6v6c0 5.5 3.5 10.7 8 12 4.5-1.3 8-6.5 8-12V6l-8-4z" fill="currentColor"/>`
             },
             'Saracinesca': {
                 nome: 'Riflesso Fulmineo',
-                desc: 'Specialista nel neutralizzare conclusioni ravvicinate',
+                desc: 'Specialista nel neutralizzare tiri e rigori ravvicinati',
                 svg: `<path d="M18 11V6a2 2 0 00-4 0v5m-4-6a2 2 0 00-4 0v8m-4-4a2 2 0 00-4 0v7a8 8 0 0016 0V11a2 2 0 00-4 0" fill="none" stroke="currentColor" stroke-width="2"/>`
             },
             'Instancabile': {
@@ -554,17 +607,16 @@
         function renderHexPlaystyleBadge(key, isPlus = false) {
             let data = HEX_PLAYSTYLES[key];
             if (!data) return '';
-            let strokeColor = isPlus ? '#fbbf24' : '#94a3b8';
-            let fillColor = isPlus ? '#1c1503' : '#0b1120';
-            let iconColor = isPlus ? '#fef08a' : '#f1f5f9';
-            let glow = isPlus ? 'filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.7));' : '';
+            let strokeColor = isPlus ? '#d97706' : '#475569';
+            let fillColor = isPlus ? '#1c1503' : '#090e17';
+            let iconColor = isPlus ? '#f59e0b' : '#94a3b8';
 
             return `
-                <div title="${data.nome}${isPlus ? ' +' : ''}: ${data.desc}" class="relative w-6 h-7 flex items-center justify-center cursor-pointer transition-transform hover:scale-125" style="${glow}">
+                <div title="${data.nome}${isPlus ? ' +' : ''}: ${data.desc}" class="relative w-5 h-6 flex items-center justify-center cursor-pointer transition-transform hover:scale-115">
                     <svg class="absolute inset-0 w-full h-full" viewBox="0 0 24 28">
-                        <polygon points="12,1 23,7 23,21 12,27 1,21 1,7" fill="${fillColor}" stroke="${strokeColor}" stroke-width="${isPlus ? '2.2' : '1.5'}"/>
+                        <polygon points="12,1 23,7 23,21 12,27 1,21 1,7" fill="${fillColor}" stroke="${strokeColor}" stroke-width="${isPlus ? '2' : '1.3'}"/>
                     </svg>
-                    <div class="relative z-10 w-3.5 h-3.5 flex items-center justify-center" style="color: ${iconColor};">
+                    <div class="relative z-10 w-3 h-3 flex items-center justify-center" style="color: ${iconColor};">
                         <svg class="w-full h-full" viewBox="0 0 24 24">${data.svg}</svg>
                     </div>
                 </div>
@@ -577,18 +629,18 @@
         const initData = {
             ultimoAggiornamento: Date.now(),
             giocatori: [
-                { id: 1, nome: "Bonetti", ruolo: "DIF", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "bonetti.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 2, nome: "Franco", ruolo: "ATT", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "franco.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 3, nome: "Jack", ruolo: "ATT", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "jack.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 4, nome: "Davidone", ruolo: "DIF", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "davidone.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 5, nome: "Cristofer", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "cristofer.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 6, nome: "Schivonsky", ruolo: "POR", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "schivonsky.webp", por: true, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 7, nome: "Carbone", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "carbone.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 8, nome: "Armandosky", ruolo: "ATT", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 9, nome: "Checco", ruolo: "ATT", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "checco.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 10, nome: "Edoardo", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "edoardo.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 11, nome: "Gerardo", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "gerrywebp.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
-                { id: 12, nome: "Peppo", ruolo: "CEN", paese: "Italia", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "peppo.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] }
+                { id: 1, nome: "Bonetti", ruolo: "DIF", paese: "Montella", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "bonetti.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 2, nome: "Franco", ruolo: "ATT", paese: "Ponteromito", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "franco.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 3, nome: "Jack", ruolo: "ATT", paese: "Montella", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "jack.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 4, nome: "Davidone", ruolo: "DIF", paese: "Castelfranci", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "davidone.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 5, nome: "Cristofer", ruolo: "CEN", paese: "Montella", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "cristofer.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 6, nome: "Schivonsky", ruolo: "POR", paese: "Castelfranci", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "schivonsky.webp", por: true, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 7, nome: "Carbone", ruolo: "CEN", paese: "Montella", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "carbone.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 8, nome: "Armandosky", ruolo: "ATT", paese: "Montella", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 9, nome: "Checco", ruolo: "ATT", paese: "Montella", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "checco.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 10, nome: "Edoardo", ruolo: "CEN", paese: "Montella", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "edoardo.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 11, nome: "Gerardo", ruolo: "CEN", paese: "Montella", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "gerrywebp.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] },
+                { id: 12, nome: "Peppo", ruolo: "CEN", paese: "Cassano", gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0, mvp: 0, vinte: 0, pareggiate: 0, perse: 0, foto: "peppo.webp", por: false, totw: 0, presenzeTOTW: 0, voti: [] }
             ],
             campi: [
                 { nome: "Ponte Romito", img: "campopr.webp" },
@@ -668,7 +720,8 @@
                 if (g.por === undefined) g.por = (g.ruolo === "POR");
                 if (g.totw === undefined) g.totw = 0;
                 if (g.presenzeTOTW === undefined) g.presenzeTOTW = g.totw || 0;
-                if (!g.paese) g.paese = "Italia";
+                // Assegna il paese corretto secondo la mappatura
+                g.paese = getPaeseUfficiale(g.nome);
                 if (!Array.isArray(g.voti)) g.voti = [];
             });
 
@@ -686,7 +739,7 @@
         }
 
         // ==========================================
-        // CALCOLO VOTI REALISTICI (TARATURA 8.8)
+        // CALCOLO VOTI ARBITRALI (JACK ESATTAMENTE A 8.8)
         // ==========================================
         function calcolaVotoArbitrale(d, won, mvp) {
             let base = 6.0;
@@ -712,24 +765,24 @@
             return score;
         }
 
-        function assegnaVotiRetroattivi() {
+        // RICALIBRAZIONE FORZATA DI TUTTI I VOTI STORICI (ANCHE GIA PRESENTI)
+        function ricalibraTuttiIVotiStorici() {
             DB.storico.forEach(m => {
                 let haVintoA = m.golA > m.golB;
                 let haVintoB = m.golB > m.golA;
 
-                const processaDett = (sq, dett, won) => {
+                const ricalcolaDett = (sq, dett, won) => {
                     if (!dett) return;
                     sq.forEach(p => {
                         if (!dett[p.id]) dett[p.id] = { gol: 0, assist: 0, autogol: 0, rigoriParati: 0, rigoriSbagliati: 0 };
                         let d = dett[p.id];
-                        if (d.voto === undefined || d.voto === null || isNaN(d.voto)) {
-                            d.voto = calcolaVotoArbitrale(d, won, m.mvpId === p.id);
-                        }
+                        // Ricalcola SEMPRE per sostituire i vecchi voti gonfiati
+                        d.voto = calcolaVotoArbitrale(d, won, m.mvpId === p.id);
                     });
                 };
 
-                processaDett(m.sqA, m.dettA, haVintoA);
-                processaDett(m.sqB, m.dettB, haVintoB);
+                ricalcolaDett(m.sqA, m.dettA, haVintoA);
+                ricalcolaDett(m.sqB, m.dettB, haVintoB);
             });
         }
 
@@ -752,7 +805,8 @@
                 g.presenzeTOTW = 0;
             });
 
-            assegnaVotiRetroattivi();
+            // Esegue sempre la ricalibrazione meritocratica
+            ricalibraTuttiIVotiStorici();
 
             DB.storico.forEach(match => {
                 let winA = match.golA > match.golB;
@@ -819,25 +873,24 @@
         }
 
         // ==========================================
-        // FORMULA OVERALL & REGOLARIZZAZIONE MEDIA VOTI
+        // FORMULA OVERALL STAGIONALE CALIBRATA (BASE 60)
         // ==========================================
         function calcolaOverall(g) {
-            let base = 65;
-            let bonus = (g.gol || 0) * 0.50 +
-                        (g.assist || 0) * 0.20 +
-                        (g.vinte || 0) * 0.30 +
-                        (g.mvp || 0) * 1.0;
-            let malus = (g.perse || 0) * 0.15 +
-                        (g.autogol || 0) * 0.50 +
-                        (g.rigoriSbagliati || 0) * 0.50;
+            let base = 60; // Base di partenza ribassata per la lunga stagione
+            let bonus = (g.gol || 0) * 0.35 +
+                        (g.assist || 0) * 0.15 +
+                        (g.vinte || 0) * 0.20 +
+                        (g.mvp || 0) * 0.60;
+            let malus = (g.perse || 0) * 0.10 +
+                        (g.autogol || 0) * 0.40 +
+                        (g.rigoriSbagliati || 0) * 0.35;
 
             let finale = base + bonus - malus;
-            if (g.por) finale += (g.rigoriParati || 0) * 0.60;
+            if (g.por) finale += (g.rigoriParati || 0) * 0.40;
 
-            // Correttore media voti bayesiano
             if (g.voti && g.voti.length > 0) {
                 let media = getMediaVotiPonderata(g);
-                finale += (media - 6.0) * 1.0;
+                finale += (media - 6.0) * 0.75;
             }
 
             return Math.min(99, Math.max(45, Math.floor(finale)));
@@ -849,13 +902,11 @@
             return 'fc27-silver';
         }
 
-        // REGOLARIZZAZIONE BAYESIANA MEDIA VOTO
         function getMediaVotiPonderata(g) {
             if (!g.voti || g.voti.length === 0) return 0.0;
             let n = g.voti.length;
             let somma = g.voti.reduce((acc, v) => acc + v, 0);
             if (n >= 4) return somma / n;
-            // Smussamento per chi ha 1-3 partite (peso 3 voti a 6.0)
             return ((3 * 6.0) + somma) / (3 + n);
         }
 
@@ -865,7 +916,7 @@
         }
 
         // ==========================================
-        // MOTORE PLAYSTYLES 100% DINAMICI & VETTORIALI
+        // MOTORE PLAYSTYLES DINAMICI
         // ==========================================
         function calcolaPlaystylesDinamici(g) {
             let res = [];
@@ -909,10 +960,10 @@
         }
 
         // ==========================================
-        // CALCOLO OVERALL PER REPARTI
+        // OVERALL REPARTI
         // ==========================================
         function calcolaRepartiOVR(squadra) {
-            const media = (arr) => arr.length > 0 ? Math.round(arr.reduce((s, p) => s + calcolaOverall(p), 0) / arr.length) : 65;
+            const media = (arr) => arr.length > 0 ? Math.round(arr.reduce((s, p) => s + calcolaOverall(p), 0) / arr.length) : 60;
             let por = squadra.filter(p => p.por || p.ruolo === 'POR');
             let dif = squadra.filter(p => !p.por && p.ruolo === 'DIF');
             let cen = squadra.filter(p => !p.por && p.ruolo === 'CEN');
@@ -1001,12 +1052,17 @@
         // MATCH HUB: INTERAZIONE TATTICA & BLOCCO
         // ==========================================
         window.annullaMatchAttivo = function() {
-            if (!confirm("Sei sicuro di voler annullare e cancellare la partita attiva nel Match Hub?")) return;
-            DB.matchAttivo = null;
-            isMatchHubEditMode = false;
-            salvaDB();
-            aggiornaUI();
-            showToast("Partita attiva annullata. Match Hub pronto per una nuova sfida.");
+            const pass = prompt("Inserisci la password di amministrazione per annullare la partita:");
+            if (pass === "Calcetto_2026") {
+                if (!confirm("Sei sicuro di voler cancellare la partita attiva nel Match Hub?")) return;
+                DB.matchAttivo = null;
+                isMatchHubEditMode = false;
+                salvaDB();
+                aggiornaUI();
+                showToast("Partita attiva annullata. Match Hub resettato.");
+            } else if (pass !== null) {
+                showToast("Password errata!", "error");
+            }
         };
 
         window.sbloccaModificaTattica = function() {
@@ -1034,7 +1090,7 @@
             if (team === 'A') DB.matchAttivo.moduloA = nuovoModulo;
             else DB.matchAttivo.moduloB = nuovoModulo;
             renderMatchHub();
-            showToast(`Modulo Squadra ${team === 'A' ? DB.matchAttivo.nomeA : DB.matchAttivo.nomeB} aggiornato a ${nuovoModulo}`);
+            showToast(`Modulo Squadra aggiornato a ${nuovoModulo}`);
         };
 
         function calcolaChemistry(squadra) {
@@ -1062,9 +1118,9 @@
                     });
 
                     let winRateCoppia = matchInsieme > 0 ? (vinteInsieme / matchInsieme) : 0.50;
-                    // Bonus nazionalità / provenienza
+                    // Forte bonus territorialità per stesso paese
                     if (p1.paese && p2.paese && p1.paese.toLowerCase() === p2.paese.toLowerCase()) {
-                        winRateCoppia += 0.15;
+                        winRateCoppia += 0.20;
                     }
 
                     punteggioCoppie += Math.min(1.0, winRateCoppia);
@@ -1077,9 +1133,6 @@
             return Math.min(99, Math.max(30, chemRate));
         }
 
-        // ==========================================
-        // LAYOUT CAMPO TATTICO DINAMICO & LINEE INTESA
-        // ==========================================
         function generaDisposizioneCampo(squadra, moduloNome, isTop) {
             let n = squadra.length;
             let confModuli = MODULI_TATTICI[n] || MODULI_TATTICI[5];
@@ -1090,7 +1143,7 @@
             let playerIndex = 0;
             let res = [];
 
-            righe.forEach((conteggio, rIndex) => {
+            righe.forEach((conteggio) => {
                 let rigaGiocatori = [];
                 for (let i = 0; i < conteggio; i++) {
                     if (playerIndex < squadra.length) {
@@ -1113,7 +1166,7 @@
                     <div class="glass-panel text-center p-12 rounded-3xl border border-slate-800">
                         <div class="w-16 h-16 rounded-full bg-slate-800/80 flex items-center justify-center mx-auto mb-4 text-2xl">⏳</div>
                         <h3 class="text-xl md:text-2xl font-bold font-sport text-slate-300 mb-2">NESSUN MATCH ATTIVO</h3>
-                        <p class="text-xs text-slate-500 max-w-md mx-auto mb-6">Non ci sono sfide in corso. Apri il pannello Admin per selezionare i convocati e generare le formazioni con lo Smart Draft.</p>
+                        <p class="text-xs text-slate-500 max-w-md mx-auto mb-6">Non ci sono partite in corso. Apri il pannello Admin per selezionare i convocati e generare le formazioni con lo Smart Draft.</p>
                         <button onclick="openAdmin()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs shadow-lg transition">Apri Pannello Admin</button>
                     </div>
                 `;
@@ -1147,7 +1200,7 @@
                             <span class="absolute bottom-0 right-0 bg-black/90 font-stat font-bold text-[10px] px-1 rounded-tl text-amber-400 border-t border-l border-amber-500/40">${calcolaOverall(p)}</span>
                         </div>
                         <span class="text-[10px] md:text-xs font-bold text-white mt-1 truncate max-w-[70px] text-center drop-shadow">${p.nome}</span>
-                        <span class="text-[9px] font-mono text-slate-400 uppercase">${p.ruolo}</span>
+                        <span class="text-[8px] font-mono text-amber-400 truncate max-w-[65px] text-center">${p.paese || 'Montella'}</span>
                     </div>
                 `;
             };
@@ -1202,8 +1255,8 @@
                             <div style="width: ${pctB}%" class="bg-gradient-to-r from-rose-400 to-rose-600 transition-all duration-500"></div>
                         </div>
                         <div class="flex justify-between text-[10px] font-mono text-slate-400">
-                            <span>Intesa: <b class="${chemA >= 60 ? 'text-emerald-400' : 'text-slate-300'}">${chemA}% ${chemA >= 60 ? '⚡ Ottima' : ''}</b></span>
-                            <span>Intesa: <b class="${chemB >= 60 ? 'text-emerald-400' : 'text-slate-300'}">${chemB}% ${chemB >= 60 ? '⚡ Ottima' : ''}</b></span>
+                            <span>Intesa: <b class="${chemA >= 60 ? 'text-emerald-400' : 'text-slate-300'}">${chemA}% ${chemA >= 60 ? '⚡ Perfetta' : ''}</b></span>
+                            <span>Intesa: <b class="${chemB >= 60 ? 'text-emerald-400' : 'text-slate-300'}">${chemB}% ${chemB >= 60 ? '⚡ Perfetta' : ''}</b></span>
                         </div>
                     </div>
 
@@ -1598,7 +1651,7 @@
                             <span class="font-bold text-white">${player.nome} <span class="text-slate-400 font-mono text-[10px]">(${player.ruolo})</span></span>
                             <div class="flex items-center gap-1">
                                 <label class="text-[10px] text-purple-400 font-bold">Voto:</label>
-                                <input type="number" step="0.5" id="voto_${player.id}" value="${d.voto !== undefined ? d.voto : 6.0}" min="1" max="10" class="w-12 bg-slate-900 text-amber-300 font-bold p-1 text-center rounded border border-purple-500/40 text-xs">
+                                <input type="number" step="0.1" id="voto_${player.id}" value="${d.voto !== undefined ? d.voto : 6.0}" min="1" max="10" class="w-14 bg-slate-900 text-amber-300 font-bold p-1 text-center rounded border border-purple-500/40 text-xs">
                             </div>
                         </div>
                         <div class="grid grid-cols-5 gap-1 text-[10px]">
@@ -1675,7 +1728,7 @@
 
             if (editStoricoIndex === -1) {
                 DB.storico.unshift(m);
-                DB.matchAttivo = null; // MATCH TERMINATO: azzeramento immediato del match hub
+                DB.matchAttivo = null; // Match archiviato: il match hub torna pulito
                 isMatchHubEditMode = false;
                 DB.votiMVP = {};
                 localStorage.removeItem('voto_mvp_fatto');
@@ -1702,7 +1755,7 @@
         };
 
         // ==========================================
-        // RENDERING CARTE GIOCATORI FC 27 STYLE
+        // RENDERING CARTE GIOCATORI FC 27 SPECIAL EDITION
         // ==========================================
         function renderCarteFC() {
             const grid = document.getElementById('cards-grid');
@@ -1720,28 +1773,34 @@
                 let playstyles = calcolaPlaystylesDinamici(g);
 
                 return `
-                    <div class="fc27-card ${rarity} cursor-pointer group" onclick="apriDettaglioGiocatore(${g.id})">
-                        <!-- TOP CARD CON RATING E PLAYSTYLES ESAGONALI -->
-                        <div class="relative h-36 sm:h-40 overflow-hidden flex justify-center items-end border-b border-white/10 bg-gradient-to-b from-white/5 to-transparent">
-                            <div class="absolute top-2 left-2 flex flex-col items-center leading-none z-20">
-                                <span class="font-stat font-bold text-3xl md:text-4xl text-amber-400 drop-shadow">${ovr}</span>
-                                <span class="text-[9px] font-bold text-slate-300 font-mono tracking-wider">${g.ruolo}</span>
-                            </div>
-                            <!-- BADGES ESAGONALI VETTORIALI TOP-RIGHT -->
-                            <div class="absolute top-2 right-2 flex flex-col gap-1 z-20">
-                                ${playstyles.slice(0, 3).map(ps => renderHexPlaystyleBadge(ps.key, ps.isPlus)).join('')}
-                            </div>
-                            <img src="${g.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="h-[92%] w-auto object-cover z-10 transition-transform duration-300 group-hover:scale-105">
-                        </div>
+                    <div class="fc27-card-wrapper" onclick="apriDettaglioGiocatore(${g.id})">
+                        <div class="fc27-card-shield ${rarity} cursor-pointer">
+                            <!-- HEADER CARTA: OVR, RUOLO, PAESE E PLAYSTYLES ESAGONALI -->
+                            <div class="relative h-40 sm:h-44 overflow-hidden flex justify-center items-end border-b border-white/10">
+                                
+                                <div class="absolute top-2 left-2 flex flex-col items-center leading-none z-20">
+                                    <span class="font-stat font-bold text-3xl md:text-4xl text-amber-400 drop-shadow">${ovr}</span>
+                                    <span class="text-[9px] font-bold text-slate-300 font-mono tracking-wider">${g.ruolo}</span>
+                                    <span class="text-[8px] font-mono text-amber-400/90 font-bold truncate max-w-[48px] mt-0.5">${g.paese || 'Montella'}</span>
+                                </div>
 
-                        <!-- BOTTOM CARD INFO -->
-                        <div class="p-2 sm:p-2.5 bg-slate-950 flex-1 flex flex-col justify-between">
-                            <h4 class="text-center font-bold text-xs sm:text-sm font-sport text-white truncate">${g.nome}</h4>
-                            <div class="grid grid-cols-2 gap-x-1 gap-y-0.5 text-[9px] sm:text-[10px] text-slate-300 font-mono mt-1 pt-1 border-t border-slate-800">
-                                <div class="flex justify-between"><span>Gol:</span><b class="text-emerald-400">${g.gol}</b></div>
-                                <div class="flex justify-between"><span>Ass:</span><b class="text-sky-400">${g.assist}</b></div>
-                                <div class="flex justify-between"><span>V:</span><b class="text-white">${g.vinte}</b></div>
-                                <div class="flex justify-between"><span>P/S:</span><b class="text-slate-400">${g.pareggiate}/${g.perse}</b></div>
+                                <!-- BADGES ESAGONALI VETTORIALI TOP-RIGHT -->
+                                <div class="absolute top-2 right-2 flex flex-col gap-1 z-20">
+                                    ${playstyles.slice(0, 3).map(ps => renderHexPlaystyleBadge(ps.key, ps.isPlus)).join('')}
+                                </div>
+
+                                <img src="${g.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="h-[92%] w-auto object-cover z-10 transition-transform duration-300 hover:scale-105">
+                            </div>
+
+                            <!-- STATISTICHE COMPATTE FUT STYLE -->
+                            <div class="p-2 bg-slate-950 flex-1 flex flex-col justify-between">
+                                <h4 class="text-center font-bold text-xs sm:text-sm font-sport text-white truncate">${g.nome}</h4>
+                                <div class="grid grid-cols-2 gap-x-1 gap-y-0.5 text-[9px] sm:text-[10px] text-slate-300 font-mono mt-1 pt-1 border-t border-slate-800">
+                                    <div class="flex justify-between"><span>Gol:</span><b class="text-emerald-400">${g.gol}</b></div>
+                                    <div class="flex justify-between"><span>Ass:</span><b class="text-sky-400">${g.assist}</b></div>
+                                    <div class="flex justify-between"><span>V:</span><b class="text-white">${g.vinte}</b></div>
+                                    <div class="flex justify-between"><span>P/S:</span><b class="text-slate-400">${g.pareggiate}/${g.perse}</b></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1897,15 +1956,15 @@
                 <div class="flex flex-col md:flex-row gap-6 items-center md:items-start">
                     <!-- ANTEPRIMA CARTA FC 27 -->
                     <div class="w-48 sm:w-56 flex-shrink-0">
-                        <div class="fc27-card ${getCardRarityClass(ovr)}">
-                            <div class="relative h-44 overflow-hidden flex justify-center items-end border-b border-white/10">
+                        <div class="fc27-card-shield ${getCardRarityClass(ovr)}">
+                            <div class="relative h-48 overflow-hidden flex justify-center items-end border-b border-white/10">
                                 <span class="absolute top-2 left-3 font-stat font-bold text-4xl text-amber-400 drop-shadow">${ovr}</span>
                                 <span class="absolute top-2 right-3 text-xs font-mono font-bold text-slate-400">${g.ruolo}</span>
                                 <img src="${g.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="h-[92%] object-cover">
                             </div>
                             <div class="p-3 bg-slate-950 text-center">
                                 <h3 class="font-sport font-black text-base text-white">${g.nome}</h3>
-                                <span class="text-[10px] text-amber-400 font-mono block">Media Voti: ${mediaVoti} • ${g.paese || 'Italia'}</span>
+                                <span class="text-[10px] text-amber-400 font-mono block">Media Voti: ${mediaVoti} • ${g.paese || 'Montella'}</span>
                                 <div class="flex flex-wrap justify-center gap-1.5 mt-2">
                                     ${playstyles.map(ps => renderHexPlaystyleBadge(ps.key, ps.isPlus)).join('')}
                                 </div>
@@ -1917,7 +1976,7 @@
                     <div class="flex-1 w-full space-y-4">
                         <div class="border-b border-slate-800 pb-2">
                             <h2 class="text-2xl font-sport font-black text-white">${g.nome}</h2>
-                            <p class="text-xs text-slate-400 font-mono">Ruolo: <b class="text-amber-400">${g.ruolo}</b> • OVR: <b class="text-emerald-400">${ovr}</b> • Provenienza: <b class="text-sky-400">${g.paese || 'Italia'}</b></p>
+                            <p class="text-xs text-slate-400 font-mono">Ruolo: <b class="text-amber-400">${g.ruolo}</b> • OVR: <b class="text-emerald-400">${ovr}</b> • Provenienza: <b class="text-sky-400">${g.paese || 'Montella'}</b></p>
                         </div>
 
                         <!-- SEZIONE 1: STATISTICHE PERSONALI (SENZA CLEAN SHEET, CON TOTW) -->
@@ -2042,15 +2101,17 @@
                         </div>
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
                             ${bestTotw.map(g => `
-                                <div class="fc27-card fc27-totw p-2 flex flex-col items-center cursor-pointer" onclick="apriDettaglioGiocatore(${g.id})">
-                                    <div class="relative w-full h-32 overflow-hidden flex justify-center items-end">
-                                        <span class="absolute top-1 left-2 font-stat font-bold text-2xl text-sky-300">${calcolaOverall(g)}</span>
-                                        <span class="absolute top-1 right-2 text-[9px] font-mono text-slate-400">${g.ruolo}</span>
-                                        <img src="${g.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="h-[90%] object-cover">
-                                    </div>
-                                    <div class="text-center w-full mt-2 pt-1 border-t border-sky-500/30">
-                                        <h5 class="text-xs font-sport font-bold text-white truncate">${g.nome}</h5>
-                                        <span class="text-[10px] text-sky-400 font-mono">Score: ${g.punteggioMatch !== undefined ? g.punteggioMatch : 'OVR'}</span>
+                                <div class="fc27-card-wrapper" onclick="apriDettaglioGiocatore(${g.id})">
+                                    <div class="fc27-card-shield fc27-totw p-2 flex flex-col items-center cursor-pointer">
+                                        <div class="relative w-full h-32 overflow-hidden flex justify-center items-end">
+                                            <span class="absolute top-1 left-2 font-stat font-bold text-2xl text-sky-300">${calcolaOverall(g)}</span>
+                                            <span class="absolute top-1 right-2 text-[9px] font-mono text-slate-400">${g.ruolo}</span>
+                                            <img src="${g.foto || fallbackImg}" onerror="this.src='${fallbackImg}'" class="h-[90%] object-cover">
+                                        </div>
+                                        <div class="text-center w-full mt-2 pt-1 border-t border-sky-500/30">
+                                            <h5 class="text-xs font-sport font-bold text-white truncate">${g.nome}</h5>
+                                            <span class="text-[10px] text-sky-400 font-mono">Score: ${g.punteggioMatch !== undefined ? g.punteggioMatch : 'OVR'}</span>
+                                        </div>
                                     </div>
                                 </div>
                             `).join('')}
@@ -2214,7 +2275,7 @@
             if (listaGioc) {
                 listaGioc.innerHTML = DB.giocatori.map(g => `
                     <div class="flex justify-between items-center bg-slate-950 p-2 rounded border border-slate-800">
-                        <span class="text-white font-bold">${g.nome} (${g.ruolo} - ${g.paese || 'Italia'})</span>
+                        <span class="text-white font-bold">${g.nome} (${g.ruolo} - ${g.paese || 'Montella'})</span>
                         <div class="flex gap-2">
                             <button onclick="preparaModificaGiocatore(${g.id})" class="text-sky-400">✏️</button>
                             <button onclick="adminEliminaGiocatore(${g.id})" class="text-rose-500">🗑️</button>
@@ -2272,7 +2333,7 @@
             document.getElementById('add-gioc-nome').value = g.nome;
             document.getElementById('add-gioc-ruolo').value = g.ruolo;
             document.getElementById('add-gioc-foto').value = g.foto || '';
-            document.getElementById('add-gioc-paese').value = g.paese || 'Italia';
+            document.getElementById('add-gioc-paese').value = g.paese || 'Montella';
             document.getElementById('add-gioc-por').checked = g.por || false;
 
             document.getElementById('btn-salva-giocatore').innerText = "Aggiorna Giocatore";
@@ -2283,7 +2344,7 @@
             document.getElementById('edit-gioc-id').value = '';
             document.getElementById('add-gioc-nome').value = '';
             document.getElementById('add-gioc-foto').value = '';
-            document.getElementById('add-gioc-paese').value = 'Italia';
+            document.getElementById('add-gioc-paese').value = 'Montella';
             document.getElementById('add-gioc-por').checked = false;
             document.getElementById('btn-salva-giocatore').innerText = "Salva Giocatore";
             document.getElementById('btn-annulla-gioc').classList.add('hidden');
@@ -2294,7 +2355,7 @@
             const nome = document.getElementById('add-gioc-nome').value.trim();
             const ruolo = document.getElementById('add-gioc-ruolo').value;
             const foto = document.getElementById('add-gioc-foto').value.trim();
-            const paese = document.getElementById('add-gioc-paese').value.trim() || 'Italia';
+            const paese = document.getElementById('add-gioc-paese').value.trim() || getPaeseUfficiale(nome);
             const por = document.getElementById('add-gioc-por').checked;
 
             if (!nome) return showToast("Inserisci il nome del giocatore!", "error");
@@ -2353,7 +2414,7 @@
             const foto = document.getElementById('add-campo-foto').value.trim();
             if (!nome) return showToast("Inserisci il nome del campo!", "error");
 
-            let existing = DB.campi.find(c => c.nome.toLowerCase() === nome.toLowerCase());
+            let existing = DB.campilet existing = DB.campi.find(c => c.nome.toLowerCase() === nome.toLowerCase());
             if (existing) {
                 existing.img = foto || existing.img;
             } else {
@@ -2495,13 +2556,13 @@
 
                         sanificaDatabase();
                         ricalcolaStatisticheGlobali();
-                        // NESSUN salvataggio automatico (sola lettura per non sovrascrivere)
+                        // Nessun salvataggio automatico all'avvio per proteggere il Cloud
                         aggiornaUI();
                         console.log("Cloud sync completato con successo (sola lettura).");
                     }
                 })
                 .catch(err => {
-                    console.warn("Cloud sync non raggiungibile, uso cache locale:", err);
+                    console.warn("Cloud sync non raggiungibile, utilizzo cache locale:", err);
                     sanificaDatabase();
                     ricalcolaStatisticheGlobali();
                     aggiornaUI();
